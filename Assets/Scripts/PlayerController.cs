@@ -6,35 +6,54 @@ using UnityEngine.InputSystem;
 // anything i add a player controller, this makes sure a rigidbody exists
 // makes sure that you cannot add a player controller unless a rigidbody exists 
 // makes sure you cannot remove rigidbody from playercontroller
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 
 public class PlayerController : MonoBehaviour
 {
     // how fast avatar will walk left or right
     public float walkSpeed = 10f;
     public float runSpeed = 15f;
+    public float airWalkSpeed = 5f;
+    public float jumpImpulse = 10f;
 
     Vector2 moveInput;
+    TouchingDirections touchingDirections;
 
     public float CurrentMoveSpeed
     {
         get
         {
-            if (IsMoving)
+            if (CanMove)
             {
-                if (IsRunning)
+                if (IsMoving && !touchingDirections.IsOnWall)
                 {
-                    return runSpeed;
+                    if (touchingDirections.IsGrounded)
+                    {
+                        if (IsRunning)
+                        {
+                            return runSpeed;
+                        }
+                        else
+                        {
+                            return walkSpeed;
+                        }
+                    }
+                    else
+                    {
+                        // trigger the air move speed
+                        return airWalkSpeed;
+                    }
                 }
                 else
                 {
-                    return walkSpeed;
+                    // idle speed is 0
+                    return 0;
                 }
             }
-            else
-            {
-                // idle speed is 0
-                return 0;
+            else 
+            {  
+                // movement locked
+                return 0; 
             }
         }
     }
@@ -91,6 +110,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool CanMove 
+    { get 
+        { 
+            return animator.GetBool(AnimationStrings.canMove);
+        } }
+
+
+
     // adding rigidbody to the script
     Rigidbody2D rb;
     Animator animator;
@@ -101,6 +128,7 @@ public class PlayerController : MonoBehaviour
         // on awake, the RigidBody is going to be set (referenced from the Rigidbody in Unity)
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        touchingDirections = GetComponent<TouchingDirections>();
     }
 
 
@@ -123,6 +151,8 @@ public class PlayerController : MonoBehaviour
         // Time.fixedDeltaTime makes sure the movement is consistent (but is handled with velocity)
         // y velocity is controlled by gravity
         rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+
+        animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
 
     //getting move input
@@ -163,5 +193,23 @@ public class PlayerController : MonoBehaviour
             IsRunning = false;
         }
 
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        // check if alive as well so the player cannot jump when dead
+        if (context.started && touchingDirections.IsGrounded && CanMove) 
+        {
+            animator.SetTrigger(AnimationStrings.jumpTrigger);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            animator.SetTrigger(AnimationStrings.attackTrigger);
+        }
     }
 }

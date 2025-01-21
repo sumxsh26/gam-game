@@ -134,6 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 10
   runSpeed: 15
+  airWalkSpeed: 5
+  jumpImpulse: 10
   _isMoving: 0
   _isRunning: 0
   _isFacingRight: 1
@@ -183,7 +185,19 @@ MonoBehaviour:
     m_ActionId: cb77796d-23c3-450b-a8eb-4ceeed8b90e9
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8587796992090336568}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1485694a-0f50-4f8b-a198-9c556c43c0f4
     m_ActionName: 'Player/Fire[/Mouse/leftButton]'
   - m_PersistentCalls:
@@ -242,6 +256,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f995b1c4-ab9e-4cf6-bee1-6d66664f80fe
     m_ActionName: 'Player/Run[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8587796992090336568}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bfc1d8bf-8ee0-4b1f-952c-383373c7f53b
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -333,4 +363,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   groundDistance: 0.05
+  wallDistance: 0.2
+  ceilingDistance: 0.05
   _isGrounded: 0
+  _isOnWall: 0
+  _isOnCeiling: 0

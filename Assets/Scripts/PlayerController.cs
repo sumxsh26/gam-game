@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 15f;
     public float airWalkSpeed = 5f;
     public float jumpImpulse = 10f;
-    public CoinManager cm;
+    public KeyManager cm;
+    public event Action PlayerDied;
 
     Vector2 moveInput;
     TouchingDirections touchingDirections;
@@ -214,12 +215,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // count coin, destroy door
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Coin"))
+        if (other.gameObject.CompareTag("Key"))
         {
             Destroy(other.gameObject);
-            cm.coinCount++;
+            cm.keyCount++;
+        }
+    }
+
+    // destroy spike falling object
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            PlayerDied.Invoke(); //telling game controller
+            Destroy(this.gameObject);
         }
     }
 }

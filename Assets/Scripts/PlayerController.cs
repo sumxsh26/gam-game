@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 15f;
     public float airWalkSpeed = 5f;
     public float jumpImpulse = 10f;
+    public CoinManager cm;
 
     Vector2 moveInput;
     TouchingDirections touchingDirections;
@@ -210,6 +211,15 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             animator.SetTrigger(AnimationStrings.attackTrigger);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+            cm.coinCount++;
         }
     }
 }

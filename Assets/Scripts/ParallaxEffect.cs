@@ -31,6 +31,13 @@ public class ParallaxEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if the Camera or followTarget has been destroyed before accessing their position
+        if (cam == null || followTarget == null)
+        {
+            Debug.LogWarning("ParallaxEffect: Camera or Follow Target is missing!");
+            return; // Prevents further execution
+        }
+
         Vector2 newPosition = startingPosition + camMoveSinceStart * parallaxFactor;
 
         transform.position = new Vector3(newPosition.x, newPosition.y, startingZ);

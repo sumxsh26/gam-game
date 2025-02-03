@@ -1,135 +1,81 @@
 using System;
+using System.Collections;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// anything i add a player controller, this makes sure a rigidbody exists
-// makes sure that you cannot add a player controller unless a rigidbody exists 
-// makes sure you cannot remove rigidbody from playercontroller
+// everytime a player controller is added, this ensures a rigidbody exists
+// you will not be able to add a player controller unless a rigidbody exists
+// you cannot remove rigidbody from playercontroller
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 
 public class PlayerController : MonoBehaviour
 {
-    // how fast avatar will walk left or right
+    // adding rigidbody (unity component) to the script
+    Rigidbody2D rb;
+
+    // adding animator (unity component) to the script
+    Animator animator;
+
+    // adding touching directions (script) to this script
+    TouchingDirections touchingDirections;
+
+    // adding trail renederer (unity component) to the script
+    TrailRenderer trailRenderer;
+
+    // adding Walking header in inspector
+    [Header("Walking")]
+
+    // how fast the player will walk left or right
     public float walkSpeed = 10f;
+
+    // adding Running header in inspector
+    [Header("Running")]
+
+    // how fast the player will run left or right
     public float runSpeed = 15f;
+
+    // adding Air Speed header in inspector
+    [Header("Air Speed")]
+
+    // how fast the player will move in the air
     public float airWalkSpeed = 5f;
-    public float jumpImpulse = 10f;
+
+    // adding Jumping header in inspector
+    [Header("Jumping")]
+
+    // how high the player can jump
+    public float jumpImpulse = 8f;
+    
+    // adding Dashing header in inspector
+    [Header("Dashing")]
+
+    // the speed of the dash 
+    // serializefield keeps the variable private but can be edited in inspector
+    [SerializeField] private float dashingVelocity = 14f;
+
+    // how long the dash will last
+    [SerializeField] private float dashingTime = 0.5f;
+
+    // store the movement input
+    Vector2 moveInput;
+
+    // store the direction of the dash
+    private Vector2 dashingDir;
+
     public KeyManager cm;
     public event Action PlayerDied;
 
-    Vector2 moveInput;
-    TouchingDirections touchingDirections;
-
-    public float CurrentMoveSpeed
-    {
-        get
-        {
-            if (CanMove)
-            {
-                if (IsMoving && !touchingDirections.IsOnWall)
-                {
-                    if (touchingDirections.IsGrounded)
-                    {
-                        if (IsRunning)
-                        {
-                            return runSpeed;
-                        }
-                        else
-                        {
-                            return walkSpeed;
-                        }
-                    }
-                    else
-                    {
-                        // trigger the air move speed
-                        return airWalkSpeed;
-                    }
-                }
-                else
-                {
-                    // idle speed is 0
-                    return 0;
-                }
-            }
-            else 
-            {  
-                // movement locked
-                return 0; 
-            }
-        }
-    }
-
-    [SerializeField]
-    private bool _isMoving = false;
-
-    // property for IsMoving (can use for idle or moving animation)
-    public bool IsMoving
-    {
-        get
-        {
-            return _isMoving;
-        }
-        private set
-        {
-            _isMoving = value;
-            animator.SetBool(AnimationStrings.isMoving, value);
-        }
-    }
-
-    [SerializeField]
-    private bool _isRunning = false;
-
-    public bool IsRunning
-    {
-        get
-        {
-            return _isRunning;
-        }
-        set
-        {
-            _isRunning = value;
-            animator.SetBool(AnimationStrings.isRunning, value);
-        }
-    }
-
-    public bool _isFacingRight = true;
-    public bool IsFacingRight
-    {
-        get
-        {
-            return _isFacingRight;
-        }
-        private set
-        {
-            if (_isFacingRight != value)
-            {
-                // flip the local scale to make the player face the opposite direction
-                transform.localScale *= new Vector2(-1, 1);
-            }
-
-            _isFacingRight = value;
-        }
-    }
-
-    public bool CanMove 
-    { get 
-        { 
-            return animator.GetBool(AnimationStrings.canMove);
-        } }
-
-
-
-    // adding rigidbody to the script
-    Rigidbody2D rb;
-    Animator animator;
 
     // happens when component exists inside of the scene (when you something to be found the moment the scene starts)
     private void Awake()
     {
-        // on awake, the RigidBody is going to be set (referenced from the Rigidbody in Unity)
+        // on awake, these components will be set (referenced from the components in Unity)
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        trailRenderer = GetComponent<TrailRenderer>();
+
+        // on awake, touching directions will be set
         touchingDirections = GetComponent<TouchingDirections>();
     }
 
@@ -149,71 +95,312 @@ public class PlayerController : MonoBehaviour
     // for physics updates
     private void FixedUpdate()
     {
-        // moveInput.x == the input from the player on the x axis
-        // Time.fixedDeltaTime makes sure the movement is consistent (but is handled with velocity)
-        // y velocity is controlled by gravity
+        // moveInput.x is the input from the player on the x axis (left and right)
+        // y velocity will be controlled by gravity 
         rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
 
+        // trigger the animation based on where the player is on the y axis (grounded, jumping, falling)
+        animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
+
+        if (IsDashing)
+        {
+            // While dashing, override normal movement
+            rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
+            return; // Prevents normal movement updates while dashing
+        }
+
+        // Normal movement logic when not dashing
+        rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+
+        // Update animation for yVelocity (jumping, falling, idle)
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
+
+    // this function triggers the correct move speed of the player based on certain conditions
+    public float CurrentMoveSpeed
+    {
+        get
+        {
+            // check if the player can move
+            if (CanMove)
+            {
+                // if player is moving and not touching a wall
+                if (IsMoving && !touchingDirections.IsOnWall)
+                {
+                    // if player is on the ground
+                    if (touchingDirections.IsGrounded)
+                    {
+                        // if run button (left shift) is held down
+                        if (IsRunning)
+                        {
+                            // trigger run speed
+                            return runSpeed;
+                        }
+                        else
+                        {
+                            // if not running, trigger walk speed
+                            return walkSpeed;
+                        }
+                    }
+                    // if not running or walking
+                    else
+                    {
+                        // trigger the air move speed
+                        return airWalkSpeed;
+                    }
+                }
+                // if not moving and touching a wall
+                // this ensures that the player does not get stuck to the wall
+                else
+                {
+                    // idle speed is 0
+                    return 0;
+                }
+            }
+            // if cannot move
+            else 
+            {  
+                // movement locked
+                return 0; 
+            }
+        }
+    }
+
+    // set player movement to false (player does not move without input)
+    [SerializeField] private bool _isMoving = false;
+
+    // property for IsMoving in Unity (can use for idle or moving animation)
+    public bool IsMoving
+    {
+        // gets the value
+        get
+        {
+            // returns the current movement state
+            return _isMoving;
+        }
+
+        // updates and sets the value
+        private set
+        {
+            // updates the movement state
+            _isMoving = value;
+
+            // triggers the walk animation
+            animator.SetBool(AnimationStrings.isMoving, value);
+        }
+    }
+
+    // set player running to false (player does not run without input)
+    [SerializeField] private bool _isRunning = false;
+
+    // property for IsRunning in Unity
+    public bool IsRunning
+    {
+        // gets the value
+        get
+        {
+            // returns the current running state
+            return _isRunning;
+        }
+
+        // updates and sets the value
+        set
+        {
+            // updates the running state
+            _isRunning = value;
+            
+            // triggers the run animation
+            animator.SetBool(AnimationStrings.isRunning, value);
+        }
+    }
+
+    [SerializeField] private bool _isDashing = false;
+    public bool IsDashing
+    {
+        // gets the value
+        get
+        {
+            // returns the current dashing state
+            return _isDashing;
+        }
+
+        // updates and sets the value
+        set
+        {
+            // updates the dashing state
+            _isDashing = value;
+
+            // triggers the dash animation
+            animator.SetBool(AnimationStrings.isDashing, value);
+        }
+    }
+
+    // set player to always face right when starting the game
+    public bool _isFacingRight = true;
+    
+    // property for IsFacingRight in Unity
+    public bool IsFacingRight
+    {
+        // gets the value
+        get
+        {
+            // returns whether the player is facing right
+            return _isFacingRight;
+        }
+
+        // updates and flips the player if needed
+        private set
+        {
+            // only flip if new value is different from current direction
+            if (_isFacingRight != value)
+            {
+                // flip the local scale to make the player face the opposite direction
+                transform.localScale *= new Vector2(-1, 1);
+            }
+
+            // store teh new facing direction
+            _isFacingRight = value;
+        }
+    }
+
+    // property to check if player can move
+    public bool CanMove 
+    { get 
+        { 
+            // retrieves canMove boolean parameter from Animator in Unity
+            // returns true if movement is allowed, false if not
+            return animator.GetBool(AnimationStrings.canMove);
+        } }
+
+    public bool IsAlive { get
+        {
+            return animator.GetBool(AnimationStrings.isAlive);
+        } }
+
 
     //getting move input
     public void OnMove(InputAction.CallbackContext context)
     {
-        // each time move input (x and y)
+        // takes in the move input (x and y)
         moveInput = context.ReadValue<Vector2>();
 
-        // check if the value is not == zero to make sure is moving, if not set IsMoving to false
-        IsMoving = moveInput != Vector2.zero;
+        if (IsAlive)
+        {
+            // checks if the value is does not equal to zero to ensure player is moving
+            // if the value == zero, IsMoving is set to false
+            IsMoving = moveInput != Vector2.zero;
 
-        SetFacingDirection(moveInput);
+            // sets the direction the player will face
+            SetFacingDirection(moveInput);
+        }
+        else
+        {
+            IsMoving = false;   
+        }
+
+
     }
 
+    // to ensure the player is facing the correct direction based on input
     private void SetFacingDirection(Vector2 moveInput)
     {
+        // if player is moving right and is not facing right
         if (moveInput.x > 0 && !IsFacingRight)
         {
             // face the right
             IsFacingRight = true;
 
         }
+        // if player is moving left and is facing right
         else if (moveInput.x < 0 && IsFacingRight)
         {
             // face the left
             IsFacingRight = false;
         }
     }
-
+    
+    // checks if the player is running based on input
     public void OnRun(InputAction.CallbackContext context)
     {
+        // if run button is pressed
         if (context.started)
         {
+            // player runs
             IsRunning = true;
         }
+        // if run button is not pressed
         else if (context.canceled)
         {
+            // player stops running
             IsRunning = false;
         }
 
     }
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        // Start dash only if not already dashing
+        if (context.started && !IsDashing)
+        {
+            StartCoroutine(PerformDash());
+            animator.SetTrigger(AnimationStrings.isDashing);
+        }
+    }
 
+    // checks if player is jumping based on input
     public void OnJump(InputAction.CallbackContext context)
     {
-        // check if alive as well so the player cannot jump when dead
+        // if jump button is pressed and player is on the ground and can move
         if (context.started && touchingDirections.IsGrounded && CanMove) 
         {
+            // trigger the jump animation
             animator.SetTrigger(AnimationStrings.jumpTrigger);
+
+            // apply upward force to the rigidbody
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
         }
     }
 
+    // checks if player is attacking based on input
     public void OnAttack(InputAction.CallbackContext context)
     {
+        // if attack button is pressed
         if (context.started)
         {
+            // trigger attack animation
             animator.SetTrigger(AnimationStrings.attackTrigger);
         }
     }
+
+    [SerializeField] private bool canDash = true;
+
+    private IEnumerator PerformDash()
+    {
+        if (!canDash) yield break; // Prevent dashing if cooldown is active
+
+        canDash = false; // Disable further dashing
+        IsDashing = true; // Mark player as dashing
+
+        trailRenderer.emitting = true; // Enable dash trail effect
+
+        // Determine dash direction based on player's facing direction
+        dashingDir = IsFacingRight ? Vector2.right : Vector2.left;
+
+        // Instantly apply dash velocity (overwrite all previous movement)
+        rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, 0); // Zero vertical velocity
+
+        yield return new WaitForSeconds(dashingTime); // Dash duration
+
+        // Reset velocity after dash ends
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+
+        trailRenderer.emitting = false; // Disable trail effect
+        IsDashing = false; // Dash state ends
+
+        // Add cooldown to prevent spamming
+        yield return new WaitForSeconds(1f);
+        canDash = true; // Enable dash again
+    }
+
 
     // count coin, destroy door
     void OnTriggerEnter2D(Collider2D other)

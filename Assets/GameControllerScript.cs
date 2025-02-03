@@ -28,17 +28,24 @@ public class GameControllerScript : MonoBehaviour
     // when player dies
     void WhenPlayerDies()
     {
+        GameOver();
         GameOverCanvas.gameObject.SetActive(true);
         TimerText.text = "You Lasted: " + Math.Round(Time.timeSinceLevelLoad, 2);
 
         //unsubscribe to event
         playerController.PlayerDied -= WhenPlayerDies;
-
     }
+
+    //currently not working, trying to make the gameover screen open up GameOver scene
+    void GameOver()
+    {
+        // Load the "Game Over" scene
+        SceneManager.LoadScene("GameOver");
+    }
+
 
     public void RetryClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
     }
 }

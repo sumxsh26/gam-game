@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 690aad4d942ed481881a130e6854eabe
+guid: cf4747309ee904fc08b97c927d60cfc0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3918253481788734274
-    second: IMG_0922_0
+      213: -6320582164678952810
+    second: ceiling spike 3_0
+  - first:
+      213: -5461006436568672319
+    second: ceiling spike 3_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_0922_0
+      name: ceiling spike 3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1837
-        height: 1837
+        x: 32
+        y: 5
+        width: 132
+        height: 262
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eb48b06d7319f99c0800000000000000
-      internalID: -3918253481788734274
+      spriteID: 69834a45208c848a0800000000000000
+      internalID: -6320582164678952810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ceiling spike 3_1
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 105
+        width: 67
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c7d330649b9634b0800000000000000
+      internalID: -5461006436568672319
       vertices: []
       indices: 
       edges: []

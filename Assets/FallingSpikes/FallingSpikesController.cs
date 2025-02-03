@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ObjectFallController : MonoBehaviour
 {
-    float wait = 0.1f;
+    // find a way to make fewer fall at a time
+    public float wait = 0.5f;
     public GameObject fallingObject;
 
-    // Start is called before the first frame update
+    public bool _isSpikeZone;
+
+    
     void Start()
     {
-        InvokeRepeating("Fall", wait, wait);
+        if (_isSpikeZone)
+        {
+            InvokeRepeating("Fall", wait, wait);
+        }
     }
 
 

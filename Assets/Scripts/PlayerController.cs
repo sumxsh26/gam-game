@@ -89,15 +89,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     // for physics updates
     private void FixedUpdate()
     {
+
         // moveInput.x is the input from the player on the x axis (left and right)
         // y velocity will be controlled by gravity 
-        rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+        if (!LockVelocity)
+            rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+
+        //Debug.Log("FixedUpdate - Velocity X: " + rb.linearVelocity.x);
 
         // trigger the animation based on where the player is on the y axis (grounded, jumping, falling)
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
@@ -277,6 +281,13 @@ public class PlayerController : MonoBehaviour
             return animator.GetBool(AnimationStrings.isAlive);
         } }
 
+    public bool LockVelocity 
+    {
+        get 
+        {
+            return animator.GetBool(AnimationStrings.lockVelocity);
+        } }
+
 
     //getting move input
     public void OnMove(InputAction.CallbackContext context)
@@ -369,6 +380,11 @@ public class PlayerController : MonoBehaviour
             // trigger attack animation
             animator.SetTrigger(AnimationStrings.attackTrigger);
         }
+    }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
     }
 
     [SerializeField] private bool canDash = true;

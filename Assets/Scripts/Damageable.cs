@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 public class Damageable : MonoBehaviour
 {
+    public UnityEvent<int, Vector2> damageableHit;
+
     Animator animator;
 
     private float timeSinceHit = 0;
@@ -34,8 +37,8 @@ public class Damageable : MonoBehaviour
         { 
             _health = value;
 
-            // if health drops below 0, character is no longer alive
-            if (Health < 0)
+            // if health drops below or equals to 0, character is no longer alive
+            if (Health <= 0)
             {
                 IsAlive = false;
             }
@@ -66,13 +69,23 @@ public class Damageable : MonoBehaviour
 
     [SerializeField] private bool isInvincible = false;
 
-    public void Hit(int damage)
+
+    public bool Hit(int damage, Vector2 knockback)
     {
         if (IsAlive && !isInvincible)
         {
             Health -= damage;
             isInvincible = true;
+
+            // notify other subscribed components that the damageable was hit to handle the knockback and such
+            animator.SetTrigger(AnimationStrings.hitTrigger);
+            damageableHit?.Invoke(damage, knockback);
+
+            return true;
         }
+
+        // unable to be hit
+        return false;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -95,6 +108,6 @@ public class Damageable : MonoBehaviour
             timeSinceHit += Time.deltaTime;
         }
 
-        //Hit(10);
+        
     }
 }

@@ -308,8 +308,6 @@ public class PlayerController : MonoBehaviour
         {
             IsMoving = false;   
         }
-
-
     }
 
     // to ensure the player is facing the correct direction based on input
@@ -417,7 +415,6 @@ public class PlayerController : MonoBehaviour
         canDash = true; // Enable dash again
     }
 
-
     // count coin, destroy door
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -437,4 +434,6 @@ public class PlayerController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    //
 }

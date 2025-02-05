@@ -5,7 +5,8 @@ using UnityEngine;
 public class ObjectFallController : MonoBehaviour
 {
     // find a way to make fewer fall at a time
-    public float wait = 0.5f;
+    public float wait = 3.5f;
+    public float repeatEvery = 2f;
     public GameObject fallingObject;
 
     public bool _isSpikeZone;
@@ -13,7 +14,7 @@ public class ObjectFallController : MonoBehaviour
     
     void Start()
     {
-        InvokeRepeating("Fall", wait, wait);
+        InvokeRepeating("Fall", wait, repeatEvery);
     }
 
     void Fall()

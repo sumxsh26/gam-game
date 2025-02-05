@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 // everytime a player controller is added, this ensures a rigidbody exists
 // you will not be able to add a player controller unless a rigidbody exists
 // you cannot remove rigidbody from playercontroller
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 
 public class PlayerController : MonoBehaviour
 {
@@ -63,6 +63,8 @@ public class PlayerController : MonoBehaviour
     // store the direction of the dash
     private Vector2 dashingDir;
 
+    Damageable damageable;
+
     public KeyManager cm;
     public event Action PlayerDied;
 
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
+        damageable = GetComponent<Damageable>();
 
         // on awake, touching directions will be set
         touchingDirections = GetComponent<TouchingDirections>();
@@ -98,7 +101,11 @@ public class PlayerController : MonoBehaviour
 
         // moveInput.x is the input from the player on the x axis (left and right)
         // y velocity will be controlled by gravity 
+<<<<<<< HEAD
         if (!LockVelocity)
+=======
+        if (!damageable.LockVelocity)
+>>>>>>> damage
             rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
 
         //Debug.Log("FixedUpdate - Velocity X: " + rb.linearVelocity.x);
@@ -287,6 +294,7 @@ public class PlayerController : MonoBehaviour
         {
             return animator.GetBool(AnimationStrings.lockVelocity);
         } }
+
 
 
     //getting move input

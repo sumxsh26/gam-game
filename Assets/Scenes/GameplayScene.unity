@@ -4315,7 +4315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4398109981378076531, guid: 0dcfba04fdcbbde488a321e653528efb, type: 3}
       propertyPath: m_Name
-      value: KnightEnemy
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4398109981378076531, guid: 0dcfba04fdcbbde488a321e653528efb, type: 3}
       propertyPath: m_IsActive

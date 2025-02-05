@@ -67,6 +67,18 @@ public class Damageable : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public bool LockVelocity
+    {
+        get
+        {
+            return animator.GetBool(AnimationStrings.lockVelocity);
+        }
+        set
+        {
+            animator.SetBool(AnimationStrings.lockVelocity, value);
+        }
+    }
+
     [SerializeField] private bool isInvincible = false;
 
 
@@ -79,6 +91,10 @@ public class Damageable : MonoBehaviour
 
             // notify other subscribed components that the damageable was hit to handle the knockback and such
             animator.SetTrigger(AnimationStrings.hitTrigger);
+<<<<<<< HEAD
+=======
+            LockVelocity = true;
+>>>>>>> damage
             damageableHit?.Invoke(damage, knockback);
 
             return true;

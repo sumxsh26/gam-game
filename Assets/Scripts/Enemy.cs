@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 // ensures all enemy controllers require rigidbody and touching directions
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 
 public class Knight : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class Knight : MonoBehaviour
     public float walkStopRate = 0.05f;
 
     public DetectionZone attackZone;
+    public DetectionZone cliffDetectionZone;
 
     // adding rigidbody (unity component) to the script
     Rigidbody2D rb;
@@ -22,6 +23,9 @@ public class Knight : MonoBehaviour
     // adding animator to the script
     Animator animator;
 
+    // adding damageable to the script
+    Damageable damageable;
+
     // declaring enum representing the directions enemies can walk 
     public enum WalkableDirection { Right, Left }
 
@@ -30,6 +34,7 @@ public class Knight : MonoBehaviour
 
     // enemies initialized to move the right
     private Vector2 walkDirectionVector = Vector2.right;
+
 
 
     // property for enemy walking directon
@@ -85,33 +90,49 @@ public class Knight : MonoBehaviour
         }
     }
 
+    public float AttackCooldown 
+    {
+        get 
+        {
+            return animator.GetFloat(AnimationStrings.attackCooldown);
+        }
+        private set
+        {
+            animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
+        }
+    }
+
     private void Awake()
     {
         // on awake, these components will be set (referenced from the components in Unity)
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
+        damageable = GetComponent<Damageable>();
     }
 
     private void FixedUpdate()
     {
  
         // if enemy is touching the wall and is on the ground
-        if (touchingDirections.IsOnWall && touchingDirections.IsGrounded) 
+        if (touchingDirections.IsGrounded && touchingDirections.IsOnWall || cliffDetectionZone.detectedColliders.Count == 0) 
         {
             // flip the other way
             FlipDirection();
         }
 
-        if (CanMove)
+        if (!damageable.LockVelocity)
         {
-            // set rigidbody velocity to apply movement
-            // moves enemy in the new direction on the same vertical velocity
-            rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
-        }
-        else
-        {
-            rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
+            if (CanMove)
+            {
+                // set rigidbody velocity to apply movement
+                // moves enemy in the new direction on the same vertical velocity
+                rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
+            }
         }
     }
 
@@ -119,6 +140,11 @@ public class Knight : MonoBehaviour
     void Update()
     {
         HasTarget = attackZone.detectedColliders.Count > 0;
+
+        if (AttackCooldown > 0)
+        {
+            AttackCooldown -= Time.deltaTime;
+        }
     }
 
     // flips the walking direction when hitting a wall
@@ -153,5 +179,8 @@ public class Knight : MonoBehaviour
         
     }
 
-
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
+    }
 }

@@ -101,11 +101,7 @@ public class PlayerController : MonoBehaviour
 
         // moveInput.x is the input from the player on the x axis (left and right)
         // y velocity will be controlled by gravity 
-<<<<<<< HEAD
-        if (!LockVelocity)
-=======
         if (!damageable.LockVelocity)
->>>>>>> damage
             rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
 
         //Debug.Log("FixedUpdate - Velocity X: " + rb.linearVelocity.x);
@@ -288,13 +284,6 @@ public class PlayerController : MonoBehaviour
             return animator.GetBool(AnimationStrings.isAlive);
         } }
 
-    public bool LockVelocity 
-    {
-        get 
-        {
-            return animator.GetBool(AnimationStrings.lockVelocity);
-        } }
-
 
 
     //getting move input
@@ -316,6 +305,8 @@ public class PlayerController : MonoBehaviour
         {
             IsMoving = false;   
         }
+
+
     }
 
     // to ensure the player is facing the correct direction based on input
@@ -423,6 +414,7 @@ public class PlayerController : MonoBehaviour
         canDash = true; // Enable dash again
     }
 
+
     // count coin, destroy door
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -442,6 +434,4 @@ public class PlayerController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    //
 }

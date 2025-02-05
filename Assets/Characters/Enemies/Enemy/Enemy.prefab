@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2914727533457356208}
   - component: {fileID: 4744861964634890158}
   m_Layer: 10
-  m_Name: DetectionZone
   m_Name: HitboxDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,10 +133,7 @@ Transform:
   m_Children:
   - {fileID: 3767188151228690056}
   - {fileID: 1366971359938741919}
-<<<<<<< HEAD
-=======
   - {fileID: 3480589561508025389}
->>>>>>> damage
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1555146700895645737
@@ -271,7 +267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c486c710f7dda498016950dc3d1d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 1
   walkSpeed: 3
   walkStopRate: 0.05
   attackZone: {fileID: 4744861964634890158}
@@ -345,9 +340,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageableHit:
     m_PersistentCalls:
-<<<<<<< HEAD
-      m_Calls: []
-=======
       m_Calls:
       - m_Target: {fileID: 7376149178166248211}
         m_TargetAssemblyTypeName: Knight, Assembly-CSharp
@@ -361,14 +353,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
->>>>>>> damage
   invincibilityTime: 0.25
   _maxHealth: 100
   _health: 100
   _isAlive: 1
   isInvincible: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &8444803778273844370
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +465,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
->>>>>>> damage
 --- !u!1 &9160596487191646420
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,11 +492,7 @@ Transform:
   m_GameObject: {fileID: 9160596487191646420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-=======
   m_LocalPosition: {x: 2.91, y: 0, z: 0}
->>>>>>> damage
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -560,14 +544,6 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-<<<<<<< HEAD
-    - - {x: 1.4091644, y: 0.87686884}
-      - {x: 1.7304697, y: 0.042232722}
-      - {x: 1.7380242, y: -0.54907334}
-      - {x: 3.5634513, y: -1.0484388}
-      - {x: 3.7489548, y: 0.043776482}
-      - {x: 3.057971, y: 1.2530229}
-=======
     - - {x: -0.7532463, y: 1.1626866}
       - {x: -1.4060593, y: 0.7994364}
       - {x: -1.3502378, y: 0.02010917}
@@ -577,7 +553,6 @@ PolygonCollider2D:
       - {x: 0.7733383, y: 0.016122043}
       - {x: 0.6061897, y: 0.658375}
       - {x: 0.23168468, y: 1.0649728}
->>>>>>> damage
   m_UseDelaunayMesh: 0
 --- !u!114 &7852594339055621668
 MonoBehaviour:

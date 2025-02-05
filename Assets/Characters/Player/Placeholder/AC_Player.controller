@@ -904,12 +904,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -6668691698329432384}
     m_Position: {x: 590, y: 0, z: 0}
-<<<<<<< HEAD:Assets/Characters/Player/AC_Player.controller
-=======
   - serializedVersion: 1
     m_State: {fileID: -4118076059015978286}
     m_Position: {x: 625, y: 65, z: 0}
->>>>>>> damage:Assets/Characters/Player/Placeholder/AC_Player.controller
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 728378115670698233}

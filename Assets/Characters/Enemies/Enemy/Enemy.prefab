@@ -91,9 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8bdfbe0b03966c44aab6095ac70d5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noCollidersRemain:
-    m_PersistentCalls:
-      m_Calls: []
   detectedColliders: []
 --- !u!1 &4398109981378076531
 GameObject:
@@ -369,7 +366,7 @@ GameObject:
   - component: {fileID: 3480589561508025389}
   - component: {fileID: 8361921494038175562}
   - component: {fileID: 400389220373514389}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: CliffDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,21 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8bdfbe0b03966c44aab6095ac70d5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noCollidersRemain:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7376149178166248211}
-        m_TargetAssemblyTypeName: Knight, Assembly-CSharp
-        m_MethodName: OnCliffDetected
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   detectedColliders: []
 --- !u!61 &400389220373514389
 BoxCollider2D:

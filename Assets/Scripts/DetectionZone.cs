@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class DetectionZone : MonoBehaviour
 {
+    //public UnityEvent noCollidersRemain;
 
     Collider2D col;
     public List<Collider2D> detectedColliders = new List<Collider2D>();
@@ -22,6 +23,11 @@ public class DetectionZone : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         detectedColliders.Remove(collision);
+
+        //if (detectedColliders.Count <= 0)
+        //{
+        //    noCollidersRemain.Invoke();
+        //}
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

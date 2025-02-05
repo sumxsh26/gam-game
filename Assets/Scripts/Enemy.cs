@@ -183,4 +183,12 @@ public class Knight : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
     }
+
+    //public void OnCliffDetected()
+    //{
+    //    if (touchingDirections.IsGrounded)
+    //    {
+    //        FlipDirection();
+    //    }
+    //}
 }

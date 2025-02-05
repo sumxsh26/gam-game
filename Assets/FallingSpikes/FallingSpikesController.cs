@@ -13,12 +13,8 @@ public class ObjectFallController : MonoBehaviour
     
     void Start()
     {
-        if (_isSpikeZone)
-        {
-            InvokeRepeating("Fall", wait, wait);
-        }
+        InvokeRepeating("Fall", wait, wait);
     }
-
 
     void Fall()
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 // ensures all enemy controllers require rigidbody and touching directions
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 
 public class Knight : MonoBehaviour
 {
@@ -30,6 +30,8 @@ public class Knight : MonoBehaviour
 
     // enemies initialized to move the right
     private Vector2 walkDirectionVector = Vector2.right;
+
+    Damageable damageable;
 
 
     // property for enemy walking directon
@@ -103,15 +105,18 @@ public class Knight : MonoBehaviour
             FlipDirection();
         }
 
-        if (CanMove)
+        if (!damageable.LockVelocity)
         {
-            // set rigidbody velocity to apply movement
-            // moves enemy in the new direction on the same vertical velocity
-            rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
-        }
-        else
-        {
-            rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
+            if (CanMove)
+            {
+                // set rigidbody velocity to apply movement
+                // moves enemy in the new direction on the same vertical velocity
+                rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
+            }
         }
     }
 
@@ -151,6 +156,11 @@ public class Knight : MonoBehaviour
     void Start()
     {
         
+    }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
     }
 
 

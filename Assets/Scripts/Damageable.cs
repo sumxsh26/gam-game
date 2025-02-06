@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class Damageable : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Damageable : MonoBehaviour
 
     private float timeSinceHit = 0;
     public float invincibilityTime = 0.25f;
+
+    public Sprite emptyHeart;
+    public Sprite fullHeart;
+    public Image[] hearts;
 
     [SerializeField] private int _maxHealth = 100;
 
@@ -100,6 +105,8 @@ public class Damageable : MonoBehaviour
         // unable to be hit
         return false;
     }
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

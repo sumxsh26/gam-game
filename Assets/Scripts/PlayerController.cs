@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
     public KeyManager cm;
     public event Action PlayerDied;
 
+    public Camera camera;
+
 
     // happens when component exists inside of the scene (when you something to be found the moment the scene starts)
     private void Awake()
@@ -89,7 +91,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        camera.transform.position = new Vector3(transform.position.x, transform.position.y, camera.transform.position.z);
+
     }
 
     // for physics updates

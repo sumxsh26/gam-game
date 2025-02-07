@@ -8,6 +8,7 @@ TagManager:
   - Key
   - Spike
   - Enemy
+  - Mice
   layers:
   - Default
   - TransparentFX

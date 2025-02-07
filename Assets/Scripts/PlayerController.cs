@@ -12,16 +12,20 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     // adding rigidbody (unity component) to the script
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     // adding animator (unity component) to the script
     Animator animator;
 
     // adding touching directions (script) to this script
-    TouchingDirections touchingDirections;
+    public TouchingDirections touchingDirections;
 
     // adding trail renederer (unity component) to the script
     TrailRenderer trailRenderer;
+
+    CameraController cameraController;
+
+    Damageable damageable;
 
     // adding Walking header in inspector
     [Header("Walking")]
@@ -46,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     // how high the player can jump
     public float jumpImpulse = 8f;
-    
+
     // adding Dashing header in inspector
     [Header("Dashing")]
 
@@ -63,12 +67,10 @@ public class PlayerController : MonoBehaviour
     // store the direction of the dash
     private Vector2 dashingDir;
 
-    Damageable damageable;
-
     public KeyManager cm;
     public event Action PlayerDied;
 
-    public Camera camera;
+    //public Camera cam;
 
 
     // happens when component exists inside of the scene (when you something to be found the moment the scene starts)
@@ -82,6 +84,7 @@ public class PlayerController : MonoBehaviour
 
         // on awake, touching directions will be set
         touchingDirections = GetComponent<TouchingDirections>();
+        cameraController = GetComponent<CameraController>();
     }
 
 
@@ -94,8 +97,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, camera.transform.position.z);
-
+        //cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
     }
 
     // for physics updates
@@ -107,20 +109,12 @@ public class PlayerController : MonoBehaviour
         if (!damageable.LockVelocity)
             rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
 
-        //Debug.Log("FixedUpdate - Velocity X: " + rb.linearVelocity.x);
-
-        // trigger the animation based on where the player is on the y axis (grounded, jumping, falling)
-        animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
-
         if (IsDashing)
         {
             // While dashing, override normal movement
             rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
             return; // Prevents normal movement updates while dashing
         }
-
-        // Normal movement logic when not dashing
-        rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
 
         // Update animation for yVelocity (jumping, falling, idle)
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
@@ -168,10 +162,10 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // if cannot move
-            else 
-            {  
+            else
+            {
                 // movement locked
-                return 0; 
+                return 0;
             }
         }
     }
@@ -218,7 +212,7 @@ public class PlayerController : MonoBehaviour
         {
             // updates the running state
             _isRunning = value;
-            
+
             // triggers the run animation
             animator.SetBool(AnimationStrings.isRunning, value);
         }
@@ -247,7 +241,7 @@ public class PlayerController : MonoBehaviour
 
     // set player to always face right when starting the game
     public bool _isFacingRight = true;
-    
+
     // property for IsFacingRight in Unity
     public bool IsFacingRight
     {
@@ -274,18 +268,23 @@ public class PlayerController : MonoBehaviour
     }
 
     // property to check if player can move
-    public bool CanMove 
-    { get 
-        { 
+    public bool CanMove
+    {
+        get
+        {
             // retrieves canMove boolean parameter from Animator in Unity
             // returns true if movement is allowed, false if not
             return animator.GetBool(AnimationStrings.canMove);
-        } }
+        }
+    }
 
-    public bool IsAlive { get
+    public bool IsAlive
+    {
+        get
         {
             return animator.GetBool(AnimationStrings.isAlive);
-        } }
+        }
+    }
 
 
 
@@ -306,7 +305,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            IsMoving = false;   
+            IsMoving = false;
         }
 
 
@@ -329,7 +328,7 @@ public class PlayerController : MonoBehaviour
             IsFacingRight = false;
         }
     }
-    
+
     // checks if the player is running based on input
     public void OnRun(InputAction.CallbackContext context)
     {
@@ -361,7 +360,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         // if jump button is pressed and player is on the ground and can move
-        if (context.started && touchingDirections.IsGrounded && CanMove) 
+        if (context.started && touchingDirections.IsGrounded && CanMove)
         {
             // trigger the jump animation
             animator.SetTrigger(AnimationStrings.jumpTrigger);
@@ -393,22 +392,27 @@ public class PlayerController : MonoBehaviour
     {
         if (!canDash) yield break; // Prevent dashing if cooldown is active
 
-        canDash = false; // Disable further dashing
-        IsDashing = true; // Mark player as dashing
+        // disable further dashing
+        canDash = false;
 
-        trailRenderer.emitting = true; // Enable dash trail effect
+        // mark player as dashing
+        IsDashing = true;
 
-        // Determine dash direction based on player's facing direction
+        // enable trail effect
+        trailRenderer.emitting = true;
+
+        // determine dash direction based on player's facing direction
         dashingDir = IsFacingRight ? Vector2.right : Vector2.left;
 
-        // Instantly apply dash velocity (overwrite all previous movement)
-        rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, 0); // Zero vertical velocity
+        // apply dash velocity
+        rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, 0); // zero vertical velocity
 
-        yield return new WaitForSeconds(dashingTime); // Dash duration
+        yield return new WaitForSeconds(dashingTime); // dash duration
 
-        // Reset velocity after dash ends
+        // reset velocity after dash ends
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
+        // disable trail effect
         trailRenderer.emitting = false; // Disable trail effect
         IsDashing = false; // Dash state ends
 
@@ -428,13 +432,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // destroy spike falling object
+    // Handle collision with spike
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Spike"))
         {
-            PlayerDied.Invoke(); //telling game controller
-            Destroy(this.gameObject);
+            Die();
         }
     }
+
+    private void Die()
+    {
+        if (IsAlive)  // Prevent multiple triggers
+        {
+            animator.SetTrigger(AnimationStrings.deathTrigger); // Trigger death animation
+            IsMoving = false;  // Stop movement
+            IsAlive = false;   // Mark as dead
+
+            // Notify GameController after animation
+            StartCoroutine(HandleDeath());
+        }
+    }
+
+    // Coroutine to wait for the death animation to finish
+    private IEnumerator HandleDeath()
+    {
+        // Wait until the death animation is done
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Notify GameController
+        PlayerDied?.Invoke();
+    }
+
+    //// destroy spike falling object
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Spike"))
+    //    {
+    //        PlayerDied.Invoke(); //telling game controller
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 }

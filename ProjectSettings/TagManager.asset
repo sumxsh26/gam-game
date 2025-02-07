@@ -45,6 +45,12 @@ TagManager:
   - name: Background
     uniqueID: 3455817287
     locked: 0
+  - name: Hazards
+    uniqueID: 1861067531
+    locked: 0
+  - name: Interaction
+    uniqueID: 2969063501
+    locked: 0
   - name: Tiles
     uniqueID: 2980403299
     locked: 0

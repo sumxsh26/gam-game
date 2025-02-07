@@ -1,29 +1,41 @@
 using UnityEngine;
-using UnityEngine.UI;
-
 
 public class KeyManager : MonoBehaviour
 {
-    public int keyCount;
-    public Text keyText;
+    public int keyCount = 0;
+    public int maxKeys = 3;
     public GameObject door;
-    private bool doorDestroyed;
+    private bool doorDestroyed = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public KeyDisplay keyDisplay;  // Direct reference to KeyDisplay
+
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        keyText.text = " : " + keyCount.ToString();
-
-        if (keyCount == 1 && !doorDestroyed)
+        if (keyCount >= maxKeys && !doorDestroyed)
         {
             doorDestroyed = true;
             Destroy(door);
         }
     }
+
+    public void CollectKey()
+    {
+        if (keyCount < maxKeys)
+        {
+            keyCount++;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Key"))
+        {
+            CollectKey();
+            Destroy(other.gameObject);
+        }
+    }
 }
+
+
+
+

@@ -421,56 +421,38 @@ public class PlayerController : MonoBehaviour
         canDash = true; // Enable dash again
     }
 
-
-    // count coin, destroy door
     void OnTriggerEnter2D(Collider2D other)
     {
+        // count coin, destroy door
         if (other.gameObject.CompareTag("Key"))
         {
             Destroy(other.gameObject);
             cm.keyCount++;
         }
+
+        // stationary spike damage, use OnTrigger so that the player does not bounce off the spike
+        else if (other.gameObject.CompareTag("Spike")) 
+        {
+            // deal 1 heart when player hits a spike
+            damageable.Hit(1, Vector2.zero);
+        }
     }
 
-    // Handle collision with spike
+    // falling spike damage
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Spike"))
         {
-            Die();
+            // deal 1 heart per spike hit
+            damageable.Hit(1, Vector2.zero);
         }
     }
 
-    private void Die()
-    {
-        if (IsAlive)  // Prevent multiple triggers
-        {
-            animator.SetTrigger(AnimationStrings.deathTrigger); // Trigger death animation
-            IsMoving = false;  // Stop movement
-            IsAlive = false;   // Mark as dead
 
-            // Notify GameController after animation
-            StartCoroutine(HandleDeath());
-        }
+    public void TriggerPlayerDeath()
+    {
+        PlayerDied?.Invoke(); // Safely trigger the PlayerDied event
     }
 
-    // Coroutine to wait for the death animation to finish
-    private IEnumerator HandleDeath()
-    {
-        // Wait until the death animation is done
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // Notify GameController
-        PlayerDied?.Invoke();
-    }
-
-    //// destroy spike falling object
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Spike"))
-    //    {
-    //        PlayerDied.Invoke(); //telling game controller
-    //        Destroy(this.gameObject);
-    //    }
-    //}
 }

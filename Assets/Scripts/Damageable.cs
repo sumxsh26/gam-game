@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -75,18 +76,45 @@ public class Damageable : MonoBehaviour
 
     public bool IsAlive
     {
-        get
-        {
-            return _isAlive;
-        }
+        get { return _isAlive; }
         set
         {
             _isAlive = value;
             animator.SetBool(AnimationStrings.isAlive, value);
-
             Debug.Log("IsAlive set " + value);
+
+            if (!_isAlive)
+            {
+                StartCoroutine(HandleDeathAnimation());
+            }
         }
     }
+
+    private IEnumerator HandleDeathAnimation()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        float animationDuration = stateInfo.length;
+
+        yield return new WaitForSeconds(animationDuration);
+
+        // Trigger the PlayerDied event after the animation finishes
+        GetComponent<PlayerController>().TriggerPlayerDeath();
+    }
+
+    //public bool IsAlive
+    //{
+    //    get
+    //    {
+    //        return _isAlive;
+    //    }
+    //    set
+    //    {
+    //        _isAlive = value;
+    //        animator.SetBool(AnimationStrings.isAlive, value);
+
+    //        Debug.Log("IsAlive set " + value);
+    //    }
+    //}
 
     private void Awake()
     {

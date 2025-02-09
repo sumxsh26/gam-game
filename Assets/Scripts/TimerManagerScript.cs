@@ -11,7 +11,6 @@ public class TimerManagerScript : MonoBehaviour
 
     //3 mins = 180 secs
 
-    [System.Obsolete]
     void Start()
     {
         gameController = FindObjectOfType<GameControllerScript>(); // Find GameController in the scene

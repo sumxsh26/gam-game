@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RatManager : MonoBehaviour
+public class MiceManager : MonoBehaviour
 {
     [SerializeField] GameObject player;
     public bool isPickedUp;
@@ -18,7 +18,8 @@ public class RatManager : MonoBehaviour
     {
         if (isPickedUp)
         {
-            transform.position = Vector2.SmoothDamp(transform.position, player.transform.position, ref vel, smoothTime);
+            Vector3 offset = new Vector3(0, 1.7f, 0);
+            transform.position = Vector2.SmoothDamp(transform.position, player.transform.position + offset, ref vel, smoothTime);
         }
     }
 

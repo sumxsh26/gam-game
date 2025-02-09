@@ -34,7 +34,7 @@ public class GameControllerScript : MonoBehaviour
     void GameOver()
     {
         // Load the "Game Over" scene
-        SceneManager.LoadScene("GameOver");
+        //SceneManager.LoadScene("GameOver");
         GameOverCanvas.gameObject.SetActive(true);
         TimerText.text = "You Lasted: " + Math.Round(Time.timeSinceLevelLoad, 2);
 

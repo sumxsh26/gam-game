@@ -1,24 +1,52 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectFallController : MonoBehaviour
+public class FallingSpikesController : MonoBehaviour
 {
-    // find a way to make fewer fall at a time
-    public float wait = 3.5f;
-    public float repeatEvery = 2f;
+    public float minSpawnInterval = 0.5f; // Minimum time between falls
+    public float maxSpawnInterval = 1.5f; // Maximum time between falls
     public GameObject fallingObject;
+    public Transform[] spawnPoints; // Assign spawn points in Inspector
 
-    public bool _isSpikeZone;
+    private bool isPlayerInZone = false;
 
-    
     void Start()
     {
-        InvokeRepeating("Fall", wait, repeatEvery);
+        StartCoroutine(SpawnSpikes());
     }
 
-    void Fall()
+    IEnumerator SpawnSpikes()
     {
-        Instantiate(fallingObject, new Vector3(Random.Range(-10, 10), 10, 0), Quaternion.identity);
+        while (true)
+        {
+            if (isPlayerInZone)
+            {
+                int spikeCount = Random.Range(2, 5); // Controls how many spikes fall at once
+
+                for (int i = 0; i < spikeCount; i++)
+                {
+                    Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                    Instantiate(fallingObject, spawnPoint.position, Quaternion.identity);
+                }
+            }
+
+            yield return new WaitForSeconds(Random.Range(minSpawnInterval, maxSpawnInterval));
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInZone = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInZone = false;
+        }
     }
 }

@@ -10,6 +10,9 @@ public class GameControllerScript : MonoBehaviour
     public Canvas GameOverCanvas;
     public Text TimerText;
 
+    public static bool isGameOver = false; // Static flag for TimerManagerScript
+    public PlayerController PlayerController => playerController; // Public getter
+
     private void Awake()
     {
         if (playerController != null)
@@ -27,23 +30,33 @@ public class GameControllerScript : MonoBehaviour
     // when player dies
     void WhenPlayerDies()
     {
-        GameOver();
-    }
+        isGameOver = true;  // Signal TimerManagerScript to stop timer
 
-    //currently not working, trying to make the gameover screen open up GameOver scene
-    void GameOver()
-    {
-        // Load the "Game Over" scene
-        //SceneManager.LoadScene("GameOver");
         GameOverCanvas.gameObject.SetActive(true);
-        TimerText.text = "You Lasted: " + Math.Round(Time.timeSinceLevelLoad, 2);
 
-        //unsubscribe to event
-        playerController.PlayerDied -= WhenPlayerDies;
+        //timer
+        int minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);
+        float seconds = Time.timeSinceLevelLoad % 60;
+
+        // in minutes
+        //TimerText.text = $"You Lasted: {minutes:00}:{seconds:00.00} minutes";
+
+        // in seconds
+        TimerText.text = "You Lasted: " + Time.timeSinceLevelLoad.ToString("00.00") + " seconds";
+
+        if (playerController != null)
+        {
+            //Unsubscribe
+            playerController.PlayerDied -= WhenPlayerDies;
+            //SceneManager.LoadScene("GameOver");
+        }
     }
 
     public void RetryClicked()
     {
+        isGameOver = false;  // Reset game over state
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
 }

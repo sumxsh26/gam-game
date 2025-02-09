@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // everytime a player controller is added, this ensures a rigidbody exists
 // you will not be able to add a player controller unless a rigidbody exists
@@ -445,13 +446,20 @@ public class PlayerController : MonoBehaviour
         {
             // deal 1 heart per spike hit
             damageable.Hit(1, Vector2.zero);
+
+            //destroy player once hits spikes
+            //SceneManager.LoadScene("GameOver");
+
+            //PlayerDied.Invoke(); // triggers GameControllerScript!
         }
     }
 
-
     public void TriggerPlayerDeath()
     {
-        PlayerDied?.Invoke(); // Safely trigger the PlayerDied event
+        // Safely trigger the PlayerDied event
+        // other scripts can just call it like this: gameController.PlayerController.TriggerPlayerDeath();
+        // refer to TimeManagerScript
+        PlayerDied?.Invoke(); 
     }
 
 

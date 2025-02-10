@@ -451,6 +451,13 @@ public class PlayerController : MonoBehaviour
             // deal 1 heart when player hits a spike
             damageable.Hit(1, Vector2.zero);
         }
+
+        // water hazard - player drowns
+        else if (other.gameObject.CompareTag("Water"))
+        {
+            // deal fatal damage to drown the player
+            damageable.Hit(damageable.Health, Vector2.zero);
+        }
     }
 
     // falling spike damage

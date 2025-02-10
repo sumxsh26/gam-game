@@ -6,7 +6,7 @@ public class OutOfBounds : MonoBehaviour
 
     private void Start()
     {
-        gameController = FindObjectOfType<GameControllerScript>();
+        gameController = FindFirstObjectByType<GameControllerScript>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

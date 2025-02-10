@@ -101,21 +101,6 @@ public class Damageable : MonoBehaviour
         GetComponent<PlayerController>().TriggerPlayerDeath();
     }
 
-    //public bool IsAlive
-    //{
-    //    get
-    //    {
-    //        return _isAlive;
-    //    }
-    //    set
-    //    {
-    //        _isAlive = value;
-    //        animator.SetBool(AnimationStrings.isAlive, value);
-
-    //        Debug.Log("IsAlive set " + value);
-    //    }
-    //}
-
     private void Awake()
     {
         animator = GetComponent<Animator>();

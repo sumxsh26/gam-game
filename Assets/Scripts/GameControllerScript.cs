@@ -3,9 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
 public class GameControllerScript : MonoBehaviour
 {
+    public static GameControllerScript Instance { get; private set; } // Singleton Instance
+
     [SerializeField] private PlayerController playerController;
     public Canvas GameOverCanvas;
     public Text TimerText;
@@ -15,9 +16,20 @@ public class GameControllerScript : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton pattern to ensure there's only one instance
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // Prevent duplicate instances
+            return;
+        }
+
         if (playerController != null)
         {
-            //subscribe
+            // Subscribe to the player's death event
             playerController.PlayerDied += WhenPlayerDies;
         }
 
@@ -27,28 +39,24 @@ public class GameControllerScript : MonoBehaviour
         }
     }
 
-    // when player dies
+    // When player dies
     void WhenPlayerDies()
     {
         isGameOver = true;  // Signal TimerManagerScript to stop timer
 
         GameOverCanvas.gameObject.SetActive(true);
 
-        //timer
+        // Timer
         int minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);
         float seconds = Time.timeSinceLevelLoad % 60;
 
-        // in minutes
-        //TimerText.text = $"You Lasted: {minutes:00}:{seconds:00.00} minutes";
-
-        // in seconds
+        // In seconds
         TimerText.text = "You Lasted: " + Time.timeSinceLevelLoad.ToString("00.00") + " seconds";
 
         if (playerController != null)
         {
-            //Unsubscribe
+            // Unsubscribe to avoid memory leaks
             playerController.PlayerDied -= WhenPlayerDies;
-            //SceneManager.LoadScene("GameOver");
         }
     }
 
@@ -57,6 +65,4 @@ public class GameControllerScript : MonoBehaviour
         isGameOver = false;  // Reset game over state
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-
 }

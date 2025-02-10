@@ -15,8 +15,9 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ignore Raycast
   - Water
+  - UI
   - UI
   - Ground
   - Platform
@@ -25,7 +26,6 @@ TagManager:
   - PlayerHitbox
   - EnemyHitbox
   - GroundDetection
-  - 
   - 
   - 
   - 

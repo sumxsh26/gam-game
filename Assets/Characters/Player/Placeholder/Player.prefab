@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2761973623948929216
 Transform:
   m_ObjectHideFlags: 0
@@ -452,6 +452,7 @@ GameObject:
   - component: {fileID: 7664790109417217384}
   - component: {fileID: 3066881275387888571}
   - component: {fileID: 2291689695221717059}
+  - component: {fileID: 557722625941922274}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -576,6 +577,8 @@ MonoBehaviour:
   runSpeed: 15
   airWalkSpeed: 5
   jumpImpulse: 8
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
   dashingVelocity: 14
   dashingTime: 0.5
   cm: {fileID: 0}
@@ -987,3 +990,18 @@ MonoBehaviour:
   - {fileID: 3180355097818126628}
   - {fileID: 181939365470873076}
   damageable: {fileID: 3066881275387888571}
+--- !u!114 &557722625941922274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063976468812130046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae8a865a86994e97a51679e54a28efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallThreshold: -10
+  isFalling: 0
+  playerController: {fileID: 0}

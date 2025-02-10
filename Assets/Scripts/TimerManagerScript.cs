@@ -13,7 +13,7 @@ public class TimerManagerScript : MonoBehaviour
 
     void Start()
     {
-        gameController = FindObjectOfType<GameControllerScript>(); // Find GameController in the scene
+        gameController = FindFirstObjectByType<GameControllerScript>(); // Find GameController in the scene
     }
 
     // Update is called once per frame

@@ -13,14 +13,14 @@ public class OutOfBoundsTrigger : MonoBehaviour
     {
         if (playerController == null)
         {
-            playerController = FindObjectOfType<PlayerController>(); // Or assign it in another way
+            playerController = FindFirstObjectByType<PlayerController>(); // Or assign it in another way
         }
     }
 
     private void Update()
     {
         // Print the player's current Y position to the console for debugging
-        Debug.Log("Player Y Position: " + transform.position.y);
+        //Debug.Log("Player Y Position: " + transform.position.y);
 
         // If the player's Y position falls below the threshold, it's out of bounds
         if (transform.position.y < fallThreshold)

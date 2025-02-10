@@ -52,6 +52,10 @@ public class PlayerController : MonoBehaviour
     // how high the player can jump
     public float jumpImpulse = 8f;
 
+    [Header("Fall Speed Settings")]
+    public float fallMultiplier = 2.5f;      // Multiplies gravity when falling
+    public float lowJumpMultiplier = 2f;     // For shorter jumps when the jump button is released early
+
     // adding Dashing header in inspector
     [Header("Dashing")]
 
@@ -104,20 +108,25 @@ public class PlayerController : MonoBehaviour
     // for physics updates
     private void FixedUpdate()
     {
-
-        // moveInput.x is the input from the player on the x axis (left and right)
-        // y velocity will be controlled by gravity 
         if (!damageable.LockVelocity)
             rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
 
-        if (IsDashing)
+        // Apply custom fall mechanics
+        if (rb.linearVelocity.y < 0) // Player is falling
         {
-            // While dashing, override normal movement
-            rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
-            return; // Prevents normal movement updates while dashing
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
+        else if (rb.linearVelocity.y > 0 && !IsJumping()) // Player is rising but not holding jump
+        {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
 
-        // Update animation for yVelocity (jumping, falling, idle)
+        if (IsDashing)
+        {
+            rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
+            return;
+        }
+
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
 
@@ -371,6 +380,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsJumping()
+    {
+        return Input.GetButton("Jump"); // Works with default Unity input settings
+    }
+
     // checks if player is attacking based on input
     public void OnAttack(InputAction.CallbackContext context)
     {
@@ -432,7 +446,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // stationary spike damage, use OnTrigger so that the player does not bounce off the spike
-        else if (other.gameObject.CompareTag("Spike")) 
+        else if (other.gameObject.CompareTag("Spike"))
         {
             // deal 1 heart when player hits a spike
             damageable.Hit(1, Vector2.zero);
@@ -459,7 +473,7 @@ public class PlayerController : MonoBehaviour
         // Safely trigger the PlayerDied event
         // other scripts can just call it like this: gameController.PlayerController.TriggerPlayerDeath();
         // refer to TimeManagerScript
-        PlayerDied?.Invoke(); 
+        PlayerDied?.Invoke();
     }
 
 

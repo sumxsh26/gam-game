@@ -1,5 +1,4 @@
 using UnityEngine;
-using Unity.VisualScripting;
 
 public class CameraController : MonoBehaviour
 {
@@ -12,23 +11,33 @@ public class CameraController : MonoBehaviour
     private float lookOffset;
 
     private bool isFalling;
+    private bool wasGrounded; // Track the player's previous grounded state
 
     public float maxVertOffset = 5f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Camera Smoothing")]
+    public float normalLerpSpeed = 3f;      // Normal lerp speed during movement
+    public float landingLerpSpeed = 8f;     // Faster lerp speed when landing
+
+    private void Start()
     {
         targetPoint = new Vector3(player.transform.position.x, player.transform.position.y, -10);
         SnapToPlayer(); // Instantly snap to the player's position at the start
+        wasGrounded = player.touchingDirections.IsGrounded; // Initialize grounded state
     }
 
     private void LateUpdate()
     {
-        if (player.touchingDirections.IsGrounded)
+        bool isGrounded = player.touchingDirections.IsGrounded;
+
+        // Check for landing event (transition from falling to grounded)
+        if (!wasGrounded && isGrounded)
         {
+            // Smooth transition to the player's Y position when landing
             targetPoint.y = player.transform.position.y;
         }
 
+        // Track vertical movement while falling
         if (transform.position.y - player.transform.position.y > maxVertOffset)
         {
             isFalling = true;
@@ -38,18 +47,22 @@ public class CameraController : MonoBehaviour
         {
             targetPoint.y = player.transform.position.y;
 
-            if (player.touchingDirections.IsGrounded)
+            if (isGrounded)
             {
                 isFalling = false;
             }
         }
+        else if (isGrounded)
+        {
+            targetPoint.y = player.transform.position.y; // Update Y position while grounded
+        }
 
+        // Horizontal look-ahead logic
         if (player.rb.linearVelocity.x > 0f)
         {
             lookOffset = Mathf.Lerp(lookOffset, lookAheadDistance, lookAheadSpeed * Time.deltaTime);
         }
-
-        if (player.rb.linearVelocity.x < 0f)
+        else if (player.rb.linearVelocity.x < 0f)
         {
             lookOffset = Mathf.Lerp(lookOffset, -lookAheadDistance, lookAheadSpeed * Time.deltaTime);
         }
@@ -57,17 +70,15 @@ public class CameraController : MonoBehaviour
         targetPoint.z = -10;
         targetPoint.x = player.transform.position.x + lookOffset;
 
-        float playerMoveSpeed = player.CurrentMoveSpeed;
-        transform.position = Vector3.Lerp(transform.position, targetPoint, playerMoveSpeed * Time.deltaTime);
+        float lerpSpeed = (!wasGrounded && isGrounded) ? landingLerpSpeed : normalLerpSpeed; // Fast lerp when landing
+        transform.position = Vector3.Lerp(transform.position, targetPoint, lerpSpeed * Time.deltaTime);
+
+        wasGrounded = isGrounded; // Update the grounded state for the next frame
     }
 
-    // Instantly snap the camera to the player's position
+    // Instantly snap the entire camera to the player's position
     private void SnapToPlayer()
     {
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
-    }
-
-    void Update()
-    {
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9076827240636962456}
   m_Layer: 0
   m_Name: FallingPlatform
-  m_TagString: Untagged
+  m_TagString: FallingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6f62162c73042e6b681ad8f88ed145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallDelay: 1
+  destroyDelay: 2
   rb: {fileID: 5780829463346704276}
+  shakeDuration: 0.5
+  shakeIntensity: 0.05
 --- !u!251 &6590998068915712487
 PlatformEffector2D:
   m_ObjectHideFlags: 0

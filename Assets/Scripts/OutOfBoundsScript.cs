@@ -1,48 +1,29 @@
 using UnityEngine;
 
-public class OutOfBoundsTrigger : MonoBehaviour
+public class OutOfBounds : MonoBehaviour
 {
-    public float fallThreshold = -18f; // Y-coordinate where the player falls out of bounds
-    public bool isFalling = false; // To check if the player is falling
     private GameControllerScript gameController;
-    public PlayerController playerController; // Drag PlayerController object into this in the Inspector
 
-
-    [System.Obsolete]
-    void Start()
+    private void Start()
     {
-        if (playerController == null)
-        {
-            playerController = FindFirstObjectByType<PlayerController>(); // Or assign it in another way
-        }
+        gameController = FindObjectOfType<GameControllerScript>();
     }
 
-    private void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Print the player's current Y position to the console for debugging
-        //Debug.Log("Player Y Position: " + transform.position.y);
-
-        // If the player's Y position falls below the threshold, it's out of bounds
-        if (transform.position.y < fallThreshold)
+        if (collision.CompareTag("Player"))
         {
-            TriggerGameOver();
-        }
-    }
+            Debug.Log("Player fell out of bounds!");  // Check if it’s detecting correctly
 
-    // Function to trigger game over
-    private void TriggerGameOver()
-    {
-        if (!isFalling) // To prevent triggering multiple times
-        {
-            isFalling = true;
-
-            // Trigger your game over logic here
-            Debug.Log("Player died from a high place");
-
+            // Trigger game over sequence
             gameController.PlayerController.TriggerPlayerDeath();
 
-            
-            
+            //destroyed player after fall
+            Destroy(collision.gameObject);
+
+            // Disable player movement
+            collision.GetComponent<PlayerController>().enabled = false;
+
         }
     }
 }

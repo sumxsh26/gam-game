@@ -1,35 +1,37 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameControllerScript : MonoBehaviour
 {
-    public static GameControllerScript Instance { get; private set; } // Singleton Instance
+    public static GameControllerScript Instance { get; private set; }
 
     [SerializeField] private PlayerController playerController;
     public Canvas GameOverCanvas;
     public Text TimerText;
 
-    public static bool isGameOver = false; // Static flag for TimerManagerScript
-    public PlayerController PlayerController => playerController; // Public getter
+    [Header("Gameplay UI")]
+    public GameObject gameplayUI; // Reference to the Gameplay UI parent
+
+    public static bool isGameOver = false;
+    public PlayerController PlayerController => playerController;
 
     private void Awake()
     {
-        // Singleton pattern to ensure there's only one instance
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(gameObject); // Prevent duplicate instances
+            Destroy(gameObject);
             return;
         }
 
         if (playerController != null)
         {
-            // Subscribe to the player's death event
             playerController.PlayerDied += WhenPlayerDies;
         }
 
@@ -42,27 +44,47 @@ public class GameControllerScript : MonoBehaviour
     // When player dies
     void WhenPlayerDies()
     {
-        isGameOver = true;  // Signal TimerManagerScript to stop timer
+        isGameOver = true;
+
+        // hide Gameplay UI
+        if (gameplayUI != null)
+        {
+            gameplayUI.SetActive(false);
+        }
 
         GameOverCanvas.gameObject.SetActive(true);
 
-        // Timer
         int minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);
         float seconds = Time.timeSinceLevelLoad % 60;
 
-        // In seconds
         TimerText.text = "You Lasted: " + Time.timeSinceLevelLoad.ToString("00.00") + " seconds";
 
         if (playerController != null)
         {
-            // Unsubscribe to avoid memory leaks
             playerController.PlayerDied -= WhenPlayerDies;
         }
     }
 
     public void RetryClicked()
     {
-        isGameOver = false;  // Reset game over state
+        // 1.5 second delay to allow gameplay UI to load up before restarting
+        StartCoroutine(RetryWithDelay(1.5f)); 
+    }
+
+    private IEnumerator RetryWithDelay(float delay)
+    {
+        
+        Debug.Log("Restarting game in " + delay + " seconds...");
+
+        // wait for the delay
+        yield return new WaitForSeconds(delay);
+
+        // reset the game over state
+        isGameOver = false;
+
+        // reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
 }

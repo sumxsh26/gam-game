@@ -1,20 +1,37 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
 public class GameControllerScript : MonoBehaviour
 {
+    public static GameControllerScript Instance { get; private set; }
+
     [SerializeField] private PlayerController playerController;
     public Canvas GameOverCanvas;
     public Text TimerText;
 
+    [Header("Gameplay UI")]
+    public GameObject gameplayUI; // Reference to the Gameplay UI parent
+
+    public static bool isGameOver = false;
+    public PlayerController PlayerController => playerController;
+
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (playerController != null)
         {
-            //subscribe
             playerController.PlayerDied += WhenPlayerDies;
         }
 
@@ -24,26 +41,50 @@ public class GameControllerScript : MonoBehaviour
         }
     }
 
-    // when player dies
+    // When player dies
     void WhenPlayerDies()
     {
-        GameOver();
-    }
+        isGameOver = true;
 
-    //currently not working, trying to make the gameover screen open up GameOver scene
-    void GameOver()
-    {
-        // Load the "Game Over" scene
-        SceneManager.LoadScene("GameOver");
+        // hide Gameplay UI
+        if (gameplayUI != null)
+        {
+            gameplayUI.SetActive(false);
+        }
+
         GameOverCanvas.gameObject.SetActive(true);
-        TimerText.text = "You Lasted: " + Math.Round(Time.timeSinceLevelLoad, 2);
 
-        //unsubscribe to event
-        playerController.PlayerDied -= WhenPlayerDies;
+        int minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);
+        float seconds = Time.timeSinceLevelLoad % 60;
+
+        TimerText.text = "You Lasted: " + Time.timeSinceLevelLoad.ToString("00.00") + " seconds";
+
+        if (playerController != null)
+        {
+            playerController.PlayerDied -= WhenPlayerDies;
+        }
     }
 
     public void RetryClicked()
     {
+        // 1.5 second delay to allow gameplay UI to load up before restarting
+        StartCoroutine(RetryWithDelay(1.5f)); 
+    }
+
+    private IEnumerator RetryWithDelay(float delay)
+    {
+        
+        Debug.Log("Restarting game in " + delay + " seconds...");
+
+        // wait for the delay
+        yield return new WaitForSeconds(delay);
+
+        // reset the game over state
+        isGameOver = false;
+
+        // reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
 }

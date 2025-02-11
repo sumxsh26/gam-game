@@ -32,9 +32,9 @@ public class Attack : MonoBehaviour
 
         if (damageable != null) 
         {
+            Vector2 deliveredKnockback = transform.parent.localScale.x > 0 ? knockBack : new Vector2 (-knockBack.x, knockBack.y);
             // hit the target
-            bool gotHit = damageable.Hit(attackDamage, knockBack);
-            Debug.Log("Applying Knockback: " + knockBack);
+            bool gotHit = damageable.Hit(attackDamage, deliveredKnockback);
 
 
             if (gotHit)

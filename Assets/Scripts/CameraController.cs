@@ -19,21 +19,30 @@
 //    public float normalLerpSpeed = 3f;      // Normal lerp speed during movement
 //    public float landingLerpSpeed = 8f;     // Faster lerp speed when landing
 
+//    private bool stopCameraMovement = false; // Flag to stop camera movement after death
+
+
 //    private void Start()
 //    {
 //        targetPoint = new Vector3(player.transform.position.x, player.transform.position.y, -10);
 //        SnapToPlayer(); // Instantly snap to the player's position at the start
 //        wasGrounded = player.touchingDirections.IsGrounded; // Initialize grounded state
+
+//        // Subscribe to the PlayerDied event
+//        player.PlayerDied += OnPlayerDied;
 //    }
 
 //    private void LateUpdate()
 //    {
+//        // Stop camera movement if the player has died
+//        if (stopCameraMovement)
+//            return;
+
 //        bool isGrounded = player.touchingDirections.IsGrounded;
 
 //        // Check for landing event (transition from falling to grounded)
 //        if (!wasGrounded && isGrounded)
 //        {
-//            // Smooth transition to the player's Y position when landing
 //            targetPoint.y = player.transform.position.y;
 //        }
 
@@ -54,7 +63,7 @@
 //        }
 //        else if (isGrounded)
 //        {
-//            targetPoint.y = player.transform.position.y; // Update Y position while grounded
+//            targetPoint.y = player.transform.position.y;
 //        }
 
 //        // Horizontal look-ahead logic
@@ -70,19 +79,23 @@
 //        targetPoint.z = -10;
 //        targetPoint.x = player.transform.position.x + lookOffset;
 
-//        float lerpSpeed = (!wasGrounded && isGrounded) ? landingLerpSpeed : normalLerpSpeed; // Fast lerp when landing
+//        float lerpSpeed = (!wasGrounded && isGrounded) ? landingLerpSpeed : normalLerpSpeed;
 //        transform.position = Vector3.Lerp(transform.position, targetPoint, lerpSpeed * Time.deltaTime);
 
-//        wasGrounded = isGrounded; // Update the grounded state for the next frame
+//        wasGrounded = isGrounded;
 //    }
 
-//    // Instantly snap the entire camera to the player's position
 //    private void SnapToPlayer()
 //    {
 //        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
 //    }
-//}
 
+//    // Event handler to stop the camera when the player dies
+//    private void OnPlayerDied()
+//    {
+//        stopCameraMovement = true;
+//    }
+//}
 
 using UnityEngine;
 
@@ -107,6 +120,8 @@ public class CameraController : MonoBehaviour
 
     private bool stopCameraMovement = false; // Flag to stop camera movement after death
 
+    public float verticalOffset = 2f; // Adjust this value to move the camera upward
+
     private void Start()
     {
         targetPoint = new Vector3(player.transform.position.x, player.transform.position.y, -10);
@@ -128,7 +143,7 @@ public class CameraController : MonoBehaviour
         // Check for landing event (transition from falling to grounded)
         if (!wasGrounded && isGrounded)
         {
-            targetPoint.y = player.transform.position.y;
+            targetPoint.y = player.transform.position.y + verticalOffset;
         }
 
         // Track vertical movement while falling
@@ -139,7 +154,7 @@ public class CameraController : MonoBehaviour
 
         if (isFalling)
         {
-            targetPoint.y = player.transform.position.y;
+            targetPoint.y = player.transform.position.y + verticalOffset;
 
             if (isGrounded)
             {
@@ -148,7 +163,7 @@ public class CameraController : MonoBehaviour
         }
         else if (isGrounded)
         {
-            targetPoint.y = player.transform.position.y;
+            targetPoint.y = player.transform.position.y + verticalOffset;
         }
 
         // Horizontal look-ahead logic
@@ -172,7 +187,7 @@ public class CameraController : MonoBehaviour
 
     private void SnapToPlayer()
     {
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + verticalOffset, -10);
     }
 
     // Event handler to stop the camera when the player dies

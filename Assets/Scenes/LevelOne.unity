@@ -42872,6 +42872,7 @@ MonoBehaviour:
   maxVertOffset: 5
   normalLerpSpeed: 3
   landingLerpSpeed: 8
+  verticalOffset: 2
 --- !u!114 &2004195254
 MonoBehaviour:
   m_ObjectHideFlags: 0

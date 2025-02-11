@@ -15,11 +15,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ignore Raycast
+  - 
   - Water
   - UI
-  - Ground2
-  - Ground
+  - Detection
   - Platform
   - Player
   - Enemy
@@ -44,12 +43,16 @@ TagManager:
   - 
   - 
   - 
+  - 
   m_SortingLayers:
   - name: Background
     uniqueID: 3455817287
     locked: 0
   - name: Hazards
     uniqueID: 1861067531
+    locked: 0
+  - name: Props
+    uniqueID: 2143581045
     locked: 0
   - name: Interaction
     uniqueID: 2969063501

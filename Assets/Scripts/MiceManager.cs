@@ -10,7 +10,6 @@ public class MiceManager : MonoBehaviour
     // Start
     void Start()
     {
-        
     }
 
     // Update is called once per frame

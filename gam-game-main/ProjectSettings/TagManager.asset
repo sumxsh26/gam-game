@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Coin
+  - Key
+  - Spike
+  - Enemy
+  - Mice
+  - FallingPlatform
+  - Water
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Ignore Raycast
+  - Water
+  - UI
+  - Ground2
+  - Ground
+  - Platform
+  - Player
+  - Enemy
+  - PlayerHitbox
+  - EnemyHitbox
+  - GroundDetection
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 3455817287
+    locked: 0
+  - name: Hazards
+    uniqueID: 1861067531
+    locked: 0
+  - name: Interaction
+    uniqueID: 2969063501
+    locked: 0
+  - name: Tiles
+    uniqueID: 2980403299
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  m_RenderingLayers:
+  - Default

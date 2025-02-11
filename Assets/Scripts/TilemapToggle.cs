@@ -1,23 +1,31 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;  // Add this to work with UI
 
 public class TilemapToggle : MonoBehaviour
 {
-    private TilemapRenderer tilemapRenderer;  // For platform visuals
-    private TilemapCollider2D tilemapCollider;  // For platform collision
+    private TilemapRenderer tilemapRenderer;
+    private TilemapCollider2D tilemapCollider;
 
-    public float displayTime = 3f;  // Time the platform stays visible
-    public float cooldownTime = 30f;  // 30-second cooldown
-    private float lastToggleTime = -30f;  // Keeps track of the last toggle time
+    public float displayTime = 3f;
+    public float cooldownTime = 30f;
+    private float lastToggleTime = -30f;
+
+    public Slider cooldownBar;  // Reference to the UI Slider
 
     void Start()
     {
         tilemapRenderer = GetComponent<TilemapRenderer>();
         tilemapCollider = GetComponent<TilemapCollider2D>();
 
-        // Hide visuals but keep collision active at the start
         tilemapRenderer.enabled = false;
-        tilemapCollider.enabled = true;  // Keep platform colliders active
+        tilemapCollider.enabled = true;
+
+        if (cooldownBar != null)
+        {
+            cooldownBar.maxValue = cooldownTime;  // Set max value to cooldown time
+            cooldownBar.value = cooldownTime;     // Start as fully charged
+        }
     }
 
     void Update()
@@ -26,25 +34,35 @@ public class TilemapToggle : MonoBehaviour
         {
             if (Time.time - lastToggleTime >= cooldownTime)
             {
-                TogglePlatform();  // Toggle if cooldown has passed
-                lastToggleTime = Time.time;  // Record current time as last toggle time
+                TogglePlatform();
+                lastToggleTime = Time.time;
+
+                if (cooldownBar != null)
+                {
+                    cooldownBar.value = 0;  // Reset the cooldown bar when ability is used
+                }
             }
             else
             {
                 Debug.Log("Cooldown in progress! Please wait.");
             }
         }
+
+        // Update the cooldown bar over time
+        if (cooldownBar != null && cooldownBar.value < cooldownTime)
+        {
+            cooldownBar.value += Time.deltaTime;  // Refill bar gradually
+        }
     }
 
     void TogglePlatform()
     {
-        // Toggle platform visuals
-        tilemapRenderer.enabled = !tilemapRenderer.enabled;  // Show/hide visuals
-        Invoke("HideVisuals", displayTime);  // Hide visuals after display time
+        tilemapRenderer.enabled = !tilemapRenderer.enabled;
+        Invoke("HideVisuals", displayTime);
     }
 
     void HideVisuals()
     {
-        tilemapRenderer.enabled = false;  // Hide platform visuals
+        tilemapRenderer.enabled = false;
     }
 }

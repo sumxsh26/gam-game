@@ -6,7 +6,11 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/Characters/Player/Placeholder/player_hit.anim
+  m_Name: player_hit
+========
   m_Name: player_jump
+>>>>>>>> LevelOne:gam-game-main/Assets/Characters/Player/Placeholder/player_jump.anim
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,6 +25,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
+<<<<<<<< HEAD:Assets/Characters/Player/Placeholder/player_hit.anim
+      value: {fileID: 21300000, guid: ab2b1b00df9e5ee499d4f3135fc508c3, type: 3}
+    - time: 0.1
+      value: {fileID: 21300000, guid: ad6557d942b0e8a4ab5b87db61c1aa63, type: 3}
+    - time: 0.2
+      value: {fileID: 21300000, guid: 99b926994d2a3e54f9a02e438b5aecc5, type: 3}
+========
       value: {fileID: 21300000, guid: bb8d7df4cdcf55b44ba2159319dd9776, type: 3}
     - time: 0.1
       value: {fileID: 21300000, guid: 1409e2d9841e8d34dae1c6f53471ea56, type: 3}
@@ -28,6 +39,7 @@ AnimationClip:
       value: {fileID: 21300000, guid: d95c8ac9c0bab804b9471cf78439f497, type: 3}
     - time: 0.3
       value: {fileID: 21300000, guid: f58b81d48b63496459af38d488475cab, type: 3}
+>>>>>>>> LevelOne:gam-game-main/Assets/Characters/Player/Placeholder/player_jump.anim
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,16 +62,26 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
+<<<<<<<< HEAD:Assets/Characters/Player/Placeholder/player_hit.anim
+    - {fileID: 21300000, guid: ab2b1b00df9e5ee499d4f3135fc508c3, type: 3}
+    - {fileID: 21300000, guid: ad6557d942b0e8a4ab5b87db61c1aa63, type: 3}
+    - {fileID: 21300000, guid: 99b926994d2a3e54f9a02e438b5aecc5, type: 3}
+========
     - {fileID: 21300000, guid: bb8d7df4cdcf55b44ba2159319dd9776, type: 3}
     - {fileID: 21300000, guid: 1409e2d9841e8d34dae1c6f53471ea56, type: 3}
     - {fileID: 21300000, guid: d95c8ac9c0bab804b9471cf78439f497, type: 3}
     - {fileID: 21300000, guid: f58b81d48b63496459af38d488475cab, type: 3}
+>>>>>>>> LevelOne:gam-game-main/Assets/Characters/Player/Placeholder/player_jump.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
+<<<<<<<< HEAD:Assets/Characters/Player/Placeholder/player_hit.anim
+    m_StopTime: 0.3
+========
     m_StopTime: 0.4
+>>>>>>>> LevelOne:gam-game-main/Assets/Characters/Player/Placeholder/player_jump.anim
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

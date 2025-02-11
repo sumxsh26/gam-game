@@ -25233,7 +25233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1037737382
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25304,10 +25304,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1037737380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a0bb4d4f709814f97d975c6b3c5e44, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cbcf6ff942454d81b60945bdc1fc0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: {fileID: 0}
+  nextSceneName: LevelOne
 --- !u!1 &1038505803
 GameObject:
   m_ObjectHideFlags: 0

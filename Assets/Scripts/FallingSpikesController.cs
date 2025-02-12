@@ -21,7 +21,7 @@ public class FallingSpikesController : MonoBehaviour
         {
             if (isPlayerInZone)
             {
-                int spikeCount = Random.Range(2, 5); // Controls how many spikes fall at once
+                int spikeCount = Random.Range(2, 3); // Controls how many spikes fall at once
 
                 for (int i = 0; i < spikeCount; i++)
                 {

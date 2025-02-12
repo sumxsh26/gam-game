@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayTime: 3
-  cooldownTime: 15
+  cooldownTime: 1
   cooldownBar: {fileID: 2009080762}
 --- !u!66 &88631324
 CompositeCollider2D:
@@ -4998,7 +4998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7064855533838602888, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 137.3
+      value: 141.71
       objectReference: {fileID: 0}
     - target: {fileID: 7064855533838602888, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10599,7 +10599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3504923946328048851, guid: 0dcfba04fdcbbde488a321e653528efb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 157.07
+      value: 155.07
       objectReference: {fileID: 0}
     - target: {fileID: 3504923946328048851, guid: 0dcfba04fdcbbde488a321e653528efb, type: 3}
       propertyPath: m_LocalPosition.y

@@ -44,17 +44,23 @@ public class PlayerController : MonoBehaviour
     [Header("Air Speed")]
 
     // how fast the player will move in the air
-    public float airWalkSpeed = 5f;
+    public float airWalkSpeed = 0.5f;
 
-    // adding Jumping header in inspector
+    //// adding Jumping header in inspector
+    //[Header("Jumping")]
+
+    //// how high the player can jump
+    //public float jumpImpulse = 8f;
+
     [Header("Jumping")]
-
-    // how high the player can jump
-    public float jumpImpulse = 8f;
+    public float jumpImpulse = 5.2f;  // Lowered from 8f
 
     [Header("Fall Speed Settings")]
-    public float fallMultiplier = 2.5f;      // Multiplies gravity when falling
-    public float lowJumpMultiplier = 2f;     // For shorter jumps when the jump button is released early
+    public float fallMultiplier = 20f;      // Multiplies gravity when falling
+    public float lowJumpMultiplier = 12f;     // For shorter jumps when the jump button is released early
+
+    [Header("Max Fall Speed")]
+    public float maxFallSpeed = -100f;  // Was -45f, now -60f for **faster** long drops
 
     // adding Dashing header in inspector
     [Header("Dashing")]
@@ -106,19 +112,77 @@ public class PlayerController : MonoBehaviour
     }
 
     // for physics updates
+    //private void FixedUpdate()
+    //{
+    //    if (!damageable.LockVelocity)
+    //        rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+
+    //    // Apply custom fall mechanics
+    //    if (rb.linearVelocity.y < 0) // Player is falling
+    //    {
+    //        rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+    //    }
+    //    else if (rb.linearVelocity.y > 0 && !IsJumping()) // Player is rising but not holding jump
+    //    {
+    //        rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+    //    }
+
+    //    if (IsDashing)
+    //    {
+    //        rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
+    //        return;
+    //    }
+
+    //    animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
+    //}
+
+
     private void FixedUpdate()
     {
         if (!damageable.LockVelocity)
-            rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
-
-        // Apply custom fall mechanics
-        if (rb.linearVelocity.y < 0) // Player is falling
         {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+            float targetSpeed;
+
+            if (touchingDirections.IsGrounded)
+            {
+                // Full movement on the ground
+                targetSpeed = moveInput.x * CurrentMoveSpeed;
+                rb.linearDamping = 0f;  // Reset drag when grounded
+            }
+            else
+            {
+                // Allow some air movement (but still limited)
+                targetSpeed = moveInput.x * airWalkSpeed;
+                rb.linearDamping = 3f;  // Slightly lower drag for faster movement
+            }
+
+            // Air movement restriction
+            float lerpFactor = touchingDirections.IsGrounded ? 1f : 0.1f;
+            float adjustedSpeed = Mathf.Lerp(rb.linearVelocity.x, targetSpeed, lerpFactor);
+
+            // Limit max air movement
+            if (!touchingDirections.IsGrounded)
+            {
+                adjustedSpeed = Mathf.Clamp(adjustedSpeed, -3f, 3f); // Allow slight mid-air control
+            }
+
+            rb.linearVelocity = new Vector2(adjustedSpeed, rb.linearVelocity.y);
         }
-        else if (rb.linearVelocity.y > 0 && !IsJumping()) // Player is rising but not holding jump
+
+        // **HYPER FAST FALLING**
+        if (rb.linearVelocity.y < 0) // Falling
+        {
+            // Exponentially increase fall speed over time
+            float boostedFallMultiplier = fallMultiplier + Mathf.Abs(rb.linearVelocity.y) * 0.1f;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (boostedFallMultiplier - 1) * Time.fixedDeltaTime;
+
+            // **Set ultra-fast terminal velocity**
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -80f));
+        }
+        else if (rb.linearVelocity.y > 0 && !IsJumping()) // Released jump early
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -50f)); // Snappy drop
         }
 
         if (IsDashing)
@@ -129,6 +193,8 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
+
+
 
     // this function triggers the correct move speed of the player based on certain conditions
     public float CurrentMoveSpeed

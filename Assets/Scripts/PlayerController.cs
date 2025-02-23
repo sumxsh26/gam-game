@@ -177,6 +177,12 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -50f)); // Snappy drop
         }
 
+        // ensure player lands smoothly on enemies
+        if (touchingDirections.IsGrounded && rb.linearVelocity.y == 0)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+        }
+
         //if (IsDashing)
         //{
         //    rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);

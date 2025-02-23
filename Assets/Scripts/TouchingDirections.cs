@@ -65,10 +65,14 @@ public class TouchingDirections : MonoBehaviour
         }
     }
 
+
     private void Awake()
     {
         touchingCol = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
+
+        // Ensure "EnemyPlatform" is included in ground detection
+        castFilter.SetLayerMask(LayerMask.GetMask("Detection", "EnemyPlatform"));
     }
 
     // Update is called once per frame

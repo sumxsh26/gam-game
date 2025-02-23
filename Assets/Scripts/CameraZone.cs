@@ -1,0 +1,246 @@
+//using UnityEngine;
+//using System.Collections;
+
+//[ExecuteInEditMode]
+//public class CameraZone : MonoBehaviour
+//{
+//    private bool isActive = false;
+//    private BoxCollider2D boxCollider;
+//    private float exitTime = 0f; // Time when the player last exited
+
+//    [SerializeField] private float reactivationDelay = 0.5f; // Time before the zone can activate again
+
+//    private void Awake()
+//    {
+//        boxCollider = GetComponent<BoxCollider2D>();
+//        AdjustColliderSize();
+//    }
+
+//    private void OnValidate()
+//    {
+//        if (boxCollider == null)
+//            boxCollider = GetComponent<BoxCollider2D>();
+
+//        AdjustColliderSize();
+//    }
+
+//    private void AdjustColliderSize()
+//    {
+//        if (Camera.main == null || boxCollider == null) return;
+
+//        float camHeight = 2f * Camera.main.orthographicSize;
+//        float camWidth = camHeight * Camera.main.aspect;
+
+//        boxCollider.size = new Vector2(camWidth, camHeight);
+//        boxCollider.offset = Vector2.zero;
+//    }
+
+//    private void OnTriggerEnter2D(Collider2D other)
+//    {
+//        if (other.CompareTag("Player") && !isActive && Time.time > exitTime + reactivationDelay)
+//        {
+//            isActive = true;
+//            CameraController.instance.EnableCameraMovement();
+//            StartCoroutine(DelayedCameraMove());
+//        }
+//    }
+
+//    private void OnTriggerExit2D(Collider2D other)
+//    {
+//        if (other.CompareTag("Player"))
+//        {
+//            exitTime = Time.time; // Track when the player left
+//            isActive = false;
+//        }
+//    }
+
+//    private IEnumerator DelayedCameraMove()
+//    {
+//        yield return new WaitForSeconds(0.1f);
+
+//        Vector3 newCameraPosition = transform.position;
+//        newCameraPosition.z = -10f;
+
+//        Debug.Log("CameraZone triggered at: " + transform.position);
+//        Debug.Log("Moving Camera to: " + newCameraPosition);
+
+//        CameraController.instance.SetCameraPosition(newCameraPosition);
+//    }
+
+//    private void OnDrawGizmos()
+//    {
+//        Gizmos.color = Color.green;
+//        if (boxCollider == null)
+//            boxCollider = GetComponent<BoxCollider2D>();
+
+//        if (boxCollider != null)
+//        {
+//            Vector3 colliderCenter = (Vector3)boxCollider.offset + transform.position;
+//            Gizmos.DrawWireCube(colliderCenter, boxCollider.size);
+//        }
+//    }
+//}
+
+
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+[ExecuteInEditMode]
+public class CameraZone : MonoBehaviour
+{
+    private static CameraZone currentZone; // Tracks the active zone
+    private BoxCollider2D boxCollider;
+
+    private void Awake()
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+        AdjustColliderSize();
+    }
+
+    private void OnValidate()
+    {
+        if (boxCollider == null)
+            boxCollider = GetComponent<BoxCollider2D>();
+
+        AdjustColliderSize();
+    }
+
+    private void AdjustColliderSize()
+    {
+        if (Camera.main == null || boxCollider == null) return;
+
+        float camHeight = 2f * Camera.main.orthographicSize;
+        float camWidth = camHeight * Camera.main.aspect;
+
+        boxCollider.size = new Vector2(camWidth, camHeight);
+        boxCollider.offset = Vector2.zero;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player == null) return;
+
+            // Find the best zone to switch to based on full overlap
+            CameraZone bestZone = FindBestZoneForPlayer(player);
+
+            if (bestZone != null && bestZone != currentZone)
+            {
+                Debug.Log($"Switching Camera to new zone: {bestZone.name}");
+                currentZone = bestZone;
+                currentZone.ActivateZone();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && currentZone == this)
+        {
+            Debug.Log($"Player exited {name}, checking for best zone...");
+            CameraZone bestZone = FindBestZoneForPlayer(other.GetComponent<PlayerController>());
+
+            if (bestZone != null && bestZone != this)
+            {
+                Debug.Log($"Switching Camera to new detected zone: {bestZone.name}");
+                currentZone = bestZone;
+                currentZone.ActivateZone();
+            }
+        }
+    }
+
+    private void ActivateZone()
+    {
+        CameraController.instance.EnableCameraMovement();
+        StartCoroutine(DelayedCameraMove());
+    }
+
+    private IEnumerator DelayedCameraMove()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        Vector3 newCameraPosition = transform.position;
+        newCameraPosition.z = -10f;
+
+        Debug.Log($"Moving Camera to: {transform.position}");
+        CameraController.instance.SetCameraPosition(newCameraPosition);
+    }
+
+    private CameraZone FindBestZoneForPlayer(PlayerController player)
+    {
+        if (player == null) return this; // Default to current zone
+
+        List<CameraZone> overlappingZones = new List<CameraZone>();
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(player.transform.position, Vector2.one, 0f);
+
+        foreach (Collider2D col in colliders)
+        {
+            CameraZone zone = col.GetComponent<CameraZone>();
+            if (zone != null)
+            {
+                overlappingZones.Add(zone);
+            }
+        }
+
+        if (overlappingZones.Count == 1)
+        {
+            return overlappingZones[0]; // If only one zone detected, return it
+        }
+        else if (overlappingZones.Count > 1)
+        {
+            // Find the zone the player is MOST inside
+            CameraZone bestZone = overlappingZones[0];
+            float maxOverlap = 0f;
+
+            foreach (CameraZone zone in overlappingZones)
+            {
+                float overlapAmount = GetOverlapPercentage(player, zone);
+                if (overlapAmount > maxOverlap)
+                {
+                    maxOverlap = overlapAmount;
+                    bestZone = zone;
+                }
+            }
+            return bestZone;
+        }
+
+        return this; // Default to current zone if no better one found
+    }
+
+    private float GetOverlapPercentage(PlayerController player, CameraZone zone)
+    {
+        if (player == null || zone == null) return 0f;
+
+        BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D>();
+        if (playerCollider == null) return 0f;
+
+        Bounds playerBounds = playerCollider.bounds;
+        Bounds zoneBounds = zone.boxCollider.bounds;
+
+        float overlapWidth = Mathf.Min(playerBounds.max.x, zoneBounds.max.x) - Mathf.Max(playerBounds.min.x, zoneBounds.min.x);
+        float overlapHeight = Mathf.Min(playerBounds.max.y, zoneBounds.max.y) - Mathf.Max(playerBounds.min.y, zoneBounds.min.y);
+
+        if (overlapWidth < 0 || overlapHeight < 0) return 0f; // No overlap
+
+        float playerArea = playerBounds.size.x * playerBounds.size.y;
+        float overlapArea = overlapWidth * overlapHeight;
+
+        return overlapArea / playerArea; // Percentage of player inside zone
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        if (boxCollider == null)
+            boxCollider = GetComponent<BoxCollider2D>();
+
+        if (boxCollider != null)
+        {
+            Vector3 colliderCenter = (Vector3)boxCollider.offset + transform.position;
+            Gizmos.DrawWireCube(colliderCenter, boxCollider.size);
+        }
+    }
+}

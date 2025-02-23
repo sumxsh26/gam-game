@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 557722625941922274}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -730,6 +730,7 @@ MonoBehaviour:
   jumpImpulse: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  maxFallSpeed: -60
   dashingVelocity: 14
   dashingTime: 0.5
   cm: {fileID: 0}

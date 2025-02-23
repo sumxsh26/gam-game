@@ -46,12 +46,7 @@ public class PlayerController : MonoBehaviour
     // how fast the player will move in the air
     public float airWalkSpeed = 0.5f;
 
-    //// adding Jumping header in inspector
-    //[Header("Jumping")]
-
-    //// how high the player can jump
-    //public float jumpImpulse = 8f;
-
+    // adding Jumping header in inspector
     [Header("Jumping")]
     public float jumpImpulse = 5.2f;  // Lowered from 8f
 
@@ -62,15 +57,15 @@ public class PlayerController : MonoBehaviour
     [Header("Max Fall Speed")]
     public float maxFallSpeed = -100f;  // Was -45f, now -60f for **faster** long drops
 
-    // adding Dashing header in inspector
-    [Header("Dashing")]
+    //// adding Dashing header in inspector
+    //[Header("Dashing")]
 
-    // the speed of the dash 
-    // serializefield keeps the variable private but can be edited in inspector
-    [SerializeField] private float dashingVelocity = 14f;
+    //// the speed of the dash 
+    //// serializefield keeps the variable private but can be edited in inspector
+    //[SerializeField] private float dashingVelocity = 14f;
 
-    // how long the dash will last
-    [SerializeField] private float dashingTime = 0.5f;
+    //// how long the dash will last
+    //[SerializeField] private float dashingTime = 0.5f;
 
     // store the movement input
     Vector2 moveInput;
@@ -80,8 +75,6 @@ public class PlayerController : MonoBehaviour
 
     public KeyManager cm;
     public event Action PlayerDied;
-
-    //public Camera cam;
 
 
     // happens when component exists inside of the scene (when you something to be found the moment the scene starts)
@@ -95,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
         // on awake, touching directions will be set
         touchingDirections = GetComponent<TouchingDirections>();
-        cameraController = GetComponent<CameraController>();
+        //cameraController = GetComponent<CameraController>();
     }
 
 
@@ -108,7 +101,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
+
     }
 
     // for physics updates
@@ -185,11 +178,11 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -50f)); // Snappy drop
         }
 
-        if (IsDashing)
-        {
-            rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
-            return;
-        }
+        //if (IsDashing)
+        //{
+        //    rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
+        //    return;
+        //}
 
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
@@ -294,26 +287,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    [SerializeField] private bool _isDashing = false;
-    public bool IsDashing
-    {
-        // gets the value
-        get
-        {
-            // returns the current dashing state
-            return _isDashing;
-        }
+    //[SerializeField] private bool _isDashing = false;
+    //public bool IsDashing
+    //{
+    //    // gets the value
+    //    get
+    //    {
+    //        // returns the current dashing state
+    //        return _isDashing;
+    //    }
 
-        // updates and sets the value
-        set
-        {
-            // updates the dashing state
-            _isDashing = value;
+    //    // updates and sets the value
+    //    set
+    //    {
+    //        // updates the dashing state
+    //        _isDashing = value;
 
-            // triggers the dash animation
-            animator.SetBool(AnimationStrings.isDashing, value);
-        }
-    }
+    //        // triggers the dash animation
+    //        animator.SetBool(AnimationStrings.isDashing, value);
+    //    }
+    //}
 
     // set player to always face right when starting the game
     public bool _isFacingRight = true;
@@ -422,15 +415,15 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    public void OnDash(InputAction.CallbackContext context)
-    {
-        // Start dash only if not already dashing
-        if (context.started && !IsDashing)
-        {
-            StartCoroutine(PerformDash());
-            animator.SetTrigger(AnimationStrings.isDashing);
-        }
-    }
+    //public void OnDash(InputAction.CallbackContext context)
+    //{
+    //    // Start dash only if not already dashing
+    //    if (context.started && !IsDashing)
+    //    {
+    //        StartCoroutine(PerformDash());
+    //        animator.SetTrigger(AnimationStrings.isDashing);
+    //    }
+    //}
 
     // checks if player is jumping based on input
     public void OnJump(InputAction.CallbackContext context)
@@ -467,40 +460,40 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
     }
 
-    [SerializeField] private bool canDash = true;
+    //[SerializeField] private bool canDash = true;
 
-    private IEnumerator PerformDash()
-    {
-        if (!canDash) yield break; // Prevent dashing if cooldown is active
+    //private IEnumerator PerformDash()
+    //{
+    //    if (!canDash) yield break; // Prevent dashing if cooldown is active
 
-        // disable further dashing
-        canDash = false;
+    //    // disable further dashing
+    //    canDash = false;
 
-        // mark player as dashing
-        IsDashing = true;
+    //    // mark player as dashing
+    //    IsDashing = true;
 
-        // enable trail effect
-        trailRenderer.emitting = true;
+    //    // enable trail effect
+    //    trailRenderer.emitting = true;
 
-        // determine dash direction based on player's facing direction
-        dashingDir = IsFacingRight ? Vector2.right : Vector2.left;
+    //    // determine dash direction based on player's facing direction
+    //    dashingDir = IsFacingRight ? Vector2.right : Vector2.left;
 
-        // apply dash velocity
-        rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, 0); // zero vertical velocity
+    //    // apply dash velocity
+    //    rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, 0); // zero vertical velocity
 
-        yield return new WaitForSeconds(dashingTime); // dash duration
+    //    yield return new WaitForSeconds(dashingTime); // dash duration
 
-        // reset velocity after dash ends
-        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+    //    // reset velocity after dash ends
+    //    rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
-        // disable trail effect
-        trailRenderer.emitting = false; // Disable trail effect
-        IsDashing = false; // Dash state ends
+    //    // disable trail effect
+    //    trailRenderer.emitting = false; // Disable trail effect
+    //    IsDashing = false; // Dash state ends
 
-        // Add cooldown to prevent spamming
-        yield return new WaitForSeconds(1f);
-        canDash = true; // Enable dash again
-    }
+    //    // Add cooldown to prevent spamming
+    //    yield return new WaitForSeconds(1f);
+    //    canDash = true; // Enable dash again
+    //}
 
     void OnTriggerEnter2D(Collider2D other)
     {

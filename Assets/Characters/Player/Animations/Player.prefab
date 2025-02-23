@@ -731,14 +731,10 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   maxFallSpeed: -60
-  dashingVelocity: 14
-  dashingTime: 0.5
   cm: {fileID: 0}
   _isMoving: 0
   _isRunning: 0
-  _isDashing: 0
   _isFacingRight: 1
-  canDash: 1
 --- !u!114 &391455203528286369
 MonoBehaviour:
   m_ObjectHideFlags: 0

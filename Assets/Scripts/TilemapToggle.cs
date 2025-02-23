@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;  // Add this to work with UI
+using UnityEngine.UI;
 
 public class TilemapToggle : MonoBehaviour
 {
@@ -11,21 +11,14 @@ public class TilemapToggle : MonoBehaviour
     public float cooldownTime = 30f;
     private float lastToggleTime = -30f;
 
-    public Slider cooldownBar;  // Reference to the UI Slider
+    public Slider cooldownBar;
 
     void Start()
     {
         tilemapRenderer = GetComponent<TilemapRenderer>();
         tilemapCollider = GetComponent<TilemapCollider2D>();
 
-        tilemapRenderer.enabled = false;
-        tilemapCollider.enabled = true;
-
-        if (cooldownBar != null)
-        {
-            cooldownBar.maxValue = cooldownTime;  // Set max value to cooldown time
-            cooldownBar.value = cooldownTime;     // Start as fully charged
-        }
+        tilemapRenderer.enabled = false; // Start invisible
     }
 
     void Update()
@@ -39,7 +32,7 @@ public class TilemapToggle : MonoBehaviour
 
                 if (cooldownBar != null)
                 {
-                    cooldownBar.value = 0;  // Reset the cooldown bar when ability is used
+                    cooldownBar.value = 0;
                 }
             }
             else
@@ -48,21 +41,58 @@ public class TilemapToggle : MonoBehaviour
             }
         }
 
-        // Update the cooldown bar over time
         if (cooldownBar != null && cooldownBar.value < cooldownTime)
         {
-            cooldownBar.value += Time.deltaTime;  // Refill bar gradually
+            cooldownBar.value += Time.deltaTime;
         }
     }
 
     void TogglePlatform()
     {
-        tilemapRenderer.enabled = !tilemapRenderer.enabled;
-        Invoke("HideVisuals", displayTime);
+        bool isCurrentlyVisible = tilemapRenderer.enabled;
+
+        if (!isCurrentlyVisible)
+        {
+            EnablePlatform();
+        }
+        else
+        {
+            DisablePlatform();
+        }
     }
 
-    void HideVisuals()
+    void EnablePlatform()
+    {
+        tilemapRenderer.enabled = true;
+        SwitchPlayerCollisionMode(true); // Player can walk through when platform is invisible
+
+        Invoke("DisablePlatform", displayTime);
+    }
+
+    void DisablePlatform()
     {
         tilemapRenderer.enabled = false;
+        SwitchPlayerCollisionMode(false); // Player collides with platform when visible
     }
+
+
+    void SwitchPlayerCollisionMode(bool passThrough)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            if (passThrough)
+            {
+                player.layer = LayerMask.NameToLayer("GhostPlayer");
+                Debug.Log("[LAYER SWITCH] Player is now in GhostPlayer mode (can walk through platforms).");
+            }
+            else
+            {
+                player.layer = LayerMask.NameToLayer("Player"); // Player should collide with platforms when visible
+                Debug.Log("[LAYER SWITCH] Player is now in Player mode (collides with platforms).");
+            }
+        }
+    }
+
+
 }

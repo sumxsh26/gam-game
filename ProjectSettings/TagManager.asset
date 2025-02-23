@@ -18,13 +18,13 @@ TagManager:
   - 
   - Water
   - UI
+  - Detection
+  - Platform
   - Player
   - Enemy
-  - VisibleDetection
-  - TogglePlatform
   - PlayerHitbox
   - EnemyHitbox
-  - EnemyDetection
+  - GroundDetection
   - 
   - 
   - 

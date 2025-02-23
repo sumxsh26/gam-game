@@ -67,18 +67,11 @@ public class PlayerController : MonoBehaviour
     //// how long the dash will last
     //[SerializeField] private float dashingTime = 0.5f;
 
-    //// store the direction of the dash
-    //private Vector2 dashingDir;
-
     // store the movement input
     Vector2 moveInput;
 
-    // for the fixed camera
-    private Vector3 initialPosition; // Stores the original spawn position
-    private bool positionCorrected = false; // Ensures we only correct position once
-
-    // for toggling : teleport mechanic - stores the last known safe position
-    private Vector2 lastSafePosition;
+    // store the direction of the dash
+    private Vector2 dashingDir;
 
     public KeyManager cm;
     public event Action PlayerDied;
@@ -96,37 +89,45 @@ public class PlayerController : MonoBehaviour
         // on awake, touching directions will be set
         touchingDirections = GetComponent<TouchingDirections>();
         //cameraController = GetComponent<CameraController>();
-
-        // prevent movement at scene start - for fixed camera
-        rb.bodyType = RigidbodyType2D.Kinematic;
-
-        // for toggling : teleport mechanic - start with the initial position
-        lastSafePosition = transform.position;
-
     }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created (comes after Awake)
     void Start()
     {
-        // for the fixed camera
-        // Store and log the initial position
-        initialPosition = transform.position;
 
-        // Start coroutine to check for unwanted position changes
-        StartCoroutine(CheckForPositionChange());
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Track safe position whenever the player is on the ground
-        if (touchingDirections.IsGrounded) // Ensure ground detection works
-        {
-            lastSafePosition = transform.position;
-            Debug.Log("[SAFE POSITION] Updated to: " + lastSafePosition);
-        }
+
     }
+
+    // for physics updates
+    //private void FixedUpdate()
+    //{
+    //    if (!damageable.LockVelocity)
+    //        rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+
+    //    // Apply custom fall mechanics
+    //    if (rb.linearVelocity.y < 0) // Player is falling
+    //    {
+    //        rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+    //    }
+    //    else if (rb.linearVelocity.y > 0 && !IsJumping()) // Player is rising but not holding jump
+    //    {
+    //        rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+    //    }
+
+    //    if (IsDashing)
+    //    {
+    //        rb.linearVelocity = new Vector2(dashingDir.x * dashingVelocity, rb.linearVelocity.y);
+    //        return;
+    //    }
+
+    //    animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
+    //}
 
 
     private void FixedUpdate()
@@ -186,63 +187,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
 
-    // to teleport the player to the last safe position
-    public void TeleportToSafePosition()
-    {
-        Debug.Log("[TELEPORT] Moving player to: " + lastSafePosition);
 
-        // Disable Collider to Prevent Sticking
-        Collider2D playerCollider = GetComponent<Collider2D>();
-        if (playerCollider != null)
-        {
-            playerCollider.enabled = false;
-        }
-
-        // Switch to Kinematic Mode to Prevent Physics Interference
-        rb.bodyType = RigidbodyType2D.Kinematic;
-
-        // Force Position Change
-        rb.position = lastSafePosition; // Direct teleport
-        rb.linearVelocity = Vector2.zero; // Reset movement to prevent unintended drift
-        rb.MovePosition(lastSafePosition); // Forces immediate physics update
-
-        // Restore Normal Physics After Teleporting
-        StartCoroutine(RestorePlayerPhysics());
-    }
-
-    private IEnumerator RestorePlayerPhysics()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        rb.bodyType = RigidbodyType2D.Dynamic; // Restore normal physics
-
-        Collider2D playerCollider = GetComponent<Collider2D>();
-        if (playerCollider != null)
-        {
-            playerCollider.enabled = true;
-        }
-
-        Debug.Log("[TELEPORT] Rigidbody and Collider restored.");
-    }
-
-
-    // checking if the position of the player changes (fixed camera)
-    private IEnumerator CheckForPositionChange()
-    {
-        yield return null; // Wait 1 frame for Unity to fully initialize everything
-        yield return new WaitForEndOfFrame(); // Extra wait for physics updates
-
-        Vector3 newPosition = transform.position;
-
-        // If the player's position has changed, log and correct it
-        if (newPosition != initialPosition && !positionCorrected)
-        {
-            transform.position = initialPosition; // Lock position back to original
-            positionCorrected = true;
-        }
-
-        rb.bodyType = RigidbodyType2D.Dynamic; // Restore physics after locking position
-    }
 
     // this function triggers the correct move speed of the player based on certain conditions
     public float CurrentMoveSpeed
@@ -277,15 +222,14 @@ public class PlayerController : MonoBehaviour
                         return airWalkSpeed;
                     }
                 }
-
-                // if not moving and touching a wall ( to ensure the player does not get stuck to the wall)
+                // if not moving and touching a wall
+                // this ensures that the player does not get stuck to the wall
                 else
                 {
                     // idle speed is 0
                     return 0;
                 }
             }
-
             // if cannot move
             else
             {

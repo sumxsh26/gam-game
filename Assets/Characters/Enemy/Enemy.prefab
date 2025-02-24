@@ -104,11 +104,11 @@ GameObject:
   - component: {fileID: 1555146700895645737}
   - component: {fileID: 281246439495876865}
   - component: {fileID: 7248318341648175839}
+  - component: {fileID: 8366203921455035583}
   - component: {fileID: 7376149178166248211}
   - component: {fileID: 6894701373784021137}
-  - component: {fileID: 8366203921455035583}
   - component: {fileID: 330868865636252733}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -253,6 +253,28 @@ CapsuleCollider2D:
   m_Offset: {x: -0.045959473, y: -0.08295441}
   m_Size: {x: 1.1541748, y: 2.5992813}
   m_Direction: 0
+--- !u!95 &8366203921455035583
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398109981378076531}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8f5f5e27a2ee7de4fba71189d20b590f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7376149178166248211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,28 +324,6 @@ MonoBehaviour:
   _isGrounded: 0
   _isOnWall: 0
   _isOnCeiling: 0
---- !u!95 &8366203921455035583
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398109981378076531}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8f5f5e27a2ee7de4fba71189d20b590f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &330868865636252733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 3550575725204695044}
   - component: {fileID: 6887564665494609334}
   - component: {fileID: 5982900323799847289}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: EnemyPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 3480589561508025389}
   - component: {fileID: 8361921494038175562}
   - component: {fileID: 400389220373514389}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: CliffDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

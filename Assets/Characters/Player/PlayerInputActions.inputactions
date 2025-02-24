@@ -51,9 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
+                    "name": "PickUp",
                     "type": "Button",
-                    "id": "f9b3c18f-0751-4b8f-9662-dda3de8192c6",
+                    "id": "287d1561-e7e2-4f0b-a926-8ce4ef5f3fe8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -61,6 +61,61 @@
                 }
             ],
             "bindings": [
+                {
+                    "name": "Arrow Keys",
+                    "id": "1a6522dc-b36b-4901-8175-4eefeb015172",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "8242e4d5-ea36-4d88-a867-806cbb635fb0",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "bf00105c-5749-4fec-869d-dbdef1080bd4",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "866d3cd8-66b8-4b83-9290-fc00ce01e756",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "2bc6472d-0687-4c65-a659-d02625d9a279",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
                 {
                     "name": "",
                     "id": "978bfe49-cc26-4a3d-ab7b-7d7a29327403",
@@ -284,7 +339,7 @@
                 {
                     "name": "",
                     "id": "52a15043-10db-4c4b-ac32-3924140b54fc",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -295,7 +350,7 @@
                 {
                     "name": "",
                     "id": "47151185-10c3-4ab8-b225-59f21a7c505b",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -305,12 +360,12 @@
                 },
                 {
                     "name": "",
-                    "id": "7b6821c3-d202-406a-99e0-3bcaa6fc8fd5",
-                    "path": "<Keyboard>/leftCtrl",
+                    "id": "ff6771f5-0151-41c4-a6bb-ac278120a13c",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

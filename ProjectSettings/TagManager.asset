@@ -11,6 +11,7 @@ TagManager:
   - Mice
   - FallingPlatform
   - Water
+  - Cage
   layers:
   - Default
   - TransparentFX
@@ -19,14 +20,14 @@ TagManager:
   - Water
   - UI
   - Detection
-  - Platform
   - Player
   - Enemy
+  - Mice
   - PlayerHitbox
   - EnemyHitbox
-  - GroundDetection
+  - MiceHitbox
+  - CliffDetection
   - EnemyPlatform
-  - 
   - 
   - 
   - 

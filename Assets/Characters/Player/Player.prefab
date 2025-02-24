@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 7664790109417217384}
   - component: {fileID: 3066881275387888571}
   - component: {fileID: 557722625941922274}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -249,10 +249,12 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   maxFallSpeed: -60
+  collectedMice: []
   cm: {fileID: 0}
   _isMoving: 0
   _isRunning: 0
   _isFacingRight: 1
+  _isCatchingMice: 0
 --- !u!114 &391455203528286369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: 8a8264c3f331f6340a9bafb8e988fe26, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -390,7 +392,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8587796992090336568}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnDash
+        m_MethodName: OnCatchMice
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -400,8 +402,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: f9b3c18f-0751-4b8f-9662-dda3de8192c6
-    m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
+    m_ActionId: 287d1561-e7e2-4f0b-a926-8ce4ef5f3fe8
+    m_ActionName: 'Player/PickUp[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

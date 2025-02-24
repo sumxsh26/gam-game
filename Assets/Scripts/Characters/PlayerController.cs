@@ -1078,10 +1078,23 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("Mice"))
         {
             Mice mouse = other.GetComponent<Mice>();
+
             if (mouse != null && !collectedMice.Contains(mouse))
             {
-                collectedMice.Add(mouse);
-                mouse.followTarget = transform.Find("MiceFollowPoint"); // Set follow target
+                // Ensure the follow target exists
+                Transform miceFollowPoint = transform.Find("MiceFollowPoint");
+                if (miceFollowPoint != null)
+                {
+                    collectedMice.Add(mouse);
+                    mouse.followTarget = miceFollowPoint; // Set follow target
+                    mouse.isFollowingPlayer = true; // Ensure the mouse starts following
+
+                    Debug.Log("Mouse picked up and is now following the player.");
+                }
+                else
+                {
+                    Debug.LogError("MiceFollowPoint not found! Ensure it exists in the player hierarchy.");
+                }
             }
         }
 
@@ -1097,11 +1110,12 @@ public class PlayerController : MonoBehaviour
                 // Call the cage's method to activate ALL TilemapToggles
                 cage.ActivateAllTilemapToggles();
 
+                Debug.Log("Mouse deposited into cage.");
+
                 Destroy(depositedMouse.gameObject); // Remove mouse from scene
             }
         }
     }
-
 
 
     // falling spike damage
@@ -1126,8 +1140,5 @@ public class PlayerController : MonoBehaviour
         // refer to TimeManagerScript
         PlayerDied?.Invoke();
     }
-
-
-
 
 }

@@ -32,7 +32,8 @@
 //}
 
 
-//// updated - linked to toggle
+
+//// update - linking to toggling and mouse AI
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
@@ -54,6 +55,8 @@ public class Mice : MonoBehaviour
 
     private float flipCooldown = 0.2f; // Delay to prevent jittering
     private float lastFlipTime = 0f;
+
+    // **FIX: Make these public**
     public bool isFollowingPlayer = false;
     public Transform followTarget;
 
@@ -71,6 +74,8 @@ public class Mice : MonoBehaviour
             _walkDirection = value;
         }
     }
+
+    public bool IsFollowingPlayer => isFollowingPlayer; // **Public getter method**
 
     private void Awake()
     {
@@ -109,7 +114,7 @@ public class Mice : MonoBehaviour
         bool isAtLedge = cliffDetectionZone.detectedColliders.Count == 0;
 
         // Flip if the mouse hits a wall or reaches a ledge
-        if (isBlockedByWall || isAtLedge)
+        if ((isBlockedByWall || isAtLedge) && Time.time - lastFlipTime > flipCooldown)
         {
             FlipDirection();
         }
@@ -117,7 +122,7 @@ public class Mice : MonoBehaviour
         float currentSpeed = walkSpeed;
 
         // If the player is nearby, make the mouse run away faster AND flip direction
-        if (playerDetectionZone != null && playerDetectionZone.detectedColliders.Count > 0)
+        if (playerDetectionZone.detectedColliders.Count > 0)
         {
             currentSpeed = escapeSpeed;
             FlipDirection(); // Flip to run away from the player
@@ -137,10 +142,44 @@ public class Mice : MonoBehaviour
 
     private void FollowPlayer()
     {
-        Vector2 targetPos = followTarget.position;
-        rb.linearVelocity = new Vector2((targetPos.x - rb.position.x) * 5f, rb.linearVelocity.y);
+        if (followTarget != null)
+        {
+            Vector2 targetPos = followTarget.position;
+            rb.linearVelocity = new Vector2((targetPos.x - rb.position.x) * 5f, rb.linearVelocity.y);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !isFollowingPlayer)
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+
+            if (player != null && player.IsCatchingMice)
+            {
+                followTarget = player.transform.Find("MiceFollowPoint");
+                isFollowingPlayer = true;
+                rb.linearVelocity = Vector2.zero;
+                rb.gravityScale = 1;
+                Debug.Log("Mouse picked up!");
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -51,34 +51,36 @@ public class Cage : MonoBehaviour
     {
         if (other.CompareTag("Mice"))
         {
-            // Get the MiceManager component
             Mice mouse = other.GetComponent<Mice>();
 
             // **Prevent wild mice from entering the cage**
-            if (mouse != null && !mouse.isFollowingPlayer)
+            if (mouse != null && mouse.isFollowingPlayer)
             {
-                return; // Ignore wild mice that are not carried by the player
+                if (!mouse.gameObject.activeSelf) return; // Prevent duplicate counting
+
+                storedMice++;
+
+                Debug.Log("Mouse stored! Total stored mice: " + storedMice);
+
+                // Activate all toggle platforms
+                ActivateAllTilemapToggles();
+
+                // Disable the mouse before destroying to prevent multiple triggers
+                mouse.gameObject.SetActive(false);
+                Destroy(mouse.gameObject);
             }
-
-            storedMice++;
-
-            // Activate all toggle platforms
-            ActivateAllTilemapToggles();
-
-            Destroy(other.gameObject); // Remove mouse
         }
     }
 
     public void ActivateAllTilemapToggles()
     {
-        // Find all TilemapToggle objects in the scene and activate them
         TilemapToggle[] allTilemapToggles = FindObjectsByType<TilemapToggle>(FindObjectsSortMode.None);
 
         if (allTilemapToggles.Length > 0)
         {
             foreach (TilemapToggle toggle in allTilemapToggles)
             {
-                toggle.AddMouse(); // Activate every platform
+                toggle.SetCageReference(this); // Pass reference to allow toggling
             }
         }
         else
@@ -86,7 +88,36 @@ public class Cage : MonoBehaviour
             Debug.LogError("No TilemapToggle objects found in the scene!");
         }
     }
+
+    // Check if there are stored mice to allow toggling
+    public bool CanToggle()
+    {
+        return storedMice > 0;
+    }
+
+    // Consume one mouse when toggling
+    public void UseMouseForToggle()
+    {
+        if (storedMice > 0)
+        {
+            storedMice--;
+            Debug.Log("Mouse used! Remaining mice: " + storedMice);
+        }
+        else
+        {
+            Debug.LogWarning("No mice left for toggling!");
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -24,12 +24,6 @@ public class CameraController : MonoBehaviour
             Vector3 zoneStartPosition = startingZone.transform.position;
             lastPosition = new Vector3(zoneStartPosition.x, zoneStartPosition.y, -10f);
             transform.position = lastPosition;
-
-            Debug.Log($"[CAMERA INIT] Camera starting at CameraZone: {startingZone.name} at {lastPosition}");
-        }
-        else
-        {
-            Debug.LogWarning("[CAMERA INIT] No CameraZone found! Camera may not start correctly.");
         }
     }
 
@@ -37,7 +31,6 @@ public class CameraController : MonoBehaviour
     {
         if (transform.position != lastPosition)
         {
-            Debug.Log($"[CAMERA MOVEMENT] Camera moved from {lastPosition} to {transform.position}");
             lastPosition = transform.position;
         }
     }
@@ -46,11 +39,8 @@ public class CameraController : MonoBehaviour
     {
         if (!allowMovement) return;
 
-        Debug.Log($"[CAMERA DEBUG] Requested move to: {newPosition} | Current Position: {transform.position}");
-
         newPosition.z = -10f; // Ensure Z position stays fixed
 
-        Debug.Log($"[CAMERA MOVEMENT] Camera moved from {transform.position} to {newPosition}");
         transform.position = newPosition;
         lastPosition = newPosition;
     }
@@ -58,7 +48,6 @@ public class CameraController : MonoBehaviour
     public void EnableCameraMovement()
     {
         allowMovement = true;
-        Debug.Log("[CAMERA DEBUG] Camera movement enabled.");
     }
 
     private CameraZone FindStartingZone()

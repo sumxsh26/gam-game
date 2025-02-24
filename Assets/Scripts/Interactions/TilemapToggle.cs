@@ -191,7 +191,7 @@ public class TilemapToggle : MonoBehaviour
     private float lastToggleTime = -30f;
 
     public Slider cooldownBar;
-    private int availableToggles = 0; // Mice used for toggling
+    private Cage cage; // Reference to track stored mice
 
     void Start()
     {
@@ -212,11 +212,11 @@ public class TilemapToggle : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (Time.time - lastToggleTime >= cooldownTime && availableToggles > 0)
+            if (cage != null && cage.CanToggle() && Time.time - lastToggleTime >= cooldownTime)
             {
                 TogglePlatform();
                 lastToggleTime = Time.time;
-                availableToggles--; // Use one toggle
+                cage.UseMouseForToggle(); // Consume a stored mouse
 
                 if (cooldownBar != null)
                 {
@@ -225,7 +225,7 @@ public class TilemapToggle : MonoBehaviour
             }
             else
             {
-                Debug.Log("Cannot activate! Either cooldown is in progress or no mice collected.");
+                Debug.Log("Cannot activate! Either cooldown is in progress or no mice available.");
             }
         }
 
@@ -253,6 +253,9 @@ public class TilemapToggle : MonoBehaviour
     {
         tilemapRenderer.enabled = true;
         boxCollider.enabled = true;
+
+        PushUpPlayers(); // Push players out if inside
+
         Invoke("DisablePlatform", displayTime);
     }
 
@@ -262,10 +265,31 @@ public class TilemapToggle : MonoBehaviour
         boxCollider.enabled = false;
     }
 
-    public void AddMouse()
+    void PushUpPlayers()
     {
-        availableToggles++;
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCollider.bounds.center, boxCollider.bounds.size, 0);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                Rigidbody2D playerRb = collider.GetComponent<Rigidbody2D>();
+                if (playerRb != null)
+                {
+                    Vector2 pushUp = Vector2.up * 5f; // Push upwards
+                    playerRb.position += pushUp * 0.2f; // Small instant reposition to avoid overlap
+                    playerRb.linearVelocity = pushUp; // Apply force upwards
+                }
+            }
+        }
+    }
+
+    // Allow the Cage script to assign itself
+    public void SetCageReference(Cage cageReference)
+    {
+        cage = cageReference;
     }
 }
+
+
 
 

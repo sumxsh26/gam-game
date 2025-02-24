@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KeyManager : MonoBehaviour
+public class Key : MonoBehaviour
 {
     public int keyCount = 0;
     public int maxKeys = 3;

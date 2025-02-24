@@ -4,7 +4,7 @@
 //using UnityEngine.SceneManagement;
 //using UnityEngine.UI;
 
-//public class GameControllerScript : MonoBehaviour
+//public class GameController : MonoBehaviour
 //{
 //    public static GameControllerScript Instance { get; private set; }
 
@@ -96,9 +96,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameControllerScript : MonoBehaviour
+public class GameController : MonoBehaviour
 {
-    public static GameControllerScript Instance { get; private set; }
+    public static GameController Instance { get; private set; }
 
     [SerializeField] private PlayerController playerController;
     public Canvas GameOverCanvas;

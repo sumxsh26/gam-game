@@ -677,10 +677,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastSafePosition;
 
     // for mice collection
-    public List<MiceManager> collectedMice = new List<MiceManager>();
+    public List<Mice> collectedMice = new List<Mice>();
 
 
-    public KeyManager cm;
+    public Key cm;
     public event Action PlayerDied;
 
 
@@ -1077,7 +1077,7 @@ public class PlayerController : MonoBehaviour
         // Picking up a mouse
         else if (other.gameObject.CompareTag("Mice"))
         {
-            MiceManager mouse = other.GetComponent<MiceManager>();
+            Mice mouse = other.GetComponent<Mice>();
             if (mouse != null && !collectedMice.Contains(mouse))
             {
                 collectedMice.Add(mouse);
@@ -1088,10 +1088,10 @@ public class PlayerController : MonoBehaviour
         // Depositing mice into a cage
         else if (other.gameObject.CompareTag("Cage"))
         {
-            CageScript cage = other.GetComponent<CageScript>();
+            Cage cage = other.GetComponent<Cage>();
             if (cage != null && collectedMice.Count > 0)
             {
-                MiceManager depositedMouse = collectedMice[0]; // Take the first mouse
+                Mice depositedMouse = collectedMice[0]; // Take the first mouse
                 collectedMice.RemoveAt(0); // Remove from list
 
                 // Call the cage's method to activate ALL TilemapToggles

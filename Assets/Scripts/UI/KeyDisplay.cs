@@ -7,12 +7,12 @@ public class KeyDisplay : MonoBehaviour
     public Sprite fullKey;
     public Image[] keyIcons;
 
-    public KeyManager keyManager;  // Direct reference to KeyManager
+    public Key key;  // Direct reference to Key script
 
     void Update()
     {
-        int keyCount = keyManager.keyCount;
-        int maxKeys = keyManager.maxKeys;
+        int keyCount = key.keyCount;
+        int maxKeys = key.maxKeys;
 
         for (int i = 0; i < keyIcons.Length; i++)
         {

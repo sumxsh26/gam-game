@@ -1,6 +1,6 @@
 //using UnityEngine;
 
-//public class MiceManager : MonoBehaviour
+//public class Mice : MonoBehaviour
 //{
 //    [SerializeField] GameObject player;
 //    public bool isPickedUp;
@@ -36,7 +36,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
-public class MiceManager : MonoBehaviour
+public class Mice : MonoBehaviour
 {
     public float walkSpeed = 3f;
     public float escapeSpeed = 6f; // Speed when escaping from the player

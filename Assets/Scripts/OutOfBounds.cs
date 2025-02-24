@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class OutOfBounds : MonoBehaviour
 {
-    private GameControllerScript gameController;
+    private GameController gameController;
 
     private void Start()
     {
-        gameController = FindFirstObjectByType<GameControllerScript>();
+        gameController = FindFirstObjectByType<GameController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

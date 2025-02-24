@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FallingSpikesController : MonoBehaviour
+public class FallingSpikes : MonoBehaviour
 {
     public float minSpawnInterval = 0.5f; // Minimum time between falls
     public float maxSpawnInterval = 1.5f; // Maximum time between falls

@@ -1,6 +1,6 @@
 //using UnityEngine;
 
-//public class CageScript : MonoBehaviour
+//public class Cage : MonoBehaviour
 //{
 //    public bool locked;
 
@@ -37,7 +37,7 @@
 // updated - linked to toggling
 using UnityEngine;
 
-public class CageScript : MonoBehaviour
+public class Cage : MonoBehaviour
 {
     public bool locked;
     private int storedMice = 0; // Mice inside the cage
@@ -52,7 +52,7 @@ public class CageScript : MonoBehaviour
         if (other.CompareTag("Mice"))
         {
             // Get the MiceManager component
-            MiceManager mouse = other.GetComponent<MiceManager>();
+            Mice mouse = other.GetComponent<Mice>();
 
             // **Prevent wild mice from entering the cage**
             if (mouse != null && !mouse.isFollowingPlayer)

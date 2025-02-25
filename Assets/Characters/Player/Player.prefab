@@ -273,13 +273,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4064352264430504975}
   touchingDirections: {fileID: 8935762528723014776}
-  walkSpeed: 7
-  runSpeed: 12
-  airWalkSpeed: 5
-  jumpImpulse: 12
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  maxFallSpeed: -60
+  walkSpeed: 10
+  runSpeed: 14
+  airWalkSpeed: 20
+  jumpImpulse: 20
+  fallMultiplier: 5
+  lowJumpMultiplier: 0
+  maxFallSpeed: -80
   collectedMice: []
   cm: {fileID: 0}
   _isMoving: 0

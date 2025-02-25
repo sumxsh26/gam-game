@@ -122,6 +122,7 @@ public class Cage : MonoBehaviour
     private void Start()
     {
         locked = true;
+        ResetTilemapToggles();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -153,10 +154,15 @@ public class Cage : MonoBehaviour
         }
     }
 
-    public static void ToggleAllPlatforms()
+    public void ToggleAllPlatforms()
     {
-        tilemapToggles.RemoveAll(toggle => toggle == null); // Clean up destroyed objects
+        if (storedMice <= 0)
+        {
+            Debug.Log("No stored mice left to toggle platforms!");
+            return;
+        }
 
+        tilemapToggles.RemoveAll(toggle => toggle == null); // Clean up destroyed objects
         Debug.Log("Total tilemap toggles registered: " + tilemapToggles.Count);
 
         if (tilemapToggles.Count > 0)
@@ -169,19 +175,37 @@ public class Cage : MonoBehaviour
                     toggle.TogglePlatform();
                 }
             }
+            storedMice--; // Consume one mouse per activation
+            Debug.Log("Ability activated! Remaining stored mice: " + storedMice);
         }
         else
         {
-            Debug.LogError(" No tilemap toggles found. Make sure they are in the scene and correctly registered.");
+            Debug.LogError("No tilemap toggles found. Make sure they are in the scene and correctly registered.");
         }
     }
-
 
     public bool CanToggle()
     {
         return storedMice > 0;
     }
+
+    private void ResetTilemapToggles()
+    {
+        tilemapToggles.Clear(); // Ensure the list is empty before repopulating
+
+        // Use FindObjectsByType with no sorting for better performance
+        TilemapToggle[] toggles = Object.FindObjectsByType<TilemapToggle>(FindObjectsSortMode.None);
+
+        foreach (TilemapToggle toggle in toggles)
+        {
+            RegisterToggle(toggle);
+        }
+
+        Debug.Log("Tilemap toggles reset. Found: " + tilemapToggles.Count);
+    }
 }
+
+
 
 
 

@@ -2222,13 +2222,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     public void OnToggleAbility(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            Debug.Log("Toggle Ability Pressed"); //  Debug to confirm input is detected
-            Cage.ToggleAllPlatforms();
+            Debug.Log("Toggle Ability Pressed"); // Debug to confirm input is detected
+
+            // Use UnityEngine.Object to resolve ambiguity
+            Cage cage = UnityEngine.Object.FindFirstObjectByType<Cage>();
+
+            if (cage != null)
+            {
+                cage.ToggleAllPlatforms(); // Call the method on the found Cage instance
+            }
+            else
+            {
+                Debug.LogError("No Cage found in the scene! Ensure a Cage object is present.");
+            }
         }
     }
 

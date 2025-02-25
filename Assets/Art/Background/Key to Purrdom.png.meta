@@ -1,0 +1,403 @@
+fileFormatVersion: 2
+guid: 0fb5df3f85fba4f1eafb8f3bac7a4264
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7983870251216300277
+    second: Key to Purrdom_0
+  - first:
+      213: 6437625750734456647
+    second: Key to Purrdom_1
+  - first:
+      213: -9014223043913490447
+    second: Key to Purrdom_2
+  - first:
+      213: -7555934088580407229
+    second: Key to Purrdom_3
+  - first:
+      213: -3830460427942617790
+    second: Key to Purrdom_4
+  - first:
+      213: 834124660356541082
+    second: Key to Purrdom_5
+  - first:
+      213: -7415166872169105824
+    second: Key to Purrdom_6
+  - first:
+      213: 1778487041454205289
+    second: Key to Purrdom_7
+  - first:
+      213: -348564198801572356
+    second: Key to Purrdom_8
+  - first:
+      213: 4189227482631663891
+    second: Key to Purrdom_9
+  - first:
+      213: 4700398656643681902
+    second: Key to Purrdom_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Key to Purrdom_0
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1299
+        width: 247
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f86e8071b76cce60800000000000000
+      internalID: 7983870251216300277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_1
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 1213
+        width: 282
+        height: 306
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7474f65238a075950800000000000000
+      internalID: 6437625750734456647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_2
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 1301
+        width: 216
+        height: 283
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ff5565a6eb07e280800000000000000
+      internalID: -9014223043913490447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_3
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 1314
+        width: 126
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34066efbafde32790800000000000000
+      internalID: -7555934088580407229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_4
+      rect:
+        serializedVersion: 2
+        x: 1250
+        y: 1277
+        width: 989
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24d1a42198877dac0800000000000000
+      internalID: -3830460427942617790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_5
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 794
+        width: 365
+        height: 475
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9ae1fe85f7639b00800000000000000
+      internalID: 834124660356541082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_6
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 816
+        width: 268
+        height: 345
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 066bd1a5409081990800000000000000
+      internalID: -7415166872169105824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_7
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 819
+        width: 215
+        height: 348
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96963879a847ea810800000000000000
+      internalID: 1778487041454205289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_8
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 825
+        width: 221
+        height: 342
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd730d35b6a92bf0800000000000000
+      internalID: -348564198801572356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_9
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 813
+        width: 263
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31170913330232a30800000000000000
+      internalID: 4189227482631663891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key to Purrdom_10
+      rect:
+        serializedVersion: 2
+        x: 1581
+        y: 811
+        width: 609
+        height: 346
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6e48f7acab2b3140800000000000000
+      internalID: 4700398656643681902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Key to Purrdom_0: 7983870251216300277
+      Key to Purrdom_1: 6437625750734456647
+      Key to Purrdom_10: 4700398656643681902
+      Key to Purrdom_2: -9014223043913490447
+      Key to Purrdom_3: -7555934088580407229
+      Key to Purrdom_4: -3830460427942617790
+      Key to Purrdom_5: 834124660356541082
+      Key to Purrdom_6: -7415166872169105824
+      Key to Purrdom_7: 1778487041454205289
+      Key to Purrdom_8: -348564198801572356
+      Key to Purrdom_9: 4189227482631663891
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

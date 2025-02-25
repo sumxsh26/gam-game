@@ -66,13 +66,41 @@ public class Enemy : MonoBehaviour
         platformCollider = GetComponentInChildren<BoxCollider2D>();
     }
 
+    private void Update()
+    {
+        HasTarget = attackZone.detectedColliders.Count > 0;
+    }
+
+
+    //private void FixedUpdate()
+    //{
+    //    bool isBlockedByWall = touchingDirections.IsGrounded && touchingDirections.IsOnWall;
+    //    bool isAtLedge = cliffDetectionZone.detectedColliders.Count == 0;
+
+    //    // Only flip if truly needed, and ignore the player completely
+    //    if (isBlockedByWall || isAtLedge)
+    //    {
+    //        FlipDirection();
+    //    }
+
+    //    if (!damageable.LockVelocity)
+    //    {
+    //        if (CanMove)
+    //        {
+    //            rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
+    //        }
+    //        else
+    //        {
+    //            rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
+    //        }
+    //    }
+    //}
 
     private void FixedUpdate()
     {
         bool isBlockedByWall = touchingDirections.IsGrounded && touchingDirections.IsOnWall;
         bool isAtLedge = cliffDetectionZone.detectedColliders.Count == 0;
 
-        // Only flip if truly needed, and ignore the player completely
         if (isBlockedByWall || isAtLedge)
         {
             FlipDirection();
@@ -84,12 +112,18 @@ public class Enemy : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
             }
+            else if (HasTarget)
+            {
+                // Enemy still moves toward the player when attacking
+                rb.linearVelocity = new Vector2(walkSpeed * 0.5f * walkDirectionVector.x, rb.linearVelocity.y);
+            }
             else
             {
                 rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
             }
         }
     }
+
 
 
     private bool PlayerStandingOnTopSafely()

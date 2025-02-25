@@ -258,6 +258,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   GameOverCanvas: {fileID: 212476934}
   TimerText: {fileID: 1373349381}
+  gameplayUI: {fileID: 0}
 --- !u!114 &1373349381 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8381785504235466779, guid: 26a1efa64470842a9925ce2c115ae1d0, type: 3}

@@ -1136,8 +1136,6 @@ public class PlayerController : MonoBehaviour
     public void TriggerPlayerDeath()
     {
         // Safely trigger the PlayerDied event
-        // other scripts can just call it like this: gameController.PlayerController.TriggerPlayerDeath();
-        // refer to TimeManagerScript
         PlayerDied?.Invoke();
     }
 

@@ -12,6 +12,7 @@ TagManager:
   - FallingPlatform
   - Water
   - Cage
+  - FallingSpike
   layers:
   - Default
   - TransparentFX

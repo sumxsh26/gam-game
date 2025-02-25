@@ -1730,7 +1730,7 @@ public class PlayerController : MonoBehaviour
     [Header("Air Speed")]
 
     // how fast the player will move in the air
-    public float airWalkSpeed = 0.5f;
+    public float airWalkSpeed = 1.2f;
 
     // adding Jumping header in inspector
     [Header("Jumping")]
@@ -1854,16 +1854,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             targetSpeed = moveInput.x * airWalkSpeed;
-            rb.linearDamping = 3f;  // Slightly lower drag for air movement
+
+            // Reduce air drag so forward movement is not slowed down
+            rb.linearDamping = 0.05f;  // Almost NO drag in air (keeps momentum)
         }
 
-        float lerpFactor = touchingDirections.IsGrounded ? 1f : 0.1f;
-        float adjustedSpeed = Mathf.Lerp(rb.linearVelocity.x, targetSpeed, lerpFactor);
-
-        if (!touchingDirections.IsGrounded)
-        {
-            adjustedSpeed = Mathf.Clamp(adjustedSpeed, -3f, 3f); // Slight mid-air control
-        }
+        float adjustedSpeed = Mathf.Lerp(rb.linearVelocity.x, targetSpeed, 0.2f); // Keep some air control
 
         // Prevent movement if touching a wall
         if (touchingDirections.IsOnWall)
@@ -1873,6 +1869,7 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocity = new Vector2(adjustedSpeed, rb.linearVelocity.y);
     }
+
 
 
 
@@ -2155,10 +2152,14 @@ public class PlayerController : MonoBehaviour
         _endedJumpEarly = false;
         _bufferedJumpUsable = false;
         _coyoteUsable = false;
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
+
+        //  Apply **strong** forward push during jump
+        float jumpForwardBoost = IsRunning ? 12f : 9f; // Much stronger push
+        float jumpDirection = IsFacingRight ? 1.5f : -1.5f;
+
+        rb.linearVelocity = new Vector2(jumpForwardBoost * jumpDirection, jumpImpulse);
         animator.SetTrigger(AnimationStrings.jumpTrigger);
     }
-
 
     private void HandleGravity()
     {
@@ -2168,16 +2169,21 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            float gravityScale = fallMultiplier;
+            float gravityScale = fallMultiplier; //  No changes here, keeps fast falling
 
-            if (_endedJumpEarly && rb.linearVelocity.y > 0) gravityScale *= 3f; // Jump Cut-off
+            if (_endedJumpEarly && rb.linearVelocity.y > 0)
+            {
+                gravityScale *= 3f; // Jump Cut-off (keeps jumps snappy)
+            }
 
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (gravityScale - 1) * Time.fixedDeltaTime;
 
-            // Ensure max fall speed is enforced
+            //  Ensure fast fall speed
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, maxFallSpeed));
         }
     }
+
+
 
 
 

@@ -294,6 +294,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using System.Linq; // For checking cage conditions
 
 public class TilemapToggle : MonoBehaviour
 {
@@ -319,9 +320,6 @@ public class TilemapToggle : MonoBehaviour
             cooldownBar.maxValue = cooldownTime;
             cooldownBar.value = cooldownTime;
         }
-
-        // Register this toggle platform with the Cage system
-        Cage.RegisterToggle(this);
     }
 
     public void TogglePlatform()
@@ -329,6 +327,12 @@ public class TilemapToggle : MonoBehaviour
         if (Time.time - lastToggleTime < cooldownTime)
         {
             Debug.Log("Toggle is on cooldown.");
+            return;
+        }
+
+        if (!AnyCageHasMice())
+        {
+            Debug.Log("No cages have stored mice! Cannot toggle platform.");
             return;
         }
 
@@ -383,6 +387,12 @@ public class TilemapToggle : MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool AnyCageHasMice()
+    {
+        Cage[] cages = FindObjectsByType<Cage>(FindObjectsSortMode.None);
+        return cages.Any(cage => cage.CanToggle()); // Returns true if any cage has stored mice
     }
 }
 

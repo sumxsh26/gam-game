@@ -112,12 +112,13 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Cage : MonoBehaviour
 {
     public bool locked;
     private int storedMice = 0; // Mice inside the cage
-    private static List<TilemapToggle> tilemapToggles = new List<TilemapToggle>(); // Global list of toggles
+    private static List<TilemapToggle> globalTilemapToggles = new List<TilemapToggle>(); // Shared across all cages
 
     private void Start()
     {
@@ -136,7 +137,7 @@ public class Cage : MonoBehaviour
                 if (!mouse.gameObject.activeSelf) return; // Prevent duplicate counting
 
                 storedMice++;
-                Debug.Log("Mouse stored! Total stored mice: " + storedMice);
+                Debug.Log("Mouse stored in " + gameObject.name + "! Total stored mice: " + storedMice);
 
                 // Disable and destroy the mouse (but don't activate toggle yet)
                 mouse.gameObject.SetActive(false);
@@ -147,27 +148,27 @@ public class Cage : MonoBehaviour
 
     public static void RegisterToggle(TilemapToggle toggle)
     {
-        if (!tilemapToggles.Contains(toggle))
+        if (!globalTilemapToggles.Contains(toggle))
         {
-            tilemapToggles.Add(toggle);
-            Debug.Log("TilemapToggle registered: " + toggle.gameObject.name);
+            globalTilemapToggles.Add(toggle);
+            Debug.Log("TilemapToggle globally registered: " + toggle.gameObject.name);
         }
     }
 
     public void ToggleAllPlatforms()
     {
-        if (storedMice <= 0)
+        if (!AnyCageHasMice())
         {
-            Debug.Log("No stored mice left to toggle platforms!");
+            Debug.Log("No cages have stored mice! Cannot toggle platforms.");
             return;
         }
 
-        tilemapToggles.RemoveAll(toggle => toggle == null); // Clean up destroyed objects
-        Debug.Log("Total tilemap toggles registered: " + tilemapToggles.Count);
+        globalTilemapToggles.RemoveAll(toggle => toggle == null); // Clean up destroyed objects
+        Debug.Log("Total global tilemap toggles: " + globalTilemapToggles.Count);
 
-        if (tilemapToggles.Count > 0)
+        if (globalTilemapToggles.Count > 0)
         {
-            foreach (TilemapToggle toggle in tilemapToggles)
+            foreach (TilemapToggle toggle in globalTilemapToggles)
             {
                 if (toggle != null)
                 {
@@ -175,8 +176,8 @@ public class Cage : MonoBehaviour
                     toggle.TogglePlatform();
                 }
             }
-            storedMice--; // Consume one mouse per activation
-            Debug.Log("Ability activated! Remaining stored mice: " + storedMice);
+            ConsumeMouse(); // Consume a mouse from ANY cage
+            Debug.Log("Ability activated! Remaining stored mice in all cages: " + TotalMiceInAllCages());
         }
         else
         {
@@ -191,19 +192,47 @@ public class Cage : MonoBehaviour
 
     private void ResetTilemapToggles()
     {
-        tilemapToggles.Clear(); // Ensure the list is empty before repopulating
+        globalTilemapToggles.Clear(); // Ensure the list is empty before repopulating
 
-        // Use FindObjectsByType with no sorting for better performance
-        TilemapToggle[] toggles = Object.FindObjectsByType<TilemapToggle>(FindObjectsSortMode.None);
+        TilemapToggle[] toggles = FindObjectsByType<TilemapToggle>(FindObjectsSortMode.None);
 
         foreach (TilemapToggle toggle in toggles)
         {
             RegisterToggle(toggle);
         }
 
-        Debug.Log("Tilemap toggles reset. Found: " + tilemapToggles.Count);
+        Debug.Log("Global tilemap toggles reset. Found: " + globalTilemapToggles.Count);
+    }
+
+    private bool AnyCageHasMice()
+    {
+        Cage[] cages = FindObjectsByType<Cage>(FindObjectsSortMode.None);
+        return cages.Any(cage => cage.storedMice > 0);
+    }
+
+    private void ConsumeMouse()
+    {
+        Cage[] cages = FindObjectsByType<Cage>(FindObjectsSortMode.None);
+        foreach (Cage cage in cages)
+        {
+            if (cage.storedMice > 0)
+            {
+                cage.storedMice--;
+                Debug.Log("Mouse consumed from " + cage.gameObject.name + ". Remaining: " + cage.storedMice);
+                return; // Only consume one mouse per activation
+            }
+        }
+    }
+
+    private int TotalMiceInAllCages()
+    {
+        Cage[] cages = FindObjectsByType<Cage>(FindObjectsSortMode.None);
+        return cages.Sum(cage => cage.storedMice);
     }
 }
+
+
+
 
 
 

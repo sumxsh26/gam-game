@@ -366,30 +366,6 @@ public class Damageable : MonoBehaviour
         return false;
     }
 
-    //public bool Hit(int damage, Vector2 knockback)
-    //{
-    //    if (IsAlive && !isInvincible)
-    //    {
-    //        Health -= damage;
-    //        isInvincible = true;
-
-    //        if (rb != null)
-    //        {
-    //            rb.linearVelocity = Vector2.zero;
-    //            rb.AddForce(knockback * 2.5f, ForceMode2D.Impulse); // Stronger horizontal push
-
-    //            // Immediately increase gravity for a more brutal slam down
-    //            StartCoroutine(ApplyFasterFall());
-    //        }
-
-    //        animator.SetTrigger(AnimationStrings.hitTrigger);
-    //        LockVelocity = true;
-    //        damageableHit?.Invoke(damage, knockback);
-
-    //        return true;
-    //    }
-    //    return false;
-    //}
 
     // Faster and Harder Falling After Knockback
     private IEnumerator ApplyFasterFall()

@@ -273,10 +273,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4064352264430504975}
   touchingDirections: {fileID: 8935762528723014776}
-  walkSpeed: 10
+  walkSpeed: 12
   runSpeed: 14
-  airWalkSpeed: 20
-  jumpImpulse: 20
+  airWalkSpeed: 3
+  jumpImpulse: 15
   fallMultiplier: 5
   lowJumpMultiplier: 0
   maxFallSpeed: -80
@@ -574,7 +574,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  invincibilityTime: 0.5
+  invincibilityTime: 0.25
   _maxHealth: 3
   _health: 3
   _isAlive: 1

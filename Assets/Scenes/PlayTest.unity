@@ -454,7 +454,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16, y: 12}
+  m_Size: {x: 21.333334, y: 12}
   m_EdgeRadius: 0
 --- !u!1 &84570514
 GameObject:
@@ -10659,7 +10659,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16, y: 12}
+  m_Size: {x: 21.333334, y: 12}
   m_EdgeRadius: 0
 --- !u!1 &772255275
 GameObject:
@@ -11454,7 +11454,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16, y: 12}
+  m_Size: {x: 21.333334, y: 12}
   m_EdgeRadius: 0
 --- !u!1001 &933612228
 PrefabInstance:
@@ -12253,7 +12253,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16, y: 12}
+  m_Size: {x: 21.333334, y: 12}
   m_EdgeRadius: 0
 --- !u!1001 &1122843452
 PrefabInstance:
@@ -12267,14 +12267,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 954835093}
-    - target: {fileID: 557722625941922274, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2850248952342224519, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 2850248952342224519, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -12282,10 +12274,6 @@ PrefabInstance:
     - target: {fileID: 2985943294914770341, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066881275387888571, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3066881275387888571, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: maxHealth
@@ -12315,14 +12303,6 @@ PrefabInstance:
       propertyPath: 'hearts.Array.data[2]'
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4064352264430504975, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064352264430504975, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 384
-      objectReference: {fileID: 0}
     - target: {fileID: 5462497080719565908, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_Name
       value: HeartsCanvas
@@ -12331,17 +12311,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6504046314968150808, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7063976468812130046, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7063976468812130046, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7063976468812130046, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_IsActive
@@ -12400,24 +12372,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 954835093}
     - target: {fileID: 8587796992090336568, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: _stats
-      value: 
-      objectReference: {fileID: 11400000, guid: 05e6a06c5af93134ab98ff12e2c27265, type: 2}
-    - target: {fileID: 8587796992090336568, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8587796992090336568, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: jumpImpulse
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8788994959832751074, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_Name
       value: GameOverCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8935762528723014776, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -13949,7 +13909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493142787}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15676,7 +15636,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16, y: 12}
+  m_Size: {x: 21.333334, y: 12}
   m_EdgeRadius: 0
 --- !u!1 &1812003169
 GameObject:
@@ -15871,7 +15831,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16, y: 12}
+  m_Size: {x: 21.333334, y: 12}
   m_EdgeRadius: 0
 --- !u!1 &1903600905
 GameObject:

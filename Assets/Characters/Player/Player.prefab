@@ -273,13 +273,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4064352264430504975}
   touchingDirections: {fileID: 8935762528723014776}
-  walkSpeed: 7
-  runSpeed: 12
-  airWalkSpeed: 5
-  jumpImpulse: 12
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  maxFallSpeed: -60
+  walkSpeed: 10
+  runSpeed: 14
+  airWalkSpeed: 20
+  jumpImpulse: 20
+  fallMultiplier: 5
+  lowJumpMultiplier: 0
+  maxFallSpeed: -80
   collectedMice: []
   cm: {fileID: 0}
   _isMoving: 0
@@ -435,6 +435,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 287d1561-e7e2-4f0b-a926-8ce4ef5f3fe8
     m_ActionName: 'Player/PickUp[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8587796992090336568}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnToggleAbility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 088af674-34b0-49d0-b1f9-008908fba82f
+    m_ActionName: 'Player/Toggle[/Keyboard/x]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

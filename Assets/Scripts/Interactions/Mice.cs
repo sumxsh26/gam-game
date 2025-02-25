@@ -145,9 +145,18 @@ public class Mice : MonoBehaviour
         if (followTarget != null)
         {
             Vector2 targetPos = followTarget.position;
-            rb.linearVelocity = new Vector2((targetPos.x - rb.position.x) * 5f, rb.linearVelocity.y);
+            Vector2 direction = (targetPos - rb.position).normalized;
+
+            float followSpeed = 5f;
+
+            rb.linearVelocity = direction * followSpeed;
+
+            // Reduce gravity effect when following the player
+            // rb.gravityScale = 0.2f; // Adjust as needed
         }
     }
+
+
 
     private void OnTriggerStay2D(Collider2D other)
     {

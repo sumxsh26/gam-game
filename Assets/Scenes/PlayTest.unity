@@ -12303,6 +12303,14 @@ PrefabInstance:
       propertyPath: 'hearts.Array.data[2]'
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4064352264430504975, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064352264430504975, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5462497080719565908, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_Name
       value: HeartsCanvas
@@ -12371,6 +12379,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 954835093}
+    - target: {fileID: 8587796992090336568, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8587796992090336568, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: jumpImpulse
       value: 14

@@ -21,6 +21,7 @@ TagManager:
   - UI
   - Detection
   - Player
+  - PlayerLayer
   - Enemy
   - Mice
   - PlayerHitbox
@@ -28,7 +29,6 @@ TagManager:
   - MiceHitbox
   - CliffDetection
   - EnemyPlatform
-  - 
   - 
   - 
   - 

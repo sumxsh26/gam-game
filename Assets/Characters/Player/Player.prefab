@@ -276,7 +276,7 @@ MonoBehaviour:
   walkSpeed: 7
   runSpeed: 12
   airWalkSpeed: 5
-  jumpImpulse: 10
+  jumpImpulse: 12
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   maxFallSpeed: -60

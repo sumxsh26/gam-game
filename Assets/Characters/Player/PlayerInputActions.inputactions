@@ -370,7 +370,7 @@
                 {
                     "name": "",
                     "id": "ff6771f5-0151-41c4-a6bb-ac278120a13c",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -381,7 +381,7 @@
                 {
                     "name": "",
                     "id": "dfabfcff-0a1b-49d3-9e02-2bd227e23c8b",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

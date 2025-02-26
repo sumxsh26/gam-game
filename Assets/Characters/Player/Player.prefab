@@ -276,7 +276,7 @@ MonoBehaviour:
   walkSpeed: 12
   runSpeed: 14
   airWalkSpeed: 3
-  jumpImpulse: 15
+  jumpImpulse: 16
   fallMultiplier: 5
   lowJumpMultiplier: 0
   maxFallSpeed: -80
@@ -490,8 +490,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.009807587, y: -0.057984352}
-  m_Size: {x: 1.0493345, y: 1.477026}
+  m_Offset: {x: 0.065051556, y: -0.028323174}
+  m_Size: {x: 0.6566782, y: 1.4177036}
   m_Direction: 0
 --- !u!95 &3745508161920094867
 Animator:

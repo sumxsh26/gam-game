@@ -10,7 +10,7 @@ public class MenuFunctions : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("AlphaLevel");
+        SceneManager.LoadSceneAsync("PlayTest 1");
     }
 
     public void GoToCredits()

@@ -893,7 +893,7 @@ SpriteRenderer:
   m_Size: {x: 2.53, y: 2.63}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &205087981
@@ -1804,8 +1804,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyDelay: 2
   rb: {fileID: 543672678}
+  platformCollider: {fileID: 0}
+  tilemap: {fileID: 0}
   shakeDuration: 0.5
   shakeIntensity: 0.05
+  fadeDuration: 1.5
 --- !u!66 &543672676
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -7341,13 +7344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca7d305d1b9647efa740b387f45f864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnInterval: 0.5
-  maxSpawnInterval: 1.5
-  fallingObject: {fileID: 1843197956093028668, guid: 343487d27390c45b5aa02477b6dfd863, type: 3}
-  spawnPoints:
-  - {fileID: 1566552400}
-  - {fileID: 611715486}
-  - {fileID: 1808249452}
 --- !u!114 &954835095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8145,7 +8141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7064855533838602888, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.6
+      value: 71
       objectReference: {fileID: 0}
     - target: {fileID: 7064855533838602888, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8642,13 +8638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca7d305d1b9647efa740b387f45f864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnInterval: 0.5
-  maxSpawnInterval: 1.5
-  fallingObject: {fileID: 1843197956093028668, guid: 343487d27390c45b5aa02477b6dfd863, type: 3}
-  spawnPoints:
-  - {fileID: 1566552400}
-  - {fileID: 611715486}
-  - {fileID: 1808249452}
 --- !u!1001 &1425762075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19326,7 +19315,7 @@ SpriteRenderer:
   m_Size: {x: 2.53, y: 2.63}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1808249451

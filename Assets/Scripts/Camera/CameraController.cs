@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using static UnityEditor.SceneView;
+//using static UnityEditor.SceneView;
 
 public class CameraController : MonoBehaviour
 {

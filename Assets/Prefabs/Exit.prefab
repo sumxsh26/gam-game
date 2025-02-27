@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.15, y: 1.1, z: -0.5966413}
-  m_LocalScale: {x: 0.48, y: 0.48, z: 0.98231995}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.98231995}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3499585241370420832}
@@ -95,6 +95,7 @@ MonoBehaviour:
   rightDoor: {fileID: 1713382540576969555}
   slideDistance: 2
   slideSpeed: 3
+  fadeSpeed: 2
 --- !u!1 &3641706099575829001
 GameObject:
   m_ObjectHideFlags: 0

@@ -71,31 +71,6 @@ public class Enemy : MonoBehaviour
         HasTarget = attackZone.detectedColliders.Count > 0;
     }
 
-
-    //private void FixedUpdate()
-    //{
-    //    bool isBlockedByWall = touchingDirections.IsGrounded && touchingDirections.IsOnWall;
-    //    bool isAtLedge = cliffDetectionZone.detectedColliders.Count == 0;
-
-    //    // Only flip if truly needed, and ignore the player completely
-    //    if (isBlockedByWall || isAtLedge)
-    //    {
-    //        FlipDirection();
-    //    }
-
-    //    if (!damageable.LockVelocity)
-    //    {
-    //        if (CanMove)
-    //        {
-    //            rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
-    //        }
-    //        else
-    //        {
-    //            rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
-    //        }
-    //    }
-    //}
-
     private void FixedUpdate()
     {
         bool isBlockedByWall = touchingDirections.IsGrounded && touchingDirections.IsOnWall;

@@ -1679,10 +1679,591 @@
 
 
 
-// third update - movement
+// update - movement
+//using System;
+//using System.Collections;
+//using System.Collections.Generic;
+////using UnityEditor.Experimental.GraphView;
+//using UnityEngine;
+//using UnityEngine.InputSystem;
+//using UnityEngine.SceneManagement;
+
+//// everytime a player controller is added, this ensures a rigidbody exists
+//// you will not be able to add a player controller unless a rigidbody exists
+//// you cannot remove rigidbody from playercontroller
+//[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
+
+//public class PlayerController : MonoBehaviour
+//{
+//    // for movement
+//    public struct FrameInput
+//    {
+//        public bool JumpDown;
+//        public bool JumpHeld;
+//        public Vector2 Move;
+//    }
+
+//    // adding rigidbody (unity component) to the script
+//    public Rigidbody2D rb;
+
+//    // adding animator (unity component) to the script
+//    Animator animator;
+
+//    // adding touching directions (script) to this script
+//    public TouchingDirections touchingDirections;
+
+//    Damageable damageable;
+
+//    // adding Walking header in inspector
+//    [Header("Walking")]
+
+//    // how fast the player will walk left or right
+//    public float walkSpeed = 10f;
+
+//    // adding Air Speed header in inspector
+//    [Header("Air Speed")]
+
+//    // how fast the player will move in the air
+//    public float airWalkSpeed = 1.2f;
+
+//    // adding Jumping header in inspector
+//    [Header("Jumping")]
+//    public float jumpImpulse = 8f;  // Lowered from 8f
+
+//    [Header("Fall Speed Settings")]
+//    public float fallMultiplier = 20f;      // Multiplies gravity when falling
+//    public float lowJumpMultiplier = 12f;     // For shorter jumps when the jump button is released early
+
+//    [Header("Max Fall Speed")]
+//    public float maxFallSpeed = -100f;  // Was -45f, now -60f for **faster** long drops
+
+//    // store the movement input
+//    Vector2 moveInput;
+
+//    // for the fixed camera
+//    private Vector3 initialPosition; // Stores the original spawn position
+//    private bool positionCorrected = false; // Ensures we only correct position once
+
+//    // for toggling : teleport mechanic - stores the last known safe position
+//    private Vector2 lastSafePosition;
+
+//    // for mice collection
+//    public List<Mice> collectedMice = new List<Mice>();
+
+//    // for movement
+//    private FrameInput _frameInput;
+//    private Vector2 _frameVelocity;
+//    private float _time;
+
+//    private float _frameLeftGrounded = float.MinValue;
+//    private bool _grounded;
+//    private bool _jumpToConsume;
+//    private bool _bufferedJumpUsable;
+//    private bool _endedJumpEarly;
+//    private bool _coyoteUsable;
+//    private float _timeJumpWasPressed;
+
+
+//    public Key cm;
+//    public event Action PlayerDied;
+
+
+//    // happens when component exists inside of the scene (when you something to be found the moment the scene starts)
+//    private void Awake()
+//    {
+//        // on awake, these components will be set (referenced from the components in Unity)
+//        rb = GetComponent<Rigidbody2D>();
+//        animator = GetComponent<Animator>();
+//        damageable = GetComponent<Damageable>();
+
+//        // on awake, touching directions will be set
+//        touchingDirections = GetComponent<TouchingDirections>();
+
+//        // prevent movement at scene start - for fixed camera
+//        rb.bodyType = RigidbodyType2D.Kinematic;
+
+//    }
+
+
+//    // Start is called once before the first execution of Update after the MonoBehaviour is created (comes after Awake)
+//    void Start()
+//    {
+//        // for the fixed camera
+//        // Store and log the initial position
+//        initialPosition = transform.position;
+
+//        // Start coroutine to check for unwanted position changes
+//        StartCoroutine(CheckForPositionChange());
+//    }
+
+//    // Update is called once per frame
+//    private void Update()
+//    {
+//        // for movement
+//        _time += Time.deltaTime;
+//        GatherInput();
+//    }
+
+//    // for movement
+//    private void GatherInput()
+//    {
+//        _frameInput = new FrameInput
+//        {
+//            Move = moveInput,  // Using your existing input system
+//            JumpDown = false,
+//            JumpHeld = false
+//        };
+//    }
+
+
+//    private void FixedUpdate()
+//    {
+//        if (!damageable.LockVelocity)
+//        {
+//            ApplyHorizontalMovement(); // Handles walking, running, and air control
+//        }
+
+//        HandleJump();  // Keeps jump buffering, coyote time, and jump execution logic
+//        HandleGravity(); // Manages fall speed, jump cut-off, and gravity adjustments
+
+//        // Ensure player lands smoothly on enemies and ground
+//        if (touchingDirections.IsGrounded && rb.linearVelocity.y == 0)
+//        {
+//            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+//        }
+
+//        animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
+//    }
+
+
+//    private void ApplyHorizontalMovement()
+//    {
+//        float targetSpeed;
+
+//        if (touchingDirections.IsGrounded)
+//        {
+//            targetSpeed = moveInput.x * CurrentMoveSpeed;
+//            rb.linearDamping = 0f;  // Reset drag when grounded
+//        }
+//        else
+//        {
+//            targetSpeed = moveInput.x * airWalkSpeed;
+
+//            // Reduce air drag so forward movement is not slowed down
+//            rb.linearDamping = 0.05f;  // Almost NO drag in air (keeps momentum)
+//        }
+
+//        float adjustedSpeed = Mathf.Lerp(rb.linearVelocity.x, targetSpeed, 0.2f); // Keep some air control
+
+//        // Prevent movement if touching a wall
+//        if (touchingDirections.IsOnWall)
+//        {
+//            adjustedSpeed = 0f;
+//        }
+
+//        rb.linearVelocity = new Vector2(adjustedSpeed, rb.linearVelocity.y);
+//    }
+
+
+
+
+//    private void CheckCollisions()
+//    {
+//        Physics2D.queriesStartInColliders = false;
+
+//        bool groundHit = Physics2D.Raycast(rb.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
+
+//        if (!_grounded && groundHit)
+//        {
+//            _grounded = true;
+//            _coyoteUsable = true;
+//            _bufferedJumpUsable = true;
+//            _endedJumpEarly = false;
+//        }
+//        else if (_grounded && !groundHit)
+//        {
+//            _grounded = false;
+//            _frameLeftGrounded = _time;
+//        }
+
+//        Physics2D.queriesStartInColliders = true;
+//    }
+
+
+//    // checking if the position of the player changes (fixed camera)
+//    private IEnumerator CheckForPositionChange()
+//    {
+//        yield return null; // Wait 1 frame for Unity to fully initialize everything
+//        yield return new WaitForEndOfFrame(); // Extra wait for physics updates
+
+//        Vector3 newPosition = transform.position;
+
+//        // If the player's position has changed, log and correct it
+//        if (newPosition != initialPosition && !positionCorrected)
+//        {
+//            transform.position = initialPosition; // Lock position back to original
+//            positionCorrected = true;
+//        }
+
+//        rb.bodyType = RigidbodyType2D.Dynamic; // Restore physics after locking position
+//    }
+
+//    // this function triggers the correct move speed of the player based on certain conditions
+//    public float CurrentMoveSpeed
+//    {
+//        get
+//        {
+//            if (CanMove)
+//            {
+//                if (IsMoving && !touchingDirections.IsOnWall)
+//                {
+//                    if (touchingDirections.IsGrounded)
+//                    {
+//                        // Remove runSpeed check and always return walkSpeed
+//                        return walkSpeed;
+//                    }
+//                    else
+//                    {
+//                        return airWalkSpeed;
+//                    }
+//                }
+//                else
+//                {
+//                    return 0;
+//                }
+//            }
+//            else
+//            {
+//                return 0;
+//            }
+//        }
+//    }
+
+
+//    // set player movement to false (player does not move without input)
+//    [SerializeField] private bool _isMoving = false;
+
+//    // property for IsMoving in Unity (can use for idle or moving animation)
+//    public bool IsMoving
+//    {
+//        // gets the value
+//        get
+//        {
+//            // returns the current movement state
+//            return _isMoving;
+//        }
+
+//        // updates and sets the value
+//        private set
+//        {
+//            // updates the movement state
+//            _isMoving = value;
+
+//            // triggers the walk animation
+//            animator.SetBool(AnimationStrings.isMoving, value);
+//        }
+//    }
+
+//    // set player to always face right when starting the game
+//    public bool _isFacingRight = true;
+
+//    // property for IsFacingRight in Unity
+//    public bool IsFacingRight
+//    {
+//        // gets the value
+//        get
+//        {
+//            // returns whether the player is facing right
+//            return _isFacingRight;
+//        }
+
+//        // updates and flips the player if needed
+//        private set
+//        {
+//            // only flip if new value is different from current direction
+//            if (_isFacingRight != value)
+//            {
+//                // flip the local scale to make the player face the opposite direction
+//                transform.localScale *= new Vector2(-1, 1);
+//            }
+
+//            // store teh new facing direction
+//            _isFacingRight = value;
+//        }
+//    }
+
+//    // property to check if player can move
+//    public bool CanMove
+//    {
+//        get
+//        {
+//            // retrieves canMove boolean parameter from Animator in Unity
+//            // returns true if movement is allowed, false if not
+//            return animator.GetBool(AnimationStrings.canMove);
+//        }
+//    }
+
+//    public bool IsAlive
+//    {
+//        get
+//        {
+//            return animator.GetBool(AnimationStrings.isAlive);
+//        }
+//    }
+
+
+
+//    //getting move input
+//    public void OnMove(InputAction.CallbackContext context)
+//    {
+//        moveInput = context.ReadValue<Vector2>();
+//        Debug.Log("Move Input: " + moveInput);  // Debug log to see if input is detected
+
+//        if (IsAlive)
+//        {
+//            IsMoving = moveInput.x != 0;  // Check only X-axis for movement
+//            SetFacingDirection(moveInput);
+//        }
+//        else
+//        {
+//            IsMoving = false;
+//        }
+//    }
+
+
+//    // to ensure the player is facing the correct direction based on input
+//    private void SetFacingDirection(Vector2 moveInput)
+//    {
+//        // if player is moving right and is not facing right
+//        if (moveInput.x > 0 && !IsFacingRight)
+//        {
+//            // face the right
+//            IsFacingRight = true;
+
+//        }
+//        // if player is moving left and is facing right
+//        else if (moveInput.x < 0 && IsFacingRight)
+//        {
+//            // face the left
+//            IsFacingRight = false;
+//        }
+//    }
+
+//    // checks if player is jumping based on input
+//    // Jump is a single press, no held function
+//    public void OnJump(InputAction.CallbackContext context)
+//    {
+//        if (context.started)
+//        {
+//            _jumpToConsume = true;  // Store jump input for FixedUpdate
+//            Debug.Log("Jump button pressed!"); // Debugging
+//        }
+//    }
+
+
+//    private void HandleJump()
+//    {
+//        if (!_jumpToConsume) return; // If no jump input, skip
+
+//        bool canCoyoteJump = _coyoteUsable && !touchingDirections.IsGrounded;
+//        bool canBufferedJump = _bufferedJumpUsable && touchingDirections.IsGrounded;
+
+//        if (touchingDirections.IsGrounded || canCoyoteJump || canBufferedJump)
+//        {
+//            ExecuteJump();
+//        }
+
+//        _jumpToConsume = false; // Reset jump input after processing
+//        _bufferedJumpUsable = false;
+//        _coyoteUsable = false;
+//    }
+
+//    private void ExecuteJump()
+//    {
+//        Debug.Log("Executing Jump!"); // Debugging
+//        _endedJumpEarly = false;
+//        _bufferedJumpUsable = false;
+//        _coyoteUsable = false;
+
+//        //  Apply **strong** forward push during jump
+//        float jumpDirection = IsFacingRight ? 1.5f : -1.5f;
+
+//        rb.linearVelocity = new Vector2(jumpDirection, jumpImpulse);
+//        animator.SetTrigger(AnimationStrings.jumpTrigger);
+//    }
+
+//    private void HandleGravity()
+//    {
+//        if (touchingDirections.IsGrounded && rb.linearVelocity.y <= 0f)
+//        {
+//            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1.5f);
+//        }
+//        else
+//        {
+//            float gravityScale = fallMultiplier; //  No changes here, keeps fast falling
+
+//            if (_endedJumpEarly && rb.linearVelocity.y > 0)
+//            {
+//                gravityScale *= 3f; // Jump Cut-off (keeps jumps snappy)
+//            }
+
+//            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (gravityScale - 1) * Time.fixedDeltaTime;
+
+//            //  Ensure fast fall speed
+//            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, maxFallSpeed));
+//        }
+//    }
+
+
+
+//    // checks if player is attacking based on input
+//    public void OnAttack(InputAction.CallbackContext context)
+//    {
+//        // if attack button is pressed
+//        if (context.started)
+//        {
+//            // trigger attack animation
+//            animator.SetTrigger(AnimationStrings.attackTrigger);
+//        }
+//    }
+
+//    // for enemy attack 
+//    public void OnHit(int damage, Vector2 knockback)
+//    {
+//        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
+//    }
+
+//    // for mice collection
+//    [SerializeField] private bool _isCatchingMice = false; // Track if button is pressed
+
+//    public bool IsCatchingMice
+//    {
+//        get { return _isCatchingMice; }
+//    }
+
+//    // Catch mice ONLY when the button is pressed, NOT as a toggle
+//    public void OnCatchMice(InputAction.CallbackContext context)
+//    {
+//        if (context.started)
+//        {
+//            _isCatchingMice = true; // Set to true only when button is pressed
+//        }
+//        else if (context.canceled)
+//        {
+//            _isCatchingMice = false; // Immediately reset when button is released
+//        }
+//    }
+
+//    public void OnToggleAbility(InputAction.CallbackContext context)
+//    {
+//        if (context.started)
+//        {
+//            Debug.Log("Toggle Ability Pressed"); // Debug to confirm input is detected
+
+//            // Use UnityEngine.Object to resolve ambiguity
+//            Cage cage = UnityEngine.Object.FindFirstObjectByType<Cage>();
+
+//            if (cage != null)
+//            {
+//                cage.ToggleAllPlatforms(); // Call the method on the found Cage instance
+//            }
+//            else
+//            {
+//                Debug.LogError("No Cage found in the scene! Ensure a Cage object is present.");
+//            }
+//        }
+//    }
+
+
+
+//    void OnTriggerEnter2D(Collider2D other)
+//    {
+//        // Count coin, destroy door
+//        if (other.gameObject.CompareTag("Key"))
+//        {
+//            Destroy(other.gameObject);
+//            cm.keyCount++;
+//        }
+
+//        // Water hazard - player drowns
+//        else if (other.gameObject.CompareTag("Water"))
+//        {
+//            // Deal fatal damage to drown the player
+//            damageable.Hit(damageable.Health, Vector2.zero);
+//        }
+
+//        // Picking up a mouse (only when pressing the button)
+//        else if (other.gameObject.CompareTag("Mice"))
+//        {
+//            Mice mouse = other.GetComponent<Mice>();
+
+//            if (mouse != null && _isCatchingMice) //  Only pick up if button is actively pressed
+//            {
+//                Transform miceFollowPoint = transform.Find("MiceFollowPoint");
+//                if (miceFollowPoint != null)
+//                {
+//                    collectedMice.Add(mouse);
+//                    mouse.followTarget = miceFollowPoint; // Set follow target
+//                    mouse.isFollowingPlayer = true; // Ensure the mouse starts following
+
+//                    Debug.Log("Mouse picked up!");
+//                }
+//                else
+//                {
+//                    Debug.LogError("MiceFollowPoint not found! Ensure it exists in the player hierarchy.");
+//                }
+//            }
+//        }
+
+
+//        // Depositing mice into a cage (DOES NOT TOGGLE IMMEDIATELY)
+//        else if (other.gameObject.CompareTag("Cage"))
+//        {
+//            Cage cage = other.GetComponent<Cage>();
+//            if (cage != null && collectedMice.Count > 0)
+//            {
+//                Mice depositedMouse = collectedMice[0]; // Take the first mouse
+//                collectedMice.RemoveAt(0); // Remove from list
+
+//                // Store the mouse in the cage but DO NOT activate toggle yet
+//                Debug.Log("Mouse deposited into cage. Toggle ability can now be used.");
+
+//                Destroy(depositedMouse.gameObject); // Remove mouse from scene
+//            }
+//        }
+//    }
+
+
+
+//    // falling spike damage
+//    private void OnCollisionEnter2D(Collision2D collision)
+//    {
+//        if (collision.gameObject.CompareTag("Spike"))
+//        {
+//            // deal 1 heart per spike hit
+//            damageable.Hit(1, Vector2.zero);
+
+//            //destroy player once hits spikes
+//            //SceneManager.LoadScene("GameOver");
+
+//            //PlayerDied.Invoke(); // triggers GameControllerScript!
+//        }
+//    }
+
+//    public void TriggerPlayerDeath()
+//    {
+//        // Safely trigger the PlayerDied event
+//        PlayerDied?.Invoke();
+//    }
+
+//}
+
+// beta - no run, no cage
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -1719,12 +2300,6 @@ public class PlayerController : MonoBehaviour
 
     // how fast the player will walk left or right
     public float walkSpeed = 10f;
-
-    // adding Running header in inspector
-    [Header("Running")]
-
-    // how fast the player will run left or right
-    public float runSpeed = 15f;
 
     // adding Air Speed header in inspector
     [Header("Air Speed")]
@@ -1772,6 +2347,8 @@ public class PlayerController : MonoBehaviour
 
     public Key cm;
     public event Action PlayerDied;
+
+    public static PlayerController Instance { get; private set; }
 
 
     // happens when component exists inside of the scene (when you something to be found the moment the scene starts)
@@ -1919,51 +2496,32 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            // check if the player can move
             if (CanMove)
             {
-                // if player is moving and not touching a wall
                 if (IsMoving && !touchingDirections.IsOnWall)
                 {
-                    // if player is on the ground
                     if (touchingDirections.IsGrounded)
                     {
-                        // if run button (left shift) is held down
-                        if (IsRunning)
-                        {
-                            // trigger run speed
-                            return runSpeed;
-                        }
-                        else
-                        {
-                            // if not running, trigger walk speed
-                            return walkSpeed;
-                        }
+                        // Remove runSpeed check and always return walkSpeed
+                        return walkSpeed;
                     }
-                    // if not running or walking
                     else
                     {
-                        // trigger the air move speed
                         return airWalkSpeed;
                     }
                 }
-
-                // if not moving and touching a wall ( to ensure the player does not get stuck to the wall)
                 else
                 {
-                    // idle speed is 0
                     return 0;
                 }
             }
-
-            // if cannot move
             else
             {
-                // movement locked
                 return 0;
             }
         }
     }
+
 
     // set player movement to false (player does not move without input)
     [SerializeField] private bool _isMoving = false;
@@ -1986,30 +2544,6 @@ public class PlayerController : MonoBehaviour
 
             // triggers the walk animation
             animator.SetBool(AnimationStrings.isMoving, value);
-        }
-    }
-
-    // set player running to false (player does not run without input)
-    [SerializeField] private bool _isRunning = false;
-
-    // property for IsRunning in Unity
-    public bool IsRunning
-    {
-        // gets the value
-        get
-        {
-            // returns the current running state
-            return _isRunning;
-        }
-
-        // updates and sets the value
-        set
-        {
-            // updates the running state
-            _isRunning = value;
-
-            // triggers the run animation
-            animator.SetBool(AnimationStrings.isRunning, value);
         }
     }
 
@@ -2098,25 +2632,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // checks if the player is running based on input
-    public void OnRun(InputAction.CallbackContext context)
-    {
-        // if run button is pressed
-        if (context.started)
-        {
-            // player runs
-            IsRunning = true;
-        }
-        // if run button is not pressed
-        else if (context.canceled)
-        {
-            // player stops running
-            IsRunning = false;
-        }
-
-    }
-
-
     // checks if player is jumping based on input
     // Jump is a single press, no held function
     public void OnJump(InputAction.CallbackContext context)
@@ -2154,10 +2669,9 @@ public class PlayerController : MonoBehaviour
         _coyoteUsable = false;
 
         //  Apply **strong** forward push during jump
-        float jumpForwardBoost = IsRunning ? 12f : 9f; // Much stronger push
         float jumpDirection = IsFacingRight ? 1.5f : -1.5f;
 
-        rb.linearVelocity = new Vector2(jumpForwardBoost * jumpDirection, jumpImpulse);
+        rb.linearVelocity = new Vector2(jumpDirection, jumpImpulse);
         animator.SetTrigger(AnimationStrings.jumpTrigger);
     }
 
@@ -2185,11 +2699,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-
-
-
-
     // checks if player is attacking based on input
     public void OnAttack(InputAction.CallbackContext context)
     {
@@ -2207,57 +2716,21 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
     }
 
-    // for mice collection
-    [SerializeField] private bool _isCatchingMice = false; // Track if button is pressed
-
-    public bool IsCatchingMice
-    {
-        get { return _isCatchingMice; }
-    }
-
-    // Catch mice ONLY when the button is pressed, NOT as a toggle
-    public void OnCatchMice(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            _isCatchingMice = true; // Set to true only when button is pressed
-        }
-        else if (context.canceled)
-        {
-            _isCatchingMice = false; // Immediately reset when button is released
-        }
-    }
-
-    public void OnToggleAbility(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            Debug.Log("Toggle Ability Pressed"); // Debug to confirm input is detected
-
-            // Use UnityEngine.Object to resolve ambiguity
-            Cage cage = UnityEngine.Object.FindFirstObjectByType<Cage>();
-
-            if (cage != null)
-            {
-                cage.ToggleAllPlatforms(); // Call the method on the found Cage instance
-            }
-            else
-            {
-                Debug.LogError("No Cage found in the scene! Ensure a Cage object is present.");
-            }
-        }
-    }
-
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Count coin, destroy door
-        if (other.gameObject.CompareTag("Key"))
+        // Check if the player touches a key
+        if (other.CompareTag("Key"))
         {
-            Destroy(other.gameObject);
-            cm.keyCount++;
+            Key key = other.GetComponent<Key>();
+
+            if (key != null)
+            {
+                Debug.Log("Player collected a key.");
+                Destroy(other.gameObject); // Remove the key
+            }
         }
+
 
         // Water hazard - player drowns
         else if (other.gameObject.CompareTag("Water"))
@@ -2265,48 +2738,30 @@ public class PlayerController : MonoBehaviour
             // Deal fatal damage to drown the player
             damageable.Hit(damageable.Health, Vector2.zero);
         }
+    }
 
-        // Picking up a mouse (only when pressing the button)
-        else if (other.gameObject.CompareTag("Mice"))
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Mice"))
         {
             Mice mouse = other.GetComponent<Mice>();
 
-            if (mouse != null && _isCatchingMice) //  Only pick up if button is actively pressed
+            if (mouse != null)
             {
-                Transform miceFollowPoint = transform.Find("MiceFollowPoint");
-                if (miceFollowPoint != null)
+                // Destroy the mouse GameObject immediately upon pickup
+                Destroy(mouse.gameObject);
+
+                // Toggle all platforms upon pickup
+                TilemapToggle[] toggles = FindObjectsByType<TilemapToggle>(FindObjectsSortMode.None);
+                foreach (TilemapToggle toggle in toggles)
                 {
-                    collectedMice.Add(mouse);
-                    mouse.followTarget = miceFollowPoint; // Set follow target
-                    mouse.isFollowingPlayer = true; // Ensure the mouse starts following
-
-                    Debug.Log("Mouse picked up!");
+                    toggle.TogglePlatform();
                 }
-                else
-                {
-                    Debug.LogError("MiceFollowPoint not found! Ensure it exists in the player hierarchy.");
-                }
-            }
-        }
 
-
-        // Depositing mice into a cage (DOES NOT TOGGLE IMMEDIATELY)
-        else if (other.gameObject.CompareTag("Cage"))
-        {
-            Cage cage = other.GetComponent<Cage>();
-            if (cage != null && collectedMice.Count > 0)
-            {
-                Mice depositedMouse = collectedMice[0]; // Take the first mouse
-                collectedMice.RemoveAt(0); // Remove from list
-
-                // Store the mouse in the cage but DO NOT activate toggle yet
-                Debug.Log("Mouse deposited into cage. Toggle ability can now be used.");
-
-                Destroy(depositedMouse.gameObject); // Remove mouse from scene
+                Debug.Log("Mouse picked up and platforms toggled!");
             }
         }
     }
-
 
 
     // falling spike damage
@@ -2328,6 +2783,15 @@ public class PlayerController : MonoBehaviour
     {
         // Safely trigger the PlayerDied event
         PlayerDied?.Invoke();
+    }
+
+    private void ToggleAllPlatforms()
+    {
+        TilemapToggle[] toggles = FindObjectsByType<TilemapToggle>(FindObjectsSortMode.None);
+        foreach (TilemapToggle toggle in toggles)
+        {
+            toggle.TogglePlatform();
+        }
     }
 
 }

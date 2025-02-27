@@ -48,34 +48,9 @@ public class Mice : MonoBehaviour
     private Rigidbody2D rb;
     private TouchingDirections touchingDirections;
     private Animator animator;
-
-    public enum WalkableDirection { Right, Left }
-    private WalkableDirection _walkDirection;
     private Vector2 walkDirectionVector = Vector2.right;
-
     private float flipCooldown = 0.2f; // Delay to prevent jittering
     private float lastFlipTime = 0f;
-
-    // **FIX: Make these public**
-    public bool isFollowingPlayer = false;
-    public Transform followTarget;
-
-    public WalkableDirection WalkDirection
-    {
-        get { return _walkDirection; }
-        set
-        {
-            if (_walkDirection != value)
-            {
-                // Flip sprite when changing direction
-                transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-                walkDirectionVector = (value == WalkableDirection.Right) ? Vector2.right : Vector2.left;
-            }
-            _walkDirection = value;
-        }
-    }
-
-    public bool IsFollowingPlayer => isFollowingPlayer; // **Public getter method**
 
     private void Awake()
     {
@@ -95,14 +70,7 @@ public class Mice : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isFollowingPlayer)
-        {
-            MoveMouse();
-        }
-        else if (followTarget != null)
-        {
-            FollowPlayer();
-        }
+        MoveMouse();
     }
 
     private void MoveMouse()
@@ -133,70 +101,30 @@ public class Mice : MonoBehaviour
 
     private void FlipDirection()
     {
-        // Ensure a minimum delay before flipping again
         if (Time.time - lastFlipTime < flipCooldown) return;
 
-        WalkDirection = (WalkDirection == WalkableDirection.Right) ? WalkableDirection.Left : WalkableDirection.Right;
+        // Flip movement direction
+        walkDirectionVector = -walkDirectionVector;
+        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+
         lastFlipTime = Time.time; // Reset flip cooldown
     }
 
-    private void FollowPlayer()
-    {
-        if (followTarget != null)
-        {
-            Vector2 targetPos = followTarget.position;
-            Vector2 direction = (targetPos - rb.position).normalized;
-
-            float followSpeed = 5f;
-
-            rb.linearVelocity = direction * followSpeed;
-
-            // Reduce gravity effect when following the player
-            // rb.gravityScale = 0.2f; // Adjust as needed
-        }
-    }
-
-
-
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !isFollowingPlayer)
+        if (other.CompareTag("Player"))
         {
-            PlayerController player = other.GetComponent<PlayerController>();
+            Debug.Log("Player detected! Picking up mouse.");
 
-            if (player != null && player.IsCatchingMice)
+            // Toggle platforms upon pickup
+            TilemapToggle[] toggles = FindObjectsByType<TilemapToggle>(FindObjectsSortMode.None);
+            foreach (TilemapToggle toggle in toggles)
             {
-                followTarget = player.transform.Find("MiceFollowPoint");
-                isFollowingPlayer = true;
-                rb.linearVelocity = Vector2.zero;
-                rb.gravityScale = 1;
-                Debug.Log("Mouse picked up!");
+                toggle.TogglePlatform();
             }
+
+            Destroy(gameObject); // Destroy the mouse after pickup
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

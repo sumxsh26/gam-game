@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2332413320264315773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6592199222741403466}
-  m_Layer: 7
-  m_Name: MiceFollowPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6592199222741403466
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2332413320264315773}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: -0.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7064855533838602888}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2850248952342224519
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +143,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2761973623948929216}
-  - {fileID: 6592199222741403466}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7171501707423130710
@@ -273,8 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4064352264430504975}
   touchingDirections: {fileID: 8935762528723014776}
-  walkSpeed: 12
-  runSpeed: 14
+  walkSpeed: 15
   airWalkSpeed: 3
   jumpImpulse: 16
   fallMultiplier: 5
@@ -283,9 +250,7 @@ MonoBehaviour:
   collectedMice: []
   cm: {fileID: 0}
   _isMoving: 0
-  _isRunning: 0
   _isFacingRight: 1
-  _isCatchingMice: 0
 --- !u!114 &391455203528286369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,19 +353,7 @@ MonoBehaviour:
     m_ActionId: e0b6e5c6-89a9-4a0c-a1ec-811824000b02
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8587796992090336568}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnRun
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f995b1c4-ab9e-4cf6-bee1-6d66664f80fe
     m_ActionName: 'Player/Run[/Keyboard/leftShift]'
   - m_PersistentCalls:
@@ -420,35 +373,11 @@ MonoBehaviour:
     m_ActionId: bfc1d8bf-8ee0-4b1f-952c-383373c7f53b
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8587796992090336568}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnCatchMice
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 287d1561-e7e2-4f0b-a926-8ce4ef5f3fe8
     m_ActionName: 'Player/PickUp[/Keyboard/leftShift]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8587796992090336568}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnToggleAbility
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 088af674-34b0-49d0-b1f9-008908fba82f
     m_ActionName: 'Player/Toggle[/Keyboard/x]'
   m_NeverAutoSwitchControlSchemes: 0

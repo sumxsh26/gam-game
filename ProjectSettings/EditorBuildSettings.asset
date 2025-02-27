@@ -6,37 +6,37 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/Others/Menu.unity
     guid: dd0652d6d37344f29b03dd69f0f4db05
   - enabled: 1
-    path: Assets/Scenes/Instructions.unity
+    path: Assets/Scenes/Others/Instructions.unity
     guid: 78f65144c79484d8997ea302a17db605
   - enabled: 1
-    path: Assets/Scenes/Credits.unity
+    path: Assets/Scenes/Others/Credits.unity
     guid: 27078b28e231743a19d8518196a6f86f
   - enabled: 0
     path: Assets/Scenes/GameplayScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 0
-    path: Assets/Scenes/LevelOne.unity
+    path: Assets/Scenes/Alpha/LevelOne.unity
     guid: 6b7dada8cae314fdcb44d10d1a2307a6
   - enabled: 0
-    path: Assets/Scenes/GameOverScene.unity
+    path: Assets/Scenes/Others/GameOverScene.unity
     guid: b53e49da1b2f6465e8584cdf0af8724a
   - enabled: 0
     path: Assets/Scenes/AlphaLevel.unity
     guid: 39508628d054a5542b79c5859d53ad0c
   - enabled: 0
-    path: Assets/Scenes/Alpha.unity
+    path: Assets/Scenes/Alpha/Alpha.unity
     guid: 11491119338413843add14d8b154f4a7
   - enabled: 0
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/First Playtest/Test.unity
     guid: 1885838742c35bd449198e46f8eecfaf
   - enabled: 0
     path: Assets/Scenes/PlayTest.unity
     guid: d6216c1907d124a4196f5e01502c81e8
   - enabled: 1
-    path: Assets/Scenes/PlayTest 1.unity
+    path: Assets/Scenes/First Playtest/PlayTest.unity
     guid: 3890ddc69338cf14a91ac1991ae74c86
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -291,108 +291,163 @@
 //}
 
 
+//using UnityEngine;
+//using UnityEngine.Tilemaps;
+//using UnityEngine.UI;
+//using System.Linq; // For checking cage conditions
+
+//public class TilemapToggle : MonoBehaviour
+//{
+//    private TilemapRenderer tilemapRenderer;
+//    private BoxCollider2D boxCollider;
+
+//    public float displayTime = 3f;
+//    public float cooldownTime = 30f;
+//    private float lastToggleTime = -30f;
+
+//    public Slider cooldownBar;
+
+//    void Start()
+//    {
+//        tilemapRenderer = GetComponent<TilemapRenderer>();
+//        boxCollider = GetComponent<BoxCollider2D>();
+
+//        // Ensure platform starts hidden
+//        SetPlatformState(false);
+
+//        if (cooldownBar != null)
+//        {
+//            cooldownBar.maxValue = cooldownTime;
+//            cooldownBar.value = cooldownTime;
+//        }
+//    }
+
+//    public void TogglePlatform()
+//    {
+//        if (Time.time - lastToggleTime < cooldownTime)
+//        {
+//            Debug.Log("Toggle is on cooldown.");
+//            return;
+//        }
+
+//        lastToggleTime = Time.time;
+
+//        // Toggle platform state
+//        bool isCurrentlyVisible = tilemapRenderer.enabled;
+//        SetPlatformState(!isCurrentlyVisible);
+
+//        // Start cooldown
+//        if (cooldownBar != null)
+//        {
+//            cooldownBar.value = 0;
+//        }
+
+//        // Schedule platform to disappear after displayTime
+//        if (!isCurrentlyVisible)
+//        {
+//            Invoke(nameof(DisablePlatform), displayTime);
+//        }
+//    }
+
+//    void SetPlatformState(bool isActive)
+//    {
+//        tilemapRenderer.enabled = isActive;
+//        boxCollider.enabled = isActive;
+
+//        if (isActive)
+//        {
+//            PushUpPlayers();
+//        }
+//    }
+
+//    void DisablePlatform()
+//    {
+//        SetPlatformState(false);
+//    }
+
+//    void PushUpPlayers()
+//    {
+//        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCollider.bounds.center, boxCollider.bounds.size, 0);
+//        foreach (Collider2D collider in colliders)
+//        {
+//            if (collider.CompareTag("Player"))
+//            {
+//                Rigidbody2D playerRb = collider.GetComponent<Rigidbody2D>();
+//                if (playerRb != null)
+//                {
+//                    Vector2 pushUp = Vector2.up * 5f;
+//                    playerRb.position += pushUp * 0.2f;
+//                    playerRb.linearVelocity = pushUp;
+//                }
+//            }
+//        }
+//    }
+//}
+
+
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
-using System.Linq; // For checking cage conditions
+using System.Collections;
 
 public class TilemapToggle : MonoBehaviour
 {
+    private Tilemap tilemap;
     private TilemapRenderer tilemapRenderer;
-    private BoxCollider2D boxCollider;
+    private bool isFlashing = false;
 
-    public float displayTime = 3f;
-    public float cooldownTime = 30f;
-    private float lastToggleTime = -30f;
-
-    public Slider cooldownBar;
+    public float displayTime = 3f; // How long the platform is visible
+    public float flashDuration = 0.3f; // How long each flash lasts
+    public int flashCount = 5; // Number of flashes before disappearing
 
     void Start()
     {
+        tilemap = GetComponent<Tilemap>();
         tilemapRenderer = GetComponent<TilemapRenderer>();
-        boxCollider = GetComponent<BoxCollider2D>();
 
-        // Ensure platform starts hidden
-        SetPlatformState(false);
-
-        if (cooldownBar != null)
+        if (tilemap == null || tilemapRenderer == null)
         {
-            cooldownBar.maxValue = cooldownTime;
-            cooldownBar.value = cooldownTime;
+            Debug.LogError("Tilemap or TilemapRenderer not found on " + gameObject.name);
         }
+
+        // Ensure the platform starts invisible
+        tilemapRenderer.enabled = false;
     }
 
     public void TogglePlatform()
     {
-        if (Time.time - lastToggleTime < cooldownTime)
+        if (!isFlashing)
         {
-            Debug.Log("Toggle is on cooldown.");
-            return;
-        }
-
-        if (!AnyCageHasMice())
-        {
-            Debug.Log("No cages have stored mice! Cannot toggle platform.");
-            return;
-        }
-
-        lastToggleTime = Time.time;
-
-        // Toggle platform state
-        bool isCurrentlyVisible = tilemapRenderer.enabled;
-        SetPlatformState(!isCurrentlyVisible);
-
-        // Start cooldown
-        if (cooldownBar != null)
-        {
-            cooldownBar.value = 0;
-        }
-
-        // Schedule platform to disappear after displayTime
-        if (!isCurrentlyVisible)
-        {
-            Invoke(nameof(DisablePlatform), displayTime);
+            StartCoroutine(ShowPlatform());
         }
     }
 
-    void SetPlatformState(bool isActive)
+    private IEnumerator ShowPlatform()
     {
-        tilemapRenderer.enabled = isActive;
-        boxCollider.enabled = isActive;
+        // Show platform
+        tilemapRenderer.enabled = true;
 
-        if (isActive)
+        // Wait for display time
+        yield return new WaitForSeconds(displayTime - (flashCount * flashDuration));
+
+        // Start flashing effect before disappearing
+        StartCoroutine(FlashBeforeDisappearing());
+    }
+
+    private IEnumerator FlashBeforeDisappearing()
+    {
+        isFlashing = true;
+
+        for (int i = 0; i < flashCount; i++)
         {
-            PushUpPlayers();
+            tilemapRenderer.enabled = false;
+            yield return new WaitForSeconds(flashDuration / 2);
+            tilemapRenderer.enabled = true;
+            yield return new WaitForSeconds(flashDuration / 2);
         }
-    }
 
-    void DisablePlatform()
-    {
-        SetPlatformState(false);
-    }
-
-    void PushUpPlayers()
-    {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCollider.bounds.center, boxCollider.bounds.size, 0);
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.CompareTag("Player"))
-            {
-                Rigidbody2D playerRb = collider.GetComponent<Rigidbody2D>();
-                if (playerRb != null)
-                {
-                    Vector2 pushUp = Vector2.up * 5f;
-                    playerRb.position += pushUp * 0.2f;
-                    playerRb.linearVelocity = pushUp;
-                }
-            }
-        }
-    }
-
-    private bool AnyCageHasMice()
-    {
-        Cage[] cages = FindObjectsByType<Cage>(FindObjectsSortMode.None);
-        return cages.Any(cage => cage.CanToggle()); // Returns true if any cage has stored mice
+        // Fully hide the platform after flashing
+        tilemapRenderer.enabled = false;
+        isFlashing = false;
     }
 }
 

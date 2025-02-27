@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1724636984605563748}
   - component: {fileID: 1657497941439131918}
   - component: {fileID: 7010928606265840730}
+  - component: {fileID: 8077143907742577899}
   m_Layer: 0
   m_Name: Key
   m_TagString: Key
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.6023575, y: 2.272122, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -124,3 +125,17 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.033499766, y: 0}
   m_Radius: 0.46650022
+--- !u!114 &8077143907742577899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496714480445457835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fbddd8ad9af04dd085c4865395fa703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorPrefab: {fileID: 0}
+  doorSpawnPoint: {fileID: 0}

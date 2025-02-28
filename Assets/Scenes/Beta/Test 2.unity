@@ -10756,6 +10756,7 @@ GameObject:
   - component: {fileID: 854963630}
   - component: {fileID: 854963629}
   - component: {fileID: 854963628}
+  - component: {fileID: 854963631}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -10846,6 +10847,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &854963631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854963626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91c4b747309644f3a184efd78f14b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countdownTimerText: {fileID: 771098303}
+  remainingTime: 300
+  warningBeep: {fileID: 0}
 --- !u!1 &863607404
 GameObject:
   m_ObjectHideFlags: 0

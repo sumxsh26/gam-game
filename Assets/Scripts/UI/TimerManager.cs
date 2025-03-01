@@ -89,7 +89,7 @@ public class TimerManager : MonoBehaviour
         else
         {
             remainingTime = 0;
-            GameController.Instance?.PlayerController?.TriggerPlayerDeath();
+            GameController.Instance?.PlayerMovement?.TriggerPlayerDeath();
         }
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);

@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
 
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerMovement playerMovement;
     public Canvas GameOverCanvas;
     public Text TimerText;
 
@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
     public GameObject gameplayUI; // Reference to the Gameplay UI parent
 
     public static bool isGameOver = false;
-    public PlayerController PlayerController => playerController;
+    public PlayerMovement PlayerMovement => playerMovement;
 
     private void Awake()
     {
@@ -122,9 +122,9 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        if (playerController != null)
+        if (playerMovement != null)
         {
-            playerController.PlayerDied += WhenPlayerDies;
+            playerMovement.PlayerDied += WhenPlayerDies;
         }
 
         if (GameOverCanvas.gameObject.activeSelf)
@@ -147,9 +147,9 @@ public class GameController : MonoBehaviour
         // Start coroutine to delay the Game Over screen
         StartCoroutine(ShowGameOverAfterDelay());
 
-        if (playerController != null)
+        if (playerMovement != null)
         {
-            playerController.PlayerDied -= WhenPlayerDies;
+            playerMovement.PlayerDied -= WhenPlayerDies;
         }
     }
 
@@ -168,9 +168,9 @@ public class GameController : MonoBehaviour
 
     private float GetPlayerDeathAnimationDuration()
     {
-        if (playerController != null && playerController.GetComponent<Animator>() != null)
+        if (playerMovement != null && playerMovement.GetComponent<Animator>() != null)
         {
-            Animator animator = playerController.GetComponent<Animator>();
+            Animator animator = playerMovement.GetComponent<Animator>();
             AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
 
             foreach (var clip in clipInfo)

@@ -56,6 +56,8 @@ public class PlayerMovementStats : ScriptableObject
     [Range(5, 100)] public int ArcResolution = 20;
     [Range(0, 100)] public int VisualizationSteps = 90;
 
+    public float SpikeKnockbackForce = 5f;
+
     public float Gravity {  get; private set; }
     public float InitialJumpVelocity { get; private set; }
 

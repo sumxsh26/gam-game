@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2439075532082182468}
   - component: {fileID: 5130906378432259409}
   - component: {fileID: 4326553218681281147}
-  - component: {fileID: 2161619930024393777}
+  - component: {fileID: 4210632954599781518}
   m_Layer: 0
   m_Name: GroundSpike
   m_TagString: Spike
@@ -163,7 +163,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.35348904, y: 0.8200917}
   m_EdgeRadius: 0
---- !u!114 &2161619930024393777
+--- !u!114 &4210632954599781518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,4 +176,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spikeDamage: 1
-  knockBack: {x: 0.5, y: 0.3}
+  knockBack: {x: 10, y: 0}

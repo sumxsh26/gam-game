@@ -16,13 +16,13 @@ public class OutOfBounds : MonoBehaviour
             Debug.Log("Player fell out of bounds!");  // Check if it’s detecting correctly
 
             // Trigger game over sequence
-            gameController.PlayerController.TriggerPlayerDeath();
+            gameController.PlayerMovement.TriggerPlayerDeath();
 
             //destroyed player after fall
             Destroy(collision.gameObject);
 
             // Disable player movement
-            collision.GetComponent<PlayerController>().enabled = false;
+            collision.GetComponent<PlayerMovement>().enabled = false;
 
         }
     }

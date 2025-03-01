@@ -57,15 +57,6 @@ public class Mice : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
-
-        if (touchingDirections == null)
-            Debug.LogError("TouchingDirections component is missing on: " + gameObject.name);
-
-        if (cliffDetectionZone == null)
-            Debug.LogError("CliffDetectionZone is not assigned in: " + gameObject.name);
-
-        if (playerDetectionZone == null)
-            Debug.LogError("PlayerDetectionZone is not assigned in: " + gameObject.name);
     }
 
     private void FixedUpdate()

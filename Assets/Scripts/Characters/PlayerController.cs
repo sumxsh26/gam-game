@@ -2771,11 +2771,6 @@ public class PlayerController : MonoBehaviour
         {
             // deal 1 heart per spike hit
             damageable.Hit(1, Vector2.zero);
-
-            //destroy player once hits spikes
-            //SceneManager.LoadScene("GameOver");
-
-            //PlayerDied.Invoke(); // triggers GameControllerScript!
         }
     }
 

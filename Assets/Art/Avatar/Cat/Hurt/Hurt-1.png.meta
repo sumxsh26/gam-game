@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4bf5ceb43b66b5c4abdd6fa0e5907d2c
+guid: ad43f574bad168642bec3cbe6304e543
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6202914592310953071
-    second: Death-3_0
+      213: -4645793053428497119
+    second: Hurt-1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 512
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Death-3_0
+      name: Hurt-1_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 41
-        width: 189
-        height: 199
+        x: 151
+        y: 98
+        width: 724
+        height: 832
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f6408ce05fd251650800000000000000
-      internalID: 6202914592310953071
+      spriteID: 125ca6615d3d68fb0800000000000000
+      internalID: -4645793053428497119
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Death-3_0: 6202914592310953071
+      Hurt-1_0: -4645793053428497119
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

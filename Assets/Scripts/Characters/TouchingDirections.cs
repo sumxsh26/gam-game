@@ -72,7 +72,7 @@ public class TouchingDirections : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // Ensure "EnemyPlatform" is included in ground detection
-        castFilter.SetLayerMask(LayerMask.GetMask("Detection", "EnemyPlatform"));
+        castFilter.SetLayerMask(LayerMask.GetMask("Ground", "EnemyPlatform"));
     }
 
     // Update is called once per frame

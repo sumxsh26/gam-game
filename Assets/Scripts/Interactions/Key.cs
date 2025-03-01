@@ -36,39 +36,6 @@
 //    }
 //}
 
-//using UnityEngine;
-
-//public class Key : MonoBehaviour
-//{
-//    public GameObject doorPrefab; // Assign the Door prefab in Inspector
-//    public Transform doorSpawnPoint; // Assign the left-end spawn point in Inspector
-
-//    private bool doorSpawned = false;
-
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        if (other.CompareTag("Player") && !doorSpawned)
-//        {
-//            // Destroy the key upon collection
-//            Destroy(gameObject);
-
-//            // Spawn the door at the left-end spawn point
-//            GameObject spawnedDoor = Instantiate(doorPrefab, doorSpawnPoint.position, Quaternion.identity);
-//            doorSpawned = true;
-
-//            // Open the sliding door with fade-out effect
-//            SlidingDoor slidingDoor = spawnedDoor.GetComponent<SlidingDoor>();
-//            if (slidingDoor != null)
-//            {
-//                slidingDoor.OpenDoor();
-//            }
-
-//            Debug.Log("Key collected! Door spawned and opened.");
-//        }
-//    }
-//}
-
-
 using UnityEngine;
 
 public class Key : MonoBehaviour
@@ -116,7 +83,6 @@ public class Key : MonoBehaviour
         }
     }
 }
-
 
 
 

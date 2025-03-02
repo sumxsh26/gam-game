@@ -41,6 +41,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Others/Cutscene.unity
     guid: 7242744c98934d74381591ba367bea09
+  - enabled: 1
+    path: Assets/Scenes/Beta/Test.unity
+    guid: ec1acfdfb5f83644e9e4cac9de751936
+  - enabled: 1
+    path: Assets/Scenes/Others/PauseMenu.unity
+    guid: 2a58e6d89b7a4cc40b5fbafaaf282b7e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

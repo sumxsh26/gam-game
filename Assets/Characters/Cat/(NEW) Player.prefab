@@ -183,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9097925250850703133}
   - component: {fileID: 8005708381613120945}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 88374207909348573}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10319,7 +10319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5301494192022588834}
   - component: {fileID: 3986763717366822818}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

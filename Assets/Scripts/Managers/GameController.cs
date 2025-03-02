@@ -189,7 +189,7 @@ public class GameController : MonoBehaviour
     public void RetryClicked()
     {
         // 1.5 second delay to allow gameplay UI to load up before restarting
-        StartCoroutine(RetryWithDelay(1f));
+        StartCoroutine(RetryWithDelay(0.5f));
     }
 
     private IEnumerator RetryWithDelay(float delay)

@@ -1,58 +1,32 @@
-//using UnityEngine;
-//using UnityEngine.SceneManagement;
-
-//public class MenuFunctions : MonoBehaviour
-//{
-//    public void GoToInstructions()
-//    {
-//        SceneManager.LoadSceneAsync("Instructions");
-//    }
-
-//    public void PlayGame()
-//    {
-//        SceneManager.LoadSceneAsync("Movement");
-//    }
-
-//    public void GoToCredits()
-//    {
-//        SceneManager.LoadSceneAsync("Credits");
-//    }
-
-//    public void GoToSettings()
-//    {
-//        SceneManager.LoadSceneAsync("Settings");
-//    }
-
-//    public void QuitGame()
-//    {
-//        Application.Quit();
-//    }
-//}
-
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuFunctions : MonoBehaviour
 {
+    public string cutsceneSceneName = "Cutscene"; 
+    public string playSceneName = "Test";
+    public string creditsSceneName = "Credits";
+    public string settingsSceneName = "Settings";
+
+
     public void GoToCutscene()
     {
-        SceneManager.LoadSceneAsync("Cutscene");
+        SceneManager.LoadSceneAsync(cutsceneSceneName);
     }
 
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("Test");
+        SceneManager.LoadSceneAsync(playSceneName);
     }
 
     public void GoToCredits()
     {
-        SceneManager.LoadSceneAsync("Credits");
+        SceneManager.LoadSceneAsync(creditsSceneName);
     }
 
     public void GoToSettings()
     {
-        SceneManager.LoadSceneAsync("Settings");
+        SceneManager.LoadSceneAsync(settingsSceneName);
     }
 
     public void QuitGame()

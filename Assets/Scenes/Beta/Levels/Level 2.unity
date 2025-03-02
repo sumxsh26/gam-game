@@ -2671,7 +2671,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 35.555557, y: 20}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!1 &1222460896
 GameObject:
@@ -4110,7 +4110,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1724636984605563748, guid: f5afb78c7c0804c309d1b8a972c55a7f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.77
+      value: 19.49
       objectReference: {fileID: 0}
     - target: {fileID: 1724636984605563748, guid: f5afb78c7c0804c309d1b8a972c55a7f, type: 3}
       propertyPath: m_LocalPosition.y

@@ -213,6 +213,7 @@ public class Key : MonoBehaviour
 
             if (left != null && right != null)
             {
+                // Ensure doors are assigned BEFORE opening them!
                 slidingDoor.AssignDoors(left, right);
 
                 if (completeZone != null)
@@ -224,7 +225,9 @@ public class Key : MonoBehaviour
                     Debug.LogError("ERROR: CompleteZone is NULL in Key script! Assign it in the Inspector.");
                 }
 
+                // Open the door only AFTER AssignDoors() is complete
                 slidingDoor.OpenDoor();
+
                 Debug.Log("Key collected! Door spawned and opened.");
             }
             else
@@ -237,4 +240,5 @@ public class Key : MonoBehaviour
             Debug.LogError("ERROR: SlidingDoor script is missing on the spawned door!");
         }
     }
+
 }

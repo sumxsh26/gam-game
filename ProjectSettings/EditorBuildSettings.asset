@@ -30,23 +30,35 @@ EditorBuildSettings:
     path: Assets/Scenes/Alpha/Alpha.unity
     guid: 11491119338413843add14d8b154f4a7
   - enabled: 0
-    path: Assets/Scenes/First Playtest/Test.unity
+    path: Assets/Scenes/First Playtest/Testing.unity
     guid: 1885838742c35bd449198e46f8eecfaf
   - enabled: 0
     path: Assets/Scenes/PlayTest.unity
     guid: d6216c1907d124a4196f5e01502c81e8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/First Playtest/PlayTest.unity
     guid: 3890ddc69338cf14a91ac1991ae74c86
   - enabled: 1
     path: Assets/Scenes/Others/Cutscene.unity
     guid: 7242744c98934d74381591ba367bea09
-  - enabled: 1
-    path: Assets/Scenes/Beta/Test.unity
+  - enabled: 0
+    path: Assets/Scenes/Beta/Updates.unity
     guid: ec1acfdfb5f83644e9e4cac9de751936
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Others/PauseMenu.unity
     guid: 2a58e6d89b7a4cc40b5fbafaaf282b7e
+  - enabled: 0
+    path: Assets/Scenes/Beta/Levels/Level1.unity
+    guid: 3809a45e4bc50b641a82bdc31309b02f
+  - enabled: 1
+    path: Assets/Scenes/Beta/Levels/Level 1.unity
+    guid: fdd4a99b4e647b842944ca4bb8ef780f
+  - enabled: 1
+    path: Assets/Scenes/Beta/Levels/Level 2 Spawn Issue.unity
+    guid: 924b593b7f7c97447a591c1e49d12364
+  - enabled: 1
+    path: Assets/Scenes/Beta/Levels/Level 3.unity
+    guid: 409675e94cbec924d92aae9389fbb862
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

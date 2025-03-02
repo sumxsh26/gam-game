@@ -402,6 +402,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5baa6c82b084513a47f7046c293420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutsceneSceneName: Cutscene
+  playSceneName: Level 1
+  creditsSceneName: Credits
+  settingsSceneName: Settings
 --- !u!1 &683210849
 GameObject:
   m_ObjectHideFlags: 0

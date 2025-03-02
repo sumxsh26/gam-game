@@ -176,4 +176,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spikeDamage: 1
-  knockBack: {x: 10, y: 0}
+  knockBack: {x: 15, y: 0}

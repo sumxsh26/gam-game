@@ -1165,6 +1165,45 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // with run
+
+    //private void Move(float acceleration, float deceleration, Vector2 moveInput)
+    //{
+    //    // Prevent movement if the player cannot move or is dead
+    //    if (!CanMove || !IsAlive)
+    //    {
+    //        _moveVelocity = Vector2.zero;
+    //        _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
+    //        return;
+    //    }
+
+    //    if (moveInput != Vector2.zero)
+    //    {
+    //        TurnCheck(moveInput);
+
+    //        Vector2 targetVelocity = Vector2.zero;
+
+    //        if (InputManager.RunIsHeld)
+    //        {
+    //            targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxRunSpeed;
+    //        }
+
+    //        else { targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxWalkSpeed; }
+
+    //        _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+    //        _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
+    //    }
+
+    //    else if (moveInput == Vector2.zero)
+    //    {
+    //        _moveVelocity = Vector2.Lerp(_moveVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
+    //        _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
+    //    }
+
+    //}
+
+    // without run
+
     private void Move(float acceleration, float deceleration, Vector2 moveInput)
     {
         // Prevent movement if the player cannot move or is dead
@@ -1179,20 +1218,12 @@ public class PlayerMovement : MonoBehaviour
         {
             TurnCheck(moveInput);
 
-            Vector2 targetVelocity = Vector2.zero;
-
-            if (InputManager.RunIsHeld)
-            {
-                targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxRunSpeed;
-            }
-
-            else { targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxWalkSpeed; }
+            Vector2 targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxWalkSpeed;
 
             _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
             _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
         }
-
-        else if (moveInput == Vector2.zero)
+        else
         {
             _moveVelocity = Vector2.Lerp(_moveVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
             _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
@@ -1614,9 +1645,6 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("Knockback ended");
     }
-
-
-
 
     #endregion
 }

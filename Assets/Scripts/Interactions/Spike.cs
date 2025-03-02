@@ -30,4 +30,3 @@ public class Spike : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) { ApplyDamage(other); }
     private void OnCollisionEnter2D(Collision2D collision) { ApplyDamage(collision.collider); }
 }
-

@@ -13,12 +13,17 @@ public class InputManager : MonoBehaviour
     public static bool RunIsHeld;
     public static bool RestartWasPressed;
     public static bool PauseWasPressed;
+    public static bool PickupWasPressed;
 
     private InputAction _moveAction;
     private InputAction _jumpAction;
     private InputAction _runAction;
     private InputAction _restartAction;
     private InputAction _pauseAction;
+    private InputAction _pickupAction;
+
+    private float pickupBufferTime = 0.2f; // Time in seconds to remember input
+    private float pickupBufferTimer = 0f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,6 +36,7 @@ public class InputManager : MonoBehaviour
         _runAction = PlayerInput.actions["Run"];
         _restartAction = PlayerInput.actions["Restart"];
         _pauseAction = PlayerInput.actions["Pause"];
+        _pickupAction = PlayerInput.actions["Pickup"];
     }
 
     // Update is called once per frame
@@ -47,6 +53,23 @@ public class InputManager : MonoBehaviour
         RestartWasPressed = _restartAction.WasPressedThisFrame();
 
         PauseWasPressed = _pauseAction.WasPressedThisFrame();
+
+        PickupWasPressed = _pickupAction.WasPressedThisFrame();
+
+        if (_pickupAction.WasPressedThisFrame())
+        {
+            PickupWasPressed = true;
+            pickupBufferTimer = pickupBufferTime; // Start buffer countdown
+        }
+
+        if (pickupBufferTimer > 0)
+        {
+            pickupBufferTimer -= Time.deltaTime;
+        }
+        else
+        {
+            PickupWasPressed = false; // Reset after buffer time expires
+        }
 
     }
 }

@@ -15,6 +15,7 @@ TagManager:
   - FallingSpike
   - Ground
   - DamageCollider
+  - PickupZone
   layers:
   - Default
   - TransparentFX
@@ -31,8 +32,8 @@ TagManager:
   - MiceHitbox
   - CliffDetection
   - EnemyPlatform
-  - 
-  - 
+  - PickupMice
+  - PickupPlayer
   - 
   - 
   - 

@@ -37,7 +37,7 @@ public class CameraZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController player = other.GetComponent<PlayerController>();
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
             if (player == null) return;
 
             // Find the best zone for the player
@@ -55,23 +55,23 @@ public class CameraZone : MonoBehaviour
     {
         if (other.CompareTag("Player") && currentZone == this)
         {
-            CameraZone bestZone = FindBestZoneForPlayer(other.GetComponent<PlayerController>());
+            CameraZone bestZone = FindBestZoneForPlayer(other.GetComponent<PlayerMovement>());
 
             if (bestZone != null && bestZone != this)
             {
                 currentZone = bestZone;
-                currentZone.ActivateZone(other.GetComponent<PlayerController>());
+                currentZone.ActivateZone(other.GetComponent<PlayerMovement>());
             }
         }
     }
 
-    private void ActivateZone(PlayerController player)
+    private void ActivateZone(PlayerMovement player)
     {
         CameraController.instance.EnableCameraMovement();
         StartCoroutine(DelayedCameraMove(player));
     }
 
-    private IEnumerator DelayedCameraMove(PlayerController player)
+    private IEnumerator DelayedCameraMove(PlayerMovement player)
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -81,7 +81,7 @@ public class CameraZone : MonoBehaviour
         CameraController.instance.SetCameraPosition(newCameraPosition);
     }
 
-    private CameraZone FindBestZoneForPlayer(PlayerController player)
+    private CameraZone FindBestZoneForPlayer(PlayerMovement player)
     {
         if (player == null) return this; // Default to current zone
 
@@ -123,7 +123,7 @@ public class CameraZone : MonoBehaviour
         return this; // Default to current zone if no better one found
     }
 
-    private float GetOverlapPercentage(PlayerController player, CameraZone zone)
+    private float GetOverlapPercentage(PlayerMovement player, CameraZone zone)
     {
         if (player == null || zone == null) return 0f;
 

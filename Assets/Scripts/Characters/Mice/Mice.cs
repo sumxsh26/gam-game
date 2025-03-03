@@ -120,6 +120,284 @@
 //}
 
 // blue and red mice pickup
+//using System.Collections;
+//using UnityEngine;
+
+//[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+//public class Mice : MonoBehaviour
+//{
+//    public float walkSpeed = 3f;
+//    public float escapeSpeed = 6f;
+//    public float walkStopRate = 0.05f;
+//    public DetectionZone playerDetectionZone;
+//    public DetectionZone cliffDetectionZone;
+//    public bool isBlueMouse;
+
+//    private Rigidbody2D rb;
+//    private TouchingDirections touchingDirections;
+//    private Animator animator;
+//    private Vector2 walkDirectionVector = Vector2.right;
+//    private float flipCooldown = 0.2f;
+//    private float lastFlipTime = 0f;
+//    private bool isFollowingPlayer = false;
+//    private Transform player;
+//    private Vector3 initialPickupPosition;
+
+//    // distance from player
+//    private Vector3 followOffset = new Vector3(-1.5f, 0, 0); // Distance behind the player
+//    private float followSpeed = 5f; // Speed of following
+//    //private float minFollowDistance = 1.2f; // Minimum distance before mouse moves closer
+
+//    private void Awake()
+//    {
+//        rb = GetComponent<Rigidbody2D>();
+//        touchingDirections = GetComponent<TouchingDirections>();
+//        animator = GetComponent<Animator>();
+//    }
+
+//    private void Start()
+//    {
+//        initialPickupPosition = transform.position;
+//    }
+
+//    private bool isPickedUp = false; // Track if the mouse has been picked up
+
+//    private void FixedUpdate()
+//    {
+//        if (!isFollowingPlayer)
+//        {
+//            MoveMouse();
+//        }
+//        else
+//        {
+//            FollowPlayer();
+//        }
+
+//        // Update animation state ONLY if picked up
+//        if (isPickedUp)
+//        {
+//            UpdateAnimationState();
+//        }
+//        else
+//        {
+//            // Before pickup, always stay in moving animation
+//            animator.SetBool(AnimationStrings.isMoving, true);
+//        }
+//    }
+
+//    private void UpdateAnimationState()
+//    {
+//        if (animator != null)
+//        {
+//            // Mouse only switches between moving and idle if picked up
+//            bool isMoving = isFollowingPlayer && Mathf.Abs(InputManager.Movement.x) > 0;
+//            animator.SetBool(AnimationStrings.isMoving, isMoving);
+//        }
+//    }
+
+//    // Called when player picks up the mouse
+//    //public void SetFollowingPlayer(Transform playerTransform)
+//    //{
+//    //    player = playerTransform;
+//    //    isFollowingPlayer = true;
+//    //    isPickedUp = true; // Mark mouse as picked up
+//    //    FlipToMatchPlayer();
+//    //}
+
+//    public void SetFollowingPlayer(Transform playerTransform)
+//    {
+//        player = playerTransform;
+//        isFollowingPlayer = true;
+//        isPickedUp = true; // Mark as picked up
+
+//        // Disable the BoxCollider2D inside PickupZone
+//        Transform pickupZone = transform.Find("PickupZone");
+//        if (pickupZone != null)
+//        {
+//            BoxCollider2D collider = pickupZone.GetComponent<BoxCollider2D>();
+//            if (collider != null)
+//            {
+//                collider.enabled = false;
+//            }
+//        }
+//    }
+
+
+
+//    private void MoveMouse()
+//    {
+//        if (touchingDirections == null || cliffDetectionZone == null)
+//            return;
+
+//        bool isBlockedByWall = touchingDirections.IsGrounded && touchingDirections.IsOnWall;
+//        bool isAtLedge = cliffDetectionZone.detectedColliders.Count == 0;
+
+//        if ((isBlockedByWall || isAtLedge) && Time.time - lastFlipTime > flipCooldown)
+//        {
+//            FlipDirection();
+//        }
+
+//        float currentSpeed = walkSpeed;
+
+//        if (playerDetectionZone.detectedColliders.Count > 0)
+//        {
+//            currentSpeed = escapeSpeed;
+//            FlipDirection();
+//        }
+
+//        rb.linearVelocity = new Vector2(currentSpeed * walkDirectionVector.x, rb.linearVelocity.y);
+//    }
+//    private void FollowPlayer()
+//    {
+//        if (player != null)
+//        {
+//            // Get player's facing direction
+//            float playerDirection = Mathf.Sign(player.localScale.x);
+
+//            // Always follow behind the player
+//            Vector3 targetPosition = player.position + new Vector3(followOffset.x * playerDirection, followOffset.y, 0);
+
+//            // Smoothly move the mouse to the target position
+//            transform.position = Vector2.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
+
+//            // Flip the mouse to always face the same direction as the player
+//            FlipToMatchPlayer(playerDirection);
+//        }
+//    }
+
+//    // Flip the mouse to match player's facing direction
+//    private void FlipToMatchPlayer(float playerDirection)
+//    {
+//        transform.localScale = new Vector3(playerDirection * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+//    }
+
+
+//    private void FlipDirection()
+//    {
+//        if (Time.time - lastFlipTime < flipCooldown) return;
+
+//        walkDirectionVector = -walkDirectionVector;
+//        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+//        lastFlipTime = Time.time;
+//    }
+
+//    //public void DropMouse()
+//    //{
+//    //    isFollowingPlayer = false;
+//    //    transform.position = initialPickupPosition;
+//    //}
+
+//    //public void DropMouse()
+//    //{
+//    //    isFollowingPlayer = false;
+//    //    isPickedUp = false;
+
+//    //    // Re-enable pickup zone collider
+//    //    Transform pickupZone = transform.Find("PickupZone");
+//    //    if (pickupZone != null)
+//    //    {
+//    //        BoxCollider2D collider = pickupZone.GetComponent<BoxCollider2D>();
+//    //        if (collider != null)
+//    //        {
+//    //            collider.enabled = true;
+//    //        }
+//    //    }
+
+//    //    // Stop movement immediately before returning
+//    //    rb.linearVelocity = Vector2.zero;
+
+//    //    // Smoothly return to original pickup position
+//    //    StartCoroutine(SmoothReturnToPosition());
+//    //}
+
+//    public void DropMouse(Vector3 dropPosition)
+//    {
+//        isFollowingPlayer = false;
+//        isPickedUp = false;
+
+//        // Re-enable pickup zone collider
+//        Transform pickupZone = transform.Find("PickupZone");
+//        if (pickupZone != null)
+//        {
+//            BoxCollider2D collider = pickupZone.GetComponent<BoxCollider2D>();
+//            if (collider != null)
+//            {
+//                collider.enabled = true;
+//            }
+//        }
+
+//        // Stop movement immediately
+//        rb.linearVelocity = Vector2.zero;
+
+//        // Drop the mouse at the new pickup location instead of the original spawn
+//        transform.position = dropPosition;
+
+//        // Reset mouse movement direction
+//        ResetMouseDirection();
+//    }
+
+//    private IEnumerator SmoothReturnToPosition()
+//    {
+//        float duration = 0.5f; // Time it takes to return
+//        float elapsedTime = 0f;
+//        Vector3 startPosition = transform.position;
+
+//        while (elapsedTime < duration)
+//        {
+//            transform.position = Vector3.Lerp(startPosition, initialPickupPosition, elapsedTime / duration);
+//            elapsedTime += Time.deltaTime;
+//            yield return null;
+//        }
+
+//        transform.position = initialPickupPosition; // Ensure exact positioning
+
+//        // Reset mouse movement direction
+//        ResetMouseDirection();
+//    }
+
+//    private void ResetMouseDirection()
+//    {
+//        // Check if there’s a wall on the right side
+//        bool isBlockedRight = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, LayerMask.GetMask("Ground"));
+
+//        // Check if there’s a wall on the left side
+//        bool isBlockedLeft = Physics2D.Raycast(transform.position, Vector2.left, 0.5f, LayerMask.GetMask("Ground"));
+
+//        if (isBlockedRight && !isBlockedLeft)
+//        {
+//            // If right is blocked, walk left
+//            walkDirectionVector = Vector2.left;
+//        }
+//        else if (isBlockedLeft && !isBlockedRight)
+//        {
+//            // If left is blocked, walk right
+//            walkDirectionVector = Vector2.right;
+//        }
+//        else
+//        {
+//            // Default to right if nothing is blocking either side
+//            walkDirectionVector = Vector2.right;
+//        }
+
+//        // Flip the sprite to match movement direction
+//        transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * Mathf.Sign(walkDirectionVector.x), transform.localScale.y);
+//    }
+
+
+//    public void FlipToMatchPlayer()
+//    {
+//        if (player != null)
+//        {
+//            // Flip mouse scale based on player's scale
+//            float playerScaleX = Mathf.Sign(player.localScale.x);
+//            transform.localScale = new Vector3(playerScaleX * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+//        }
+//    }
+
+//}
+
+
+// ability to drop anywhere
 using System.Collections;
 using UnityEngine;
 
@@ -139,14 +417,10 @@ public class Mice : MonoBehaviour
     private Vector2 walkDirectionVector = Vector2.right;
     private float flipCooldown = 0.2f;
     private float lastFlipTime = 0f;
-    private bool isFollowingPlayer = false;
     private Transform player;
     private Vector3 initialPickupPosition;
 
-    // distance from player
-    private Vector3 followOffset = new Vector3(-1.5f, 0, 0); // Distance behind the player
-    private float followSpeed = 5f; // Speed of following
-    //private float minFollowDistance = 1.2f; // Minimum distance before mouse moves closer
+    private bool isPickedUp = false; // Track if the mouse has been picked up
 
     private void Awake()
     {
@@ -160,27 +434,22 @@ public class Mice : MonoBehaviour
         initialPickupPosition = transform.position;
     }
 
-    private bool isPickedUp = false; // Track if the mouse has been picked up
-
     private void FixedUpdate()
     {
-        if (!isFollowingPlayer)
+        Debug.Log("Mouse Rigidbody State: " + rb.bodyType + ", Gravity: " + rb.gravityScale);
+
+        // Only move if it's not being held
+        if (!isPickedUp)
         {
             MoveMouse();
         }
-        else
-        {
-            FollowPlayer();
-        }
 
-        // Update animation state ONLY if picked up
         if (isPickedUp)
         {
             UpdateAnimationState();
         }
         else
         {
-            // Before pickup, always stay in moving animation
             animator.SetBool(AnimationStrings.isMoving, true);
         }
     }
@@ -190,27 +459,17 @@ public class Mice : MonoBehaviour
         if (animator != null)
         {
             // Mouse only switches between moving and idle if picked up
-            bool isMoving = isFollowingPlayer && Mathf.Abs(InputManager.Movement.x) > 0;
+            bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0;
             animator.SetBool(AnimationStrings.isMoving, isMoving);
         }
     }
 
-    // Called when player picks up the mouse
-    //public void SetFollowingPlayer(Transform playerTransform)
-    //{
-    //    player = playerTransform;
-    //    isFollowingPlayer = true;
-    //    isPickedUp = true; // Mark mouse as picked up
-    //    FlipToMatchPlayer();
-    //}
-
-    public void SetFollowingPlayer(Transform playerTransform)
+    public void SetOnPlayerHead(Transform playerTransform)
     {
         player = playerTransform;
-        isFollowingPlayer = true;
-        isPickedUp = true; // Mark as picked up
+        isPickedUp = true;
 
-        // Disable the BoxCollider2D inside PickupZone
+        // Disable pickup collider so it can't be picked up again mid-air
         Transform pickupZone = transform.Find("PickupZone");
         if (pickupZone != null)
         {
@@ -220,9 +479,15 @@ public class Mice : MonoBehaviour
                 collider.enabled = false;
             }
         }
+
+        // Parent the mouse to the player and place it on their head
+        transform.SetParent(playerTransform);
+        transform.localPosition = new Vector3(0, 1.45f, 0); // Adjust height if needed
+
+        // Disable physics while on player's head
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.linearVelocity = Vector2.zero;
     }
-
-
 
     private void MoveMouse()
     {
@@ -247,33 +512,11 @@ public class Mice : MonoBehaviour
 
         rb.linearVelocity = new Vector2(currentSpeed * walkDirectionVector.x, rb.linearVelocity.y);
     }
-    private void FollowPlayer()
-    {
-        if (player != null)
-        {
-            // Get player's facing direction
-            float playerDirection = Mathf.Sign(player.localScale.x);
-
-            // Always follow behind the player
-            Vector3 targetPosition = player.position + new Vector3(followOffset.x * playerDirection, followOffset.y, 0);
-
-            // Smoothly move the mouse to the target position
-            transform.position = Vector2.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
-
-            // Flip the mouse to always face the same direction as the player
-            FlipToMatchPlayer(playerDirection);
-        }
-    }
-
-    // Flip the mouse to match player's facing direction
-    private void FlipToMatchPlayer(float playerDirection)
-    {
-        transform.localScale = new Vector3(playerDirection * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-    }
-
 
     private void FlipDirection()
     {
+        if (isPickedUp) return; // Prevent flipping while on the player's head
+
         if (Time.time - lastFlipTime < flipCooldown) return;
 
         walkDirectionVector = -walkDirectionVector;
@@ -281,41 +524,19 @@ public class Mice : MonoBehaviour
         lastFlipTime = Time.time;
     }
 
-    //public void DropMouse()
-    //{
-    //    isFollowingPlayer = false;
-    //    transform.position = initialPickupPosition;
-    //}
-
-    //public void DropMouse()
-    //{
-    //    isFollowingPlayer = false;
-    //    isPickedUp = false;
-
-    //    // Re-enable pickup zone collider
-    //    Transform pickupZone = transform.Find("PickupZone");
-    //    if (pickupZone != null)
-    //    {
-    //        BoxCollider2D collider = pickupZone.GetComponent<BoxCollider2D>();
-    //        if (collider != null)
-    //        {
-    //            collider.enabled = true;
-    //        }
-    //    }
-
-    //    // Stop movement immediately before returning
-    //    rb.linearVelocity = Vector2.zero;
-
-    //    // Smoothly return to original pickup position
-    //    StartCoroutine(SmoothReturnToPosition());
-    //}
-
     public void DropMouse(Vector3 dropPosition)
     {
-        isFollowingPlayer = false;
+        if (!isPickedUp) return;
+
+        Debug.Log("Dropping Mouse!");
+
         isPickedUp = false;
 
-        // Re-enable pickup zone collider
+        // Ensure the mouse is fully detached
+        transform.SetParent(null);
+        Debug.Log("Mouse Parent After Drop: " + (transform.parent == null ? "None" : transform.parent.name));
+
+        // Re-enable pickup collider
         Transform pickupZone = transform.Find("PickupZone");
         if (pickupZone != null)
         {
@@ -326,32 +547,29 @@ public class Mice : MonoBehaviour
             }
         }
 
-        // Stop movement immediately
-        rb.linearVelocity = Vector2.zero;
-
-        // Drop the mouse at the new pickup location instead of the original spawn
+        // Drop the mouse at the DropPoint
         transform.position = dropPosition;
+        Debug.Log("Mouse Actual Drop Position: " + transform.position);
 
-        // Reset mouse movement direction
-        ResetMouseDirection();
+        // Reset rigidbody settings **IMMEDIATELY**
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 1;
+        rb.linearVelocity = Vector2.zero;
+        rb.constraints = RigidbodyConstraints2D.None;
+
+        // Force Rigidbody to update properly
+        rb.WakeUp();
+        StartCoroutine(DelayResetMouseDirection());
+
+        Debug.Log("Mouse Rigidbody Type: " + rb.bodyType + " | Gravity: " + rb.gravityScale);
     }
 
-    private IEnumerator SmoothReturnToPosition()
+
+    private IEnumerator DelayResetMouseDirection()
     {
-        float duration = 0.5f; // Time it takes to return
-        float elapsedTime = 0f;
-        Vector3 startPosition = transform.position;
+        yield return new WaitForSeconds(0.2f); // Small delay before resetting movement
 
-        while (elapsedTime < duration)
-        {
-            transform.position = Vector3.Lerp(startPosition, initialPickupPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.position = initialPickupPosition; // Ensure exact positioning
-
-        // Reset mouse movement direction
+        // Reset movement logic to avoid flickering behavior
         ResetMouseDirection();
     }
 
@@ -382,16 +600,5 @@ public class Mice : MonoBehaviour
         // Flip the sprite to match movement direction
         transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * Mathf.Sign(walkDirectionVector.x), transform.localScale.y);
     }
-
-
-    public void FlipToMatchPlayer()
-    {
-        if (player != null)
-        {
-            // Flip mouse scale based on player's scale
-            float playerScaleX = Mathf.Sign(player.localScale.x);
-            transform.localScale = new Vector3(playerScaleX * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
-    }
-
 }
+

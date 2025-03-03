@@ -329,6 +329,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.6859598, y: 1.8290081}
   m_EdgeRadius: 0
+--- !u!1 &4856691104487646540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7501538835762110617}
+  m_Layer: 0
+  m_Name: DropPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7501538835762110617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856691104487646540}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.05, y: -0.43, z: 0.45036834}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5159996888129533256}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5112091317038952910
 GameObject:
   m_ObjectHideFlags: 0
@@ -5293,6 +5324,7 @@ Transform:
   - {fileID: 4182616668122911495}
   - {fileID: 2392137990651920918}
   - {fileID: 2064117164269181431}
+  - {fileID: 7501538835762110617}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &411523470172642921
@@ -5394,6 +5426,7 @@ MonoBehaviour:
   _bodyColl: {fileID: 3986763717366822818}
   _isFacingRight: 0
   cm: {fileID: 0}
+  dropPoint: {fileID: 0}
 --- !u!95 &4376227733090025750
 Animator:
   serializedVersion: 7

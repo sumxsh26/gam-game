@@ -657,7 +657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3597968673807345916, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3641706611733744586, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_margin.y
@@ -2671,7 +2671,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.777779, y: 10}
+  m_Size: {x: 35.555557, y: 20}
   m_EdgeRadius: 0
 --- !u!1 &1222460896
 GameObject:
@@ -3685,7 +3685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4872694220720271586, guid: 26a1efa64470842a9925ce2c115ae1d0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8069756437908623218, guid: 26a1efa64470842a9925ce2c115ae1d0, type: 3}
       propertyPath: m_Name

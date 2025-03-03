@@ -562,6 +562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Menu
+  fadeDuration: 1.5
 --- !u!61 &278910955
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7804,11 +7805,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7064855533838602888, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.86
+      value: -13.63
       objectReference: {fileID: 0}
     - target: {fileID: 7064855533838602888, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.67
+      value: -2.21
       objectReference: {fileID: 0}
     - target: {fileID: 7064855533838602888, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7866,17 +7867,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
---- !u!114 &1122843455 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8587796992090336568, guid: a9130587cf6558a43aae36a9c3e84caa, type: 3}
-  m_PrefabInstance: {fileID: 1122843452}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4542a2bfdb63ccc43ae1342cfe4195aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1173148125
 GameObject:
   m_ObjectHideFlags: 0
@@ -8191,7 +8181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597e3d870449c467aaa793b3cadf0614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 1122843455}
+  playerMovement: {fileID: 0}
   GameOverCanvas: {fileID: 95695233}
   TimerText: {fileID: 95695234}
   gameplayUI: {fileID: 730073162}
@@ -8871,7 +8861,7 @@ SpriteRenderer:
   m_Size: {x: 30, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1441358598

@@ -397,7 +397,6 @@
 //}
 
 
-// ability to drop anywhere
 using System.Collections;
 using UnityEngine;
 
@@ -436,9 +435,7 @@ public class Mice : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("Mouse Rigidbody State: " + rb.bodyType + ", Gravity: " + rb.gravityScale);
-
-        // Only move if it's not being held
+        // Only move if it's not being carried
         if (!isPickedUp)
         {
             MoveMouse();
@@ -458,18 +455,18 @@ public class Mice : MonoBehaviour
     {
         if (animator != null)
         {
-            // Mouse only switches between moving and idle if picked up
             bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0;
             animator.SetBool(AnimationStrings.isMoving, isMoving);
         }
     }
 
+    // Modified to place mouse on player's head instead of following**
     public void SetOnPlayerHead(Transform playerTransform)
     {
         player = playerTransform;
         isPickedUp = true;
 
-        // Disable pickup collider so it can't be picked up again mid-air
+        // Disable pickup collider
         Transform pickupZone = transform.Find("PickupZone");
         if (pickupZone != null)
         {
@@ -482,7 +479,7 @@ public class Mice : MonoBehaviour
 
         // Parent the mouse to the player and place it on their head
         transform.SetParent(playerTransform);
-        transform.localPosition = new Vector3(0, 1.45f, 0); // Adjust height if needed
+        transform.localPosition = new Vector3(0, 1f, 0); // Adjust head position as needed
 
         // Disable physics while on player's head
         rb.bodyType = RigidbodyType2D.Kinematic;
@@ -524,6 +521,7 @@ public class Mice : MonoBehaviour
         lastFlipTime = Time.time;
     }
 
+    // Modified to drop at a proper position**
     public void DropMouse(Vector3 dropPosition)
     {
         if (!isPickedUp) return;
@@ -547,7 +545,7 @@ public class Mice : MonoBehaviour
             }
         }
 
-        // Drop the mouse at the DropPoint
+        // Drop the mouse at the correct position
         transform.position = dropPosition;
         Debug.Log("Mouse Actual Drop Position: " + transform.position);
 
@@ -563,7 +561,6 @@ public class Mice : MonoBehaviour
 
         Debug.Log("Mouse Rigidbody Type: " + rb.bodyType + " | Gravity: " + rb.gravityScale);
     }
-
 
     private IEnumerator DelayResetMouseDirection()
     {
@@ -583,17 +580,14 @@ public class Mice : MonoBehaviour
 
         if (isBlockedRight && !isBlockedLeft)
         {
-            // If right is blocked, walk left
             walkDirectionVector = Vector2.left;
         }
         else if (isBlockedLeft && !isBlockedRight)
         {
-            // If left is blocked, walk right
             walkDirectionVector = Vector2.right;
         }
         else
         {
-            // Default to right if nothing is blocking either side
             walkDirectionVector = Vector2.right;
         }
 
@@ -601,4 +595,3 @@ public class Mice : MonoBehaviour
         transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * Mathf.Sign(walkDirectionVector.x), transform.localScale.y);
     }
 }
-

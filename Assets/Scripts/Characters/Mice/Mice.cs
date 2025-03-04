@@ -479,7 +479,7 @@ public class Mice : MonoBehaviour
 
         // Parent the mouse to the player and place it on their head
         transform.SetParent(playerTransform);
-        transform.localPosition = new Vector3(0, 1.45f, 0); // Adjust head position as needed
+        transform.localPosition = new Vector3(0.3f, -0.4f, 0); // Adjust head position as needed
 
         // Disable physics while on player's head
         rb.bodyType = RigidbodyType2D.Kinematic;

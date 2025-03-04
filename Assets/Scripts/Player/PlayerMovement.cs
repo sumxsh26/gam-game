@@ -1715,7 +1715,6 @@ public class PlayerMovement : MonoBehaviour
     // mouse
     private Mice currentMouse = null;
 
-
     private void Awake()
     {
         _isFacingRight = true;
@@ -2311,12 +2310,14 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    #region Death / Hit / Knockback
+    #region Death / Hit / Knockback / Checkpoint
+
 
     public void TriggerPlayerDeath()
     {
         PlayerDied?.Invoke();
     }
+
     public void OnHit(int damage, Vector2 knockback)
     {
         Debug.Log($"OnHit called! Applying knockback: {knockback}");

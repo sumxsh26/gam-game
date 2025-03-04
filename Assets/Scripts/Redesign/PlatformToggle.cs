@@ -7,31 +7,33 @@ public class PlatformToggle : MonoBehaviour
 
     private Tilemap tilemap;
     private bool isActive = false; // Platforms start INACTIVE
-    private Color untoggledColor;
-    private Color toggledColor;
+    private float inactiveAlpha = 50f / 255f; // 150 Alpha when inactive
+    private float activeAlpha = 1f; // 255 Alpha when active
 
     private void Awake()
     {
         tilemap = GetComponent<Tilemap>();
 
-        if (isBluePlatform)
-        {
-            untoggledColor = new Color32(2, 0, 255, 255); // #0200FF
-            toggledColor = new Color32(0, 255, 232, 255); // #00FFE8
-        }
-        else
-        {
-            untoggledColor = new Color32(255, 0, 0, 255);  // #FF0000
-            toggledColor = new Color32(255, 0, 145, 255); // #FF0091
-        }
-
+        // Set the initial alpha to 150 (semi-transparent)
+        SetPlatformAlpha(inactiveAlpha);
         SetPlatformState(isActive); // Ensure initial state is INACTIVE
     }
 
     public void SetPlatformState(bool active)
     {
         isActive = active;
-        tilemap.color = active ? toggledColor : untoggledColor;
+
+        // Change alpha value instead of color
+        float targetAlpha = active ? activeAlpha : inactiveAlpha;
+        SetPlatformAlpha(targetAlpha);
+
+        // Enable or disable the collider
         tilemap.gameObject.GetComponent<TilemapCollider2D>().enabled = active;
+    }
+
+    private void SetPlatformAlpha(float alpha)
+    {
+        Color currentColor = tilemap.color;
+        tilemap.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
     }
 }

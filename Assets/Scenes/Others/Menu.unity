@@ -888,6 +888,7 @@ GameObject:
   - component: {fileID: 1167310821}
   - component: {fileID: 1167310820}
   - component: {fileID: 1167310819}
+  - component: {fileID: 1167310822}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -985,6 +986,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1167310822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167310817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5baa6c82b084513a47f7046c293420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneSceneName: Cutscene
+  playSceneName: Test
+  creditsSceneName: Credits
+  settingsSceneName: Settings
 --- !u!1 &1329560708
 GameObject:
   m_ObjectHideFlags: 0

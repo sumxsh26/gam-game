@@ -136,3 +136,4 @@ public class CutsceneManager : MonoBehaviour
         SceneManager.LoadSceneAsync(nextSceneName); // Directly load next scene
     }
 }
+

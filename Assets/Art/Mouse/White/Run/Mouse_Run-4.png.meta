@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 01dd9cc82298a4f7b8e94fcc155b8484
+guid: 02b1e9fab0f7d3d4099a9468659d575e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1084870471915973256
-    second: keyboard_0
+      213: 7323735253402936647
+    second: Mouse_Run-4_0
+  - first:
+      213: -6883716440936919929
+    second: Mouse_Run-4_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,12 +49,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1024
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,10 +75,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyboard_0
+      name: Mouse_Run-4_0
       rect:
         serializedVersion: 2
-        x: 238
-        y: 315
-        width: 1445
-        height: 534
+        x: 105
+        y: 329
+        width: 19
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 88aacd142fb3e0f00800000000000000
-      internalID: 1084870471915973256
+      spriteID: 7456610096223a560800000000000000
+      internalID: 7323735253402936647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mouse_Run-4_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 100
+        width: 674
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78c40735e502870a0800000000000000
+      internalID: -6883716440936919929
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      keyboard_0: 1084870471915973256
+      Mouse_Run-4_0: 7323735253402936647
+      Mouse_Run-4_1: -6883716440936919929
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

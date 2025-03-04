@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuFunctions : MonoBehaviour
 {
-    public string cutsceneSceneName = "Cutscene";
+    public string cutsceneSceneName = "Cutscene"; 
     public string playSceneName = "Test";
     public string creditsSceneName = "Credits";
     public string settingsSceneName = "Settings";
@@ -34,3 +34,5 @@ public class MenuFunctions : MonoBehaviour
         Application.Quit();
     }
 }
+
+

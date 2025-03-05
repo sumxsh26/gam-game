@@ -1398,11 +1398,8 @@ BoxCollider2D:
   m_EdgeRadius: 0
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!4 &221766345 stripped
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!1001 &178809841
@@ -1634,9 +1631,6 @@ SpriteRenderer:
 --- !u!1 &225494048
 GameObject:
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -4051,7 +4045,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!4 &715785497 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3057675937458917576, guid: 181bc0a3afb91d34cb890e49ec300cb6, type: 3}
@@ -4383,8 +4376,6 @@ Transform:
   - {fileID: 947866287}
   m_Father: {fileID: 1767399053}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -5685,11 +5676,8 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!1001 &1059130138
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!1 &1048870417
@@ -5734,9 +5722,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1117181232
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -5745,7 +5730,6 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
     m_TransformParent: {fileID: 45422297}
@@ -5795,8 +5779,6 @@ PrefabInstance:
       value: FrontTorch (1)
       objectReference: {fileID: 0}
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     m_TransformParent: {fileID: 225494049}
@@ -5854,9 +5836,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -5866,11 +5845,7 @@ PrefabInstance:
     m_AddedComponents: []
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   m_SourcePrefab: {fileID: 100100000, guid: 181bc0a3afb91d34cb890e49ec300cb6, type: 3}
-=======
-  m_SourcePrefab: {fileID: 100100000, guid: 5a2d0e0d2745d7d489ea81d4de9474a7, type: 3}
->>>>>>> Stashed changes
 =======
   m_SourcePrefab: {fileID: 100100000, guid: 5a2d0e0d2745d7d489ea81d4de9474a7, type: 3}
 >>>>>>> Stashed changes
@@ -5884,7 +5859,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!4 &1161692602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6331057216147745762, guid: b56376b5d32d9c14186065063704bccf, type: 3}
@@ -5892,16 +5866,11 @@ Transform:
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 --- !u!4 &1170491406 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7108095522131367925, guid: 5a2d0e0d2745d7d489ea81d4de9474a7, type: 3}
   m_PrefabInstance: {fileID: 1290792165}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -9311,11 +9280,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!1001 &1651990191
-=======
---- !u!1001 &1670897260
->>>>>>> Stashed changes
 =======
 --- !u!1001 &1670897260
 >>>>>>> Stashed changes
@@ -9327,7 +9292,6 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
     m_TransformParent: {fileID: 45422297}
@@ -9377,8 +9341,6 @@ PrefabInstance:
       value: SideTorch (2)
       objectReference: {fileID: 0}
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     m_TransformParent: {fileID: 299969016}
@@ -9444,9 +9406,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -9456,11 +9415,8 @@ PrefabInstance:
     m_AddedComponents: []
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   m_SourcePrefab: {fileID: 100100000, guid: b56376b5d32d9c14186065063704bccf, type: 3}
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: 213d54abf9199384eab3e2977a4e93a3, type: 3}
@@ -9470,9 +9426,6 @@ Transform:
   m_PrefabInstance: {fileID: 1670897260}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -20773,19 +20726,11 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: c927eaa3c13e64a8a9c05bf848942ded, type: 2}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   - m_RefCount: 9
     m_Data: {fileID: 11400000, guid: 8bf53a1eace1c44ea951e1fc9ffab374, type: 2}
   - m_RefCount: 352
     m_Data: {fileID: 11400000, guid: f649d93c74c48427dbf9ac7d0241d4a9, type: 2}
   - m_RefCount: 206
-=======
-  - m_RefCount: 7
-    m_Data: {fileID: 11400000, guid: 8bf53a1eace1c44ea951e1fc9ffab374, type: 2}
-  - m_RefCount: 380
-    m_Data: {fileID: 11400000, guid: f649d93c74c48427dbf9ac7d0241d4a9, type: 2}
-  - m_RefCount: 181
->>>>>>> Stashed changes
 =======
   - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 8bf53a1eace1c44ea951e1fc9ffab374, type: 2}
@@ -20807,15 +20752,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 35732f8a7231c4d208fce52996c2570f, type: 2}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   - m_RefCount: 12
     m_Data: {fileID: 11400000, guid: 91a7d03ee6b1041b1b97cdff1dd90bca, type: 2}
   - m_RefCount: 171
-=======
-  - m_RefCount: 7
-    m_Data: {fileID: 11400000, guid: 91a7d03ee6b1041b1b97cdff1dd90bca, type: 2}
-  - m_RefCount: 180
->>>>>>> Stashed changes
 =======
   - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 91a7d03ee6b1041b1b97cdff1dd90bca, type: 2}
@@ -20852,19 +20791,11 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 18d04f1fe7d9840e6b677a12988a2c8b, type: 3}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   - m_RefCount: 9
     m_Data: {fileID: 21300000, guid: f0073d0352b6a4a59829cea54058c716, type: 3}
   - m_RefCount: 352
     m_Data: {fileID: 21300000, guid: d3f77fb132af043d788cdd6bb2746e2a, type: 3}
   - m_RefCount: 206
-=======
-  - m_RefCount: 7
-    m_Data: {fileID: 21300000, guid: f0073d0352b6a4a59829cea54058c716, type: 3}
-  - m_RefCount: 380
-    m_Data: {fileID: 21300000, guid: d3f77fb132af043d788cdd6bb2746e2a, type: 3}
-  - m_RefCount: 181
->>>>>>> Stashed changes
 =======
   - m_RefCount: 7
     m_Data: {fileID: 21300000, guid: f0073d0352b6a4a59829cea54058c716, type: 3}
@@ -20886,15 +20817,9 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 39252cc56c1864c99a992ac5f09fdf74, type: 3}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   - m_RefCount: 12
     m_Data: {fileID: 21300000, guid: f0cde8713e7094384a51b8e273f05077, type: 3}
   - m_RefCount: 171
-=======
-  - m_RefCount: 7
-    m_Data: {fileID: 21300000, guid: f0cde8713e7094384a51b8e273f05077, type: 3}
-  - m_RefCount: 180
->>>>>>> Stashed changes
 =======
   - m_RefCount: 7
     m_Data: {fileID: 21300000, guid: f0cde8713e7094384a51b8e273f05077, type: 3}
@@ -20927,11 +20852,7 @@ Tilemap:
   m_TileMatrixArray:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   - m_RefCount: 961
-=======
-  - m_RefCount: 932
->>>>>>> Stashed changes
 =======
   - m_RefCount: 932
 >>>>>>> Stashed changes
@@ -20976,11 +20897,7 @@ Tilemap:
   m_TileColorArray:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   - m_RefCount: 962
-=======
-  - m_RefCount: 933
->>>>>>> Stashed changes
 =======
   - m_RefCount: 933
 >>>>>>> Stashed changes
@@ -22619,11 +22536,8 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!1001 &675847280005243327
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!1 &2134777468
@@ -22678,9 +22592,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2143516982
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -22689,7 +22600,6 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
     m_TransformParent: {fileID: 52855122}
@@ -22746,8 +22656,6 @@ PrefabInstance:
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     m_TransformParent: {fileID: 2134777469}
     m_Modifications:
     - target: {fileID: 3598471349919004542, guid: 5a2d0e0d2745d7d489ea81d4de9474a7, type: 3}
@@ -22800,9 +22708,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7108095522131367925, guid: 5a2d0e0d2745d7d489ea81d4de9474a7, type: 3}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -22815,11 +22720,8 @@ PrefabInstance:
     m_AddedComponents: []
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   m_SourcePrefab: {fileID: 100100000, guid: 3897400580c774c84b1c2a814420e9ec, type: 3}
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: 5a2d0e0d2745d7d489ea81d4de9474a7, type: 3}
@@ -22889,9 +22791,6 @@ PrefabInstance:
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a2d0e0d2745d7d489ea81d4de9474a7, type: 3}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -23256,19 +23155,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
       value: -12.3
       objectReference: {fileID: 0}
     - target: {fileID: 5159996888129533256, guid: 2ba90c96caf716a40bb1ad5edbfd4753, type: 3}
       propertyPath: m_LocalPosition.y
       value: -6.5
-=======
-      value: 87.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5159996888129533256, guid: 2ba90c96caf716a40bb1ad5edbfd4753, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.89
->>>>>>> Stashed changes
 =======
       value: 87.16
       objectReference: {fileID: 0}

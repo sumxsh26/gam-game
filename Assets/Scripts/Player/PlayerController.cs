@@ -2710,7 +2710,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-  
     // for enemy attack 
     public void OnHit(int damage, Vector2 knockback)
     {
@@ -2764,7 +2763,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
+
     // falling spike damage
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -2774,9 +2773,6 @@ public class PlayerController : MonoBehaviour
             damageable.Hit(1, Vector2.zero);
         }
     }
-    */
-
-
 
     public void TriggerPlayerDeath()
     {

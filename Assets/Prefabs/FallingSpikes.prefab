@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -9053159634999259048}
   m_Layer: 0
   m_Name: FallingSpikes
-  m_TagString: Spike
+  m_TagString: FallingSpike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

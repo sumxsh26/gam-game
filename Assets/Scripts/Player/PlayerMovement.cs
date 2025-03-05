@@ -2252,7 +2252,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("FallingSpike"))
+        {
+            Vector2 knockbackForce = new Vector2(0, 10f); // Knockback upwards
+            damageable.Hit(1, knockbackForce);
+            StartCoroutine(FlashHitEffect());
+        }
+    }
 
+    private IEnumerator FlashHitEffect()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Color originalColor = spriteRenderer.color;
+
+        spriteRenderer.color = Color.red; // Flash red
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = originalColor; // Revert color
+    }
 
     #endregion
 

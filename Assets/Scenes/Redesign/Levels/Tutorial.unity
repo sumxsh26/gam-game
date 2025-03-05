@@ -1100,7 +1100,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 35.555557, y: 20}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!1 &170483306
 GameObject:
@@ -1643,11 +1643,31 @@ Tilemap:
   m_GameObject: {fileID: 303384323}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 114, y: -9, z: 0}
+  - first: {x: 112, y: -9, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 5
       m_TileSpriteIndex: 5
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 113, y: -9, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 114, y: -9, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1963,7 +1983,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 7ad889e8e8158ca479d8f74845f24073, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 61f8cf941341c88409faad54a65c35b5, type: 2}
-  - m_RefCount: 14
+  - m_RefCount: 16
     m_Data: {fileID: 11400000, guid: 32424f9bef6850047a3ab64cb49122b7, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: eae20d086ce7dbc40bfa851f41b55d1f, type: 2}
@@ -1978,14 +1998,14 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: e3172adcdd321f940ab4224d38aacd12, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: fbabdca9d3158994ebc2725ad3c32eea, type: 3}
-  - m_RefCount: 14
+  - m_RefCount: 16
     m_Data: {fileID: 21300000, guid: f3307d903f8c9f84ebc3991e96833dd2, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: d6f3889e89052274891af4fad47643bb, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: b246d61191a43ab468951bc7a60f7519, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 31
+  - m_RefCount: 33
     m_Data:
       e00: 1
       e01: 0
@@ -2004,7 +2024,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 31
+  - m_RefCount: 33
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -6610,7 +6630,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 35.555557, y: 20}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!1 &1222460896
 GameObject:
@@ -6853,11 +6873,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1724636984605563748, guid: f5afb78c7c0804c309d1b8a972c55a7f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 119.98
+      value: 119.16
       objectReference: {fileID: 0}
     - target: {fileID: 1724636984605563748, guid: f5afb78c7c0804c309d1b8a972c55a7f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.63
+      value: -7.37
       objectReference: {fileID: 0}
     - target: {fileID: 1724636984605563748, guid: f5afb78c7c0804c309d1b8a972c55a7f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7299,7 +7319,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 35.555557, y: 20}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!1001 &1314145295
 PrefabInstance:
@@ -9779,7 +9799,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 35.555557, y: 20}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!1 &1568667241 stripped
 GameObject:

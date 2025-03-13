@@ -1892,6 +1892,11 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public bool IsFacingRight()
+    {
+        return _isFacingRight;
+    }
+
     private void TurnCheck(Vector2 moveInput)
     {
         bool shouldFaceRight = moveInput.x > 0;

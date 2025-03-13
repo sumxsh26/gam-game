@@ -26,8 +26,8 @@ MonoBehaviour:
   HeadWidth: 0.75
   JumpHeight: 10
   JumpHeightCompensationFactor: 1.054
-  TimeTillJumpApex: 0.3
-  GravityOnReleaseMultiplier: 2
+  TimeTillJumpApex: 0.27
+  GravityOnReleaseMultiplier: 1.5
   MaxFallSpeed: 60
   NumberOfJumpsAllowed: 1
   TimeForUpwardsCancel: 0.027

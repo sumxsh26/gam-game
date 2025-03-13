@@ -376,12 +376,12 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 0.87195945, g: 0.90588236, b: 0.5411765, a: 1}
-  m_Intensity: 0.67
+  m_FalloffIntensity: 0.647
+  m_Color: {r: 0.8207547, g: 0.7731247, b: 0.3484336, a: 1}
+  m_Intensity: 0.4
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 4796fbcd0ba3ed6e7573c47f4d50f8b06358a5b100000000
+  m_ApplyToSortingLayers: 4796fbcd0ba3ed6e7573c47f4d50f8b0
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -401,18 +401,35 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.47
-  m_PointLightOuterRadius: 1.82
+  m_PointLightInnerRadius: 1.31
+  m_PointLightOuterRadius: 6.37
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
   m_ShapeLightFalloffSize: 0.5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
+  - {x: -1.5894792, y: -6.794774, z: 0}
+  - {x: 0.37526274, y: -6.6748676, z: 0.000000044703484}
+  - {x: 0.34395838, y: -5.084991, z: 0.000000044703484}
+  - {x: 0.9406426, y: -5.1531787, z: 0.000000044703484}
+  - {x: 1.0429361, y: -6.6534276, z: 0.000000044703484}
+  - {x: 3.3205369, y: -6.6577787, z: 0}
+  - {x: 2.7136602, y: -6.2272186, z: 0.000000044703484}
+  - {x: 2.7307072, y: -4.624688, z: 0.000000044703484}
+  - {x: 3.9830425, y: -4.0341372, z: 0.000000044703484}
+  - {x: 2.1998026, y: -0.29226494, z: 0.000000044703484}
+  - {x: 5.386243, y: 2.2802715, z: 0.000000044703484}
+  - {x: 3.2842257, y: 5.866698, z: 0}
+  - {x: 0.38733864, y: 4.6481733, z: 0.000000044703484}
+  - {x: -2.2350988, y: 5.7456436, z: 0}
+  - {x: -4.5238695, y: 2.397204, z: 0.000000044703484}
+  - {x: -1.8051705, y: -0.4092003, z: 0.000000044703484}
+  - {x: -4.1730723, y: -3.5664077, z: 0.000000044703484}
+  - {x: -2.7991018, y: -4.004907, z: 0.000000044703484}
+  - {x: -2.0098052, y: -4.735738, z: 0.000000044703484}
+  - {x: -5.3716383, y: -5.992776, z: 0.000000044703484}
+  - {x: -2.0682714, y: -5.6419725, z: 0.000000044703484}
 --- !u!1 &4856691104487646540
 GameObject:
   m_ObjectHideFlags: 0
@@ -5453,8 +5470,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 961402523
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 86e254d95db51b14b9db55946d6875b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

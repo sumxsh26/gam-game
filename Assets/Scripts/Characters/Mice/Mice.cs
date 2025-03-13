@@ -399,6 +399,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 public class Mice : MonoBehaviour
@@ -477,9 +478,64 @@ public class Mice : MonoBehaviour
             }
         }
 
-        // Parent the mouse to the player and place it on their head
-        transform.SetParent(playerTransform);
-        transform.localPosition = new Vector3(1.9f, -1.3f, 0); // Adjust head position as needed
+        //// Parent the mouse to the player and place it on their head
+        //transform.SetParent(playerTransform);
+        //transform.localPosition = new Vector3(1.9f, -1.3f, 0); // Adjust head position as needed
+
+        // Ensure the light follows the mouse and uses the same offset
+        Light2D mouseLight = GetComponentInChildren<Light2D>(); // Assuming Light2D is a child of the mouse
+        if (mouseLight != null)
+        {
+            // Re-parent the light to the mouse
+            mouseLight.transform.SetParent(transform);
+            mouseLight.transform.localPosition = new Vector3(-2f, 8f, 0); // Apply the same offset to the light
+        }
+
+        //// Check player's facing direction
+        //PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        //if (playerMovement != null)
+        //{
+        //    bool playerFacingRight = playerMovement.IsFacingRight(); // Ensure you have a method that checks this
+        //    float directionMultiplier = playerFacingRight ? 1f : -1f;
+
+        //    // Flip mouse to match the player's facing direction
+        //    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * directionMultiplier, transform.localScale.y, transform.localScale.z);
+
+        //    // Adjust position relative to player
+        //    transform.SetParent(playerTransform);
+        //    transform.localPosition = new Vector3(1.9f * directionMultiplier, -1.3f, 0); // Adjust head position as needed
+        //}
+
+        // Store the original scale to prevent unintended scaling issues
+        Vector3 originalScale = transform.localScale;
+
+        // Get player's facing direction
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            bool playerFacingRight = playerMovement.IsFacingRight();
+            bool mouseFacingRight = transform.localScale.x > 0;
+
+            // Flip the mouse if it’s not facing the same direction as the player**
+            if (playerFacingRight != mouseFacingRight)
+            {
+                transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
+                mouseFacingRight = !mouseFacingRight; // Update the variable since we flipped it
+            }
+            else
+            {
+                transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+            }
+
+            //  Attach mouse to player AFTER flipping**
+            transform.SetParent(playerTransform);
+
+            // Set correct position based on facing direction**
+            float xOffset = playerFacingRight == mouseFacingRight ? 1.9f : -1.9f;
+            float yOffset = -1.3f;
+            transform.localPosition = new Vector3(xOffset, yOffset, 0);
+        }
+
 
         // Disable physics while on player's head
         rb.bodyType = RigidbodyType2D.Kinematic;

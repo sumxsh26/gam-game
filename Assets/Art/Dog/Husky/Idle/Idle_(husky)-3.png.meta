@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Idle_(husky)-3_0: 4682215893827848926
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

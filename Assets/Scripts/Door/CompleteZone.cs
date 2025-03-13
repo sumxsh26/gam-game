@@ -231,15 +231,71 @@
 //    }
 //}
 
+//using System.Collections;
+//using UnityEngine;
+//using UnityEngine.SceneManagement;
+
+//public class CompleteZone : MonoBehaviour
+//{
+//    [SerializeField] private string nextSceneName;
+//    [SerializeField] private float fadeDuration = 0.3f; // Adjust this for faster fading
+
+//    private bool isTransitioning = false;
+
+//    private void OnTriggerEnter2D(Collider2D collision)
+//    {
+//        if (collision.CompareTag("Player") && !isTransitioning)
+//        {
+//            isTransitioning = true;
+//            Debug.Log("[DEBUG] Player entered Complete Zone. Starting immediate fade-out.");
+
+//            // Immediately start fade-out, ignoring SlidingDoor state
+//            SpriteRenderer playerSprite = collision.GetComponent<SpriteRenderer>();
+//            if (playerSprite != null)
+//            {
+//                Debug.Log("[DEBUG] Player sprite found. Starting fade now.");
+//                StartCoroutine(FadeOutAndLoadScene(playerSprite));
+//            }
+//            else
+//            {
+//                Debug.LogWarning("[DEBUG] No SpriteRenderer found on Player. Loading scene immediately.");
+//                SceneManager.LoadScene(nextSceneName);
+//            }
+//        }
+//    }
+
+//    private IEnumerator FadeOutAndLoadScene(SpriteRenderer spriteRenderer)
+//    {
+//        Debug.Log("[DEBUG] FadeOutAndLoadScene coroutine started immediately.");
+
+//        float elapsedTime = 0f;
+//        Color originalColor = spriteRenderer.color;
+
+//        while (elapsedTime < fadeDuration)
+//        {
+//            elapsedTime += Time.deltaTime;
+//            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+//            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+//            yield return null;
+//        }
+
+//        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+//        Debug.Log("[DEBUG] Player fully faded out. Loading scene now.");
+
+//        SceneManager.LoadScene(nextSceneName);
+//    }
+//}
+
+
+// with loading screen
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CompleteZone : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName;
-    [SerializeField] private float fadeDuration = 0.3f; // Adjust this for faster fading
-
+    [SerializeField] private string nextSceneName;  // Name of the next level
+    [SerializeField] private float fadeDuration = 0.3f; // Adjust for faster fading
     private bool isTransitioning = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -247,26 +303,30 @@ public class CompleteZone : MonoBehaviour
         if (collision.CompareTag("Player") && !isTransitioning)
         {
             isTransitioning = true;
-            Debug.Log("[DEBUG] Player entered Complete Zone. Starting immediate fade-out.");
+            Debug.Log("[DEBUG] Player entered Complete Zone. Starting fade-out.");
 
-            // Immediately start fade-out, ignoring SlidingDoor state
+            // Store the next level name in PlayerPrefs
+            PlayerPrefs.SetString("NextLevel", nextSceneName);
+            PlayerPrefs.Save(); // Ensure it's stored before switching scenes
+
+            // Fade out the player before transitioning
             SpriteRenderer playerSprite = collision.GetComponent<SpriteRenderer>();
             if (playerSprite != null)
             {
                 Debug.Log("[DEBUG] Player sprite found. Starting fade now.");
-                StartCoroutine(FadeOutAndLoadScene(playerSprite));
+                StartCoroutine(FadeOutAndLoadLoadingScene(playerSprite));
             }
             else
             {
-                Debug.LogWarning("[DEBUG] No SpriteRenderer found on Player. Loading scene immediately.");
-                SceneManager.LoadScene(nextSceneName);
+                Debug.LogWarning("[DEBUG] No SpriteRenderer found on Player. Loading loading scene immediately.");
+                SceneManager.LoadScene("Loading"); // Load loading screen first
             }
         }
     }
 
-    private IEnumerator FadeOutAndLoadScene(SpriteRenderer spriteRenderer)
+    private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer spriteRenderer)
     {
-        Debug.Log("[DEBUG] FadeOutAndLoadScene coroutine started immediately.");
+        Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
 
         float elapsedTime = 0f;
         Color originalColor = spriteRenderer.color;
@@ -280,8 +340,8 @@ public class CompleteZone : MonoBehaviour
         }
 
         spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
-        Debug.Log("[DEBUG] Player fully faded out. Loading scene now.");
+        Debug.Log("[DEBUG] Player fully faded out. Loading loading scene.");
 
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene("Loading"); // Load loading screen first
     }
 }

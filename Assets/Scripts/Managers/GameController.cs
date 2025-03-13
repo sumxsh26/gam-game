@@ -160,10 +160,10 @@ public class GameController : MonoBehaviour
 
         GameOverCanvas.gameObject.SetActive(true);
 
-        int minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);
-        float seconds = Time.timeSinceLevelLoad % 60;
+        //int minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);
+        //float seconds = Time.timeSinceLevelLoad % 60;
 
-        TimerText.text = "You Lasted: " + Time.timeSinceLevelLoad.ToString("00.00") + " seconds";
+        //TimerText.text = "You Lasted: " + Time.timeSinceLevelLoad.ToString("00.00") + " seconds";
     }
 
     private float GetPlayerDeathAnimationDuration()

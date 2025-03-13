@@ -577,7 +577,47 @@ public class Mice : MonoBehaviour
         lastFlipTime = Time.time;
     }
 
-    // Modified to drop at a proper position**
+    //// Modified to drop at a proper position**
+    //public void DropMouse(Vector3 dropPosition)
+    //{
+    //    if (!isPickedUp) return;
+
+    //    Debug.Log("Dropping Mouse!");
+
+    //    isPickedUp = false;
+
+    //    // Ensure the mouse is fully detached
+    //    transform.SetParent(null);
+    //    Debug.Log("Mouse Parent After Drop: " + (transform.parent == null ? "None" : transform.parent.name));
+
+    //    // Re-enable pickup collider
+    //    Transform pickupZone = transform.Find("PickupZone");
+    //    if (pickupZone != null)
+    //    {
+    //        BoxCollider2D collider = pickupZone.GetComponent<BoxCollider2D>();
+    //        if (collider != null)
+    //        {
+    //            collider.enabled = true;
+    //        }
+    //    }
+
+    //    // Drop the mouse at the correct position
+    //    transform.position = dropPosition;
+    //    Debug.Log("Mouse Actual Drop Position: " + transform.position);
+
+    //    // Reset rigidbody settings **IMMEDIATELY**
+    //    rb.bodyType = RigidbodyType2D.Dynamic;
+    //    rb.gravityScale = 1;
+    //    rb.linearVelocity = Vector2.zero;
+    //    rb.constraints = RigidbodyConstraints2D.None;
+
+    //    // Force Rigidbody to update properly
+    //    rb.WakeUp();
+    //    StartCoroutine(DelayResetMouseDirection());
+
+    //    Debug.Log("Mouse Rigidbody Type: " + rb.bodyType + " | Gravity: " + rb.gravityScale);
+    //}
+
     public void DropMouse(Vector3 dropPosition)
     {
         if (!isPickedUp) return;
@@ -611,12 +651,21 @@ public class Mice : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.constraints = RigidbodyConstraints2D.None;
 
+        // Reset the light position to the exact values
+        Light2D mouseLight = GetComponentInChildren<Light2D>(); // Find Light2D inside the mouse
+        if (mouseLight != null)
+        {
+            mouseLight.transform.SetParent(transform); // Ensure it's parented back to the mouse
+            mouseLight.transform.localPosition = new Vector3(-0.01200069f, -4.61f, 0); // Set exact position
+        }
+
         // Force Rigidbody to update properly
         rb.WakeUp();
         StartCoroutine(DelayResetMouseDirection());
 
         Debug.Log("Mouse Rigidbody Type: " + rb.bodyType + " | Gravity: " + rb.gravityScale);
     }
+
 
     private IEnumerator DelayResetMouseDirection()
     {
@@ -650,4 +699,33 @@ public class Mice : MonoBehaviour
         // Flip the sprite to match movement direction
         transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * Mathf.Sign(walkDirectionVector.x), transform.localScale.y);
     }
+
+    public void FadeAndDestroy()
+    {
+        StartCoroutine(FadeOutAndDestroy());
+    }
+
+    private IEnumerator FadeOutAndDestroy()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) yield break; // Prevent errors
+
+        float fadeDuration = 0.5f; // Adjust fade time
+        float elapsedTime = 0f;
+        Color originalColor = spriteRenderer.color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            yield return null;
+        }
+
+        Destroy(gameObject); // Remove mouse after fading
+    }
+
+
+
+
 }

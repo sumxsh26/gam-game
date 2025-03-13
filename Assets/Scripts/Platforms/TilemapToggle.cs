@@ -385,6 +385,73 @@
 //}
 
 
+//using UnityEngine;
+//using UnityEngine.Tilemaps;
+//using System.Collections;
+
+//public class TilemapToggle : MonoBehaviour
+//{
+//    private Tilemap tilemap;
+//    private TilemapRenderer tilemapRenderer;
+//    private bool isFlashing = false;
+
+//    public float displayTime = 3f; // How long the platform is visible
+//    public float flashDuration = 0.3f; // How long each flash lasts
+//    public int flashCount = 5; // Number of flashes before disappearing
+
+//    void Start()
+//    {
+//        tilemap = GetComponent<Tilemap>();
+//        tilemapRenderer = GetComponent<TilemapRenderer>();
+
+//        if (tilemap == null || tilemapRenderer == null)
+//        {
+//            Debug.LogError("Tilemap or TilemapRenderer not found on " + gameObject.name);
+//        }
+
+//        // Ensure the platform starts invisible
+//        tilemapRenderer.enabled = false;
+//    }
+
+//    public void TogglePlatform()
+//    {
+//        if (!isFlashing)
+//        {
+//            StartCoroutine(ShowPlatform());
+//        }
+//    }
+
+//    private IEnumerator ShowPlatform()
+//    {
+//        // Show platform
+//        tilemapRenderer.enabled = true;
+
+//        // Wait for display time
+//        yield return new WaitForSeconds(displayTime - (flashCount * flashDuration));
+
+//        // Start flashing effect before disappearing
+//        StartCoroutine(FlashBeforeDisappearing());
+//    }
+
+//    private IEnumerator FlashBeforeDisappearing()
+//    {
+//        isFlashing = true;
+
+//        for (int i = 0; i < flashCount; i++)
+//        {
+//            tilemapRenderer.enabled = false;
+//            yield return new WaitForSeconds(flashDuration / 2);
+//            tilemapRenderer.enabled = true;
+//            yield return new WaitForSeconds(flashDuration / 2);
+//        }
+
+//        // Fully hide the platform after flashing
+//        tilemapRenderer.enabled = false;
+//        isFlashing = false;
+//    }
+//}
+
+
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections;
@@ -450,6 +517,8 @@ public class TilemapToggle : MonoBehaviour
         isFlashing = false;
     }
 }
+
+
 
 
 

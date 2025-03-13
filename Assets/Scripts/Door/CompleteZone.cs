@@ -309,12 +309,28 @@ public class CompleteZone : MonoBehaviour
             PlayerPrefs.SetString("NextLevel", nextSceneName);
             PlayerPrefs.Save(); // Ensure it's stored before switching scenes
 
-            // Fade out the player before transitioning
+            // Find player and mice sprite renderers
             SpriteRenderer playerSprite = collision.GetComponent<SpriteRenderer>();
+            SpriteRenderer blueMouseSprite = null;
+            SpriteRenderer redMouseSprite = null;
+
+            // Check if the player has BlueMouse or RedMouse as children
+            Transform blueMouseTransform = collision.transform.Find("BlueMouse");
+            if (blueMouseTransform != null)
+            {
+                blueMouseSprite = blueMouseTransform.GetComponent<SpriteRenderer>();
+            }
+
+            Transform redMouseTransform = collision.transform.Find("RedMouse");
+            if (redMouseTransform != null)
+            {
+                redMouseSprite = redMouseTransform.GetComponent<SpriteRenderer>();
+            }
+
             if (playerSprite != null)
             {
                 Debug.Log("[DEBUG] Player sprite found. Starting fade now.");
-                StartCoroutine(FadeOutAndLoadLoadingScene(playerSprite));
+                StartCoroutine(FadeOutAndLoadLoadingScene(playerSprite, blueMouseSprite, redMouseSprite));
             }
             else
             {
@@ -324,24 +340,50 @@ public class CompleteZone : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer spriteRenderer)
+    private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite, SpriteRenderer blueMouseSprite, SpriteRenderer redMouseSprite)
     {
         Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
 
         float elapsedTime = 0f;
-        Color originalColor = spriteRenderer.color;
+        Color playerOriginalColor = playerSprite.color;
+        Color blueMouseOriginalColor = blueMouseSprite != null ? blueMouseSprite.color : Color.white;
+        Color redMouseOriginalColor = redMouseSprite != null ? redMouseSprite.color : Color.white;
 
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+
+            // Fade out player
+            playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, alpha);
+
+            // Fade out blue mouse if it exists
+            if (blueMouseSprite != null)
+            {
+                blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, alpha);
+            }
+
+            // Fade out red mouse if it exists
+            if (redMouseSprite != null)
+            {
+                redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, alpha);
+            }
+
             yield return null;
         }
 
-        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
-        Debug.Log("[DEBUG] Player fully faded out. Loading loading scene.");
+        // Ensure all are fully transparent at the end
+        playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, 0f);
+        if (blueMouseSprite != null)
+        {
+            blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, 0f);
+        }
+        if (redMouseSprite != null)
+        {
+            redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, 0f);
+        }
 
+        Debug.Log("[DEBUG] Player and mice fully faded out. Loading loading scene.");
         SceneManager.LoadScene("Loading"); // Load loading screen first
     }
 }

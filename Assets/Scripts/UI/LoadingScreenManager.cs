@@ -10,7 +10,7 @@ public class LoadingScreenManager : MonoBehaviour
     private string nextSceneName;
     private AsyncOperation sceneLoadOperation;
 
-    [SerializeField] private float videoDuration = 4.0f; // Expected video duration
+    //[SerializeField] private float videoDuration = 4.0f; // Expected video duration
 
     private void Start()
     {

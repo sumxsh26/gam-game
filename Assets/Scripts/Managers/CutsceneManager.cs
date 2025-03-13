@@ -7,7 +7,7 @@ using TMPro; // Import TextMeshPro namespace
 public class CutsceneManager : MonoBehaviour
 {
     public VideoPlayer cutscenePlayer; // Assign in Inspector
-    public string nextSceneName = "Instructions"; // Set next scene name
+    public string nextSceneName = "Playtest level 1"; // Set next scene name
     public float fadeDuration = 1.5f; // Time for fade effect
     public float skipDelay = 1.0f; // Delay after fade before skipping
 

@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Others/Cutscene.unity
     guid: 7242744c98934d74381591ba367bea09
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Others/Text.unity
     guid: 34bbb12c386601c4b82d5bc13c9ea772
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Redesign/Levels/Tutorial.unity
     guid: 2889a8ae27ef6434e8d6bb0cc16a0cbb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Redesign/Levels/Level.unity
     guid: 7e5ffcf9faede3840992f8ef97a97f99
   - enabled: 0
@@ -56,6 +56,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Beta/Updates.unity
     guid: ec1acfdfb5f83644e9e4cac9de751936
+  - enabled: 1
+    path: Assets/Scenes/Second Playtest/Playtest level 1.unity
+    guid: 8bd7df1821d61eb4d9872467fd9df148
+  - enabled: 0
+    path: Assets/Scenes/Second Playtest/Playtest level 2.unity
+    guid: f729209ff719f0e4c83b576ac22bddd1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

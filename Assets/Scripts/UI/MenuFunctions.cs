@@ -8,6 +8,15 @@ public class MenuFunctions : MonoBehaviour
     public string creditsSceneName = "Credits";
     public string settingsSceneName = "Settings";
 
+    private void Awake()
+    {
+        int screenW = 1920;
+        int screenH = 1080;
+        bool isFullscreen = false;
+
+        Screen.SetResolution(screenW, screenH, isFullscreen);
+    }
+
 
     public void GoToCutscene()
     {

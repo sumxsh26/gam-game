@@ -2355,7 +2355,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+// using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -2416,6 +2416,9 @@ public class PlayerMovement : MonoBehaviour
     // mouse
     private Mice currentMouse = null;
 
+    AudioManager audioManager;
+    
+
     private void Awake()
     {
         _isFacingRight = true;
@@ -2429,7 +2432,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Ensure the knockback effect is applied when the player is hit
         damageable.damageableHit.AddListener(OnHit);
+
+        //audioSFX
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
+    
 
     private void FixedUpdate()
     {
@@ -2652,6 +2659,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _jumpBufferTimer = MoveStats.JumpBufferTime;
             _jumpReleasedDuringBuffer = false;
+            audioManager.PlaySFX(audioManager.jump); //audio sfx
         }
 
         // when jump is released
@@ -2843,6 +2851,7 @@ public class PlayerMovement : MonoBehaviour
         if (_groundHit.collider != null)
         {
             _isGrounded = true;
+
         }
         else { _isGrounded = false; }
 
@@ -2873,6 +2882,8 @@ public class PlayerMovement : MonoBehaviour
         if (_headHit.collider != null)
         {
             _bumpedHead = true;
+            audioManager.PlaySFX(audioManager.wallTouch); //audio sfx 
+
         }
         else { _bumpedHead = false; }
 
@@ -2933,6 +2944,7 @@ public class PlayerMovement : MonoBehaviour
             if (key != null)
             {
                 Debug.Log("Player collected a key.");
+                audioManager.PlaySFX(audioManager.pickup); //audio sfx
                 Destroy(other.gameObject); // Remove the key
             }
         }
@@ -3044,6 +3056,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void TriggerPlayerDeath()
     {
+        audioManager.PlaySFX(audioManager.death); //audio sfx
         PlayerDied?.Invoke();
 
         // Lock player movement by freezing Rigidbody

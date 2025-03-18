@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class OutOfBounds : MonoBehaviour
 {
+    AudioManager audioManager;
+
     private GameController gameController;
 
     private void Start()
@@ -17,6 +19,8 @@ public class OutOfBounds : MonoBehaviour
 
             // Trigger game over sequence
             gameController.PlayerMovement.TriggerPlayerDeath();
+            audioManager.PlaySFX(audioManager.death); //audio sfx 
+
 
             //destroyed player after fall
             Destroy(collision.gameObject);

@@ -65,12 +65,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Second Playtest/Playtest level 2.unity
     guid: f729209ff719f0e4c83b576ac22bddd1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Second Playtest/Playtest level 3.unity
     guid: 2060127dbed0a9d4bac8c2ad48e9f4bf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Second Playtest/Playtest level 4.unity
     guid: 1ca47ed3e7063264188e7549d5f8da38
+  - enabled: 1
+    path: Assets/Scenes/Others/Settings.unity
+    guid: 30f78d245b222400981f2adb224489dc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -17,7 +17,6 @@ public class MenuFunctions : MonoBehaviour
         Screen.SetResolution(screenW, screenH, isFullscreen);
     }
 
-
     public void GoToCutscene()
     {
         SceneManager.LoadSceneAsync(cutsceneSceneName);
@@ -41,5 +40,10 @@ public class MenuFunctions : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadSceneAsync("Menu");
     }
 }

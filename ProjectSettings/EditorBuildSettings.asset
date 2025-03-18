@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Others/Loading.unity
     guid: 539fc64ca51765d4aad011d8ff52a632
+  - enabled: 1
+    path: Assets/Scenes/Others/Settings.unity
+    guid: 30f78d245b222400981f2adb224489dc
   - enabled: 0
     path: Assets/Scenes/Others/Instructions.unity
     guid: 78f65144c79484d8997ea302a17db605
@@ -60,6 +63,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Beta/Updates.unity
     guid: ec1acfdfb5f83644e9e4cac9de751936
   - enabled: 1
+    path: Assets/Scenes/Second Playtest/Playtest Tutorial.unity
+    guid: 3ecd0c88761a48e4abc78e4ccf11f746
+  - enabled: 1
     path: Assets/Scenes/Second Playtest/Playtest level 1.unity
     guid: 8bd7df1821d61eb4d9872467fd9df148
   - enabled: 0
@@ -71,9 +77,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Second Playtest/Playtest level 4.unity
     guid: 1ca47ed3e7063264188e7549d5f8da38
-  - enabled: 1
-    path: Assets/Scenes/Others/Settings.unity
-    guid: 30f78d245b222400981f2adb224489dc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -1,51 +1,51 @@
-using UnityEngine;
+//using UnityEngine;
 
-public class DoorBehaviour : MonoBehaviour
-{
+//public class DoorBehaviour : MonoBehaviour
+//{
 
-    public bool _isDoorOpen = false;
-    Vector3 _doorClosedPos;
-    Vector3 _doorOpenPos;
+//    public bool _isDoorOpen = false;
+//    Vector3 _doorClosedPos;
+//    Vector3 _doorOpenPos;
 
-    //control door opening speed
-    float _doorSpeed = 10f;
+//    //control door opening speed
+//    float _doorSpeed = 10f;
 
-    void Awake()
-    {
-        _doorClosedPos = transform.position;
-        _doorOpenPos = new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z);
-    }
+//    void Awake()
+//    {
+//        _doorClosedPos = transform.position;
+//        _doorOpenPos = new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z);
+//    }
 
-    // Update
-    void Update()
-    {
-        if (_isDoorOpen)
-        {
-            OpenDoor();
-        }
-        else if (!_isDoorOpen)
-        {
-            CloseDoor();
-        }
-    }
+//    // Update
+//    void Update()
+//    {
+//        if (_isDoorOpen)
+//        {
+//            OpenDoor();
+//        }
+//        else if (!_isDoorOpen)
+//        {
+//            CloseDoor();
+//        }
+//    }
 
-    void OpenDoor()
-    {
-        if (transform.position != _doorOpenPos)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _doorOpenPos, _doorSpeed * Time.deltaTime);
-        }
-    }
+//    void OpenDoor()
+//    {
+//        if (transform.position != _doorOpenPos)
+//        {
+//            transform.position = Vector3.MoveTowards(transform.position, _doorOpenPos, _doorSpeed * Time.deltaTime);
+//        }
+//    }
 
-    void CloseDoor()
-    {
-        if (transform.position != _doorClosedPos)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _doorClosedPos, _doorSpeed * Time.deltaTime);
-        }
-    }
+//    void CloseDoor()
+//    {
+//        if (transform.position != _doorClosedPos)
+//        {
+//            transform.position = Vector3.MoveTowards(transform.position, _doorClosedPos, _doorSpeed * Time.deltaTime);
+//        }
+//    }
 
-}
+//}
 
 
 //using UnityEngine;
@@ -85,3 +85,82 @@ public class DoorBehaviour : MonoBehaviour
 //        transform.position = Vector3.MoveTowards(transform.position, doorClosedPos, doorSpeed * Time.deltaTime);
 //    }
 //}
+
+
+// fade out instead of slide up 
+using UnityEngine;
+
+public class DoorBehaviour : MonoBehaviour
+{
+    public bool _isDoorOpen = false;
+    private float _fadeSpeed = 2f;
+    private float _alpha = 1f;
+    private Renderer _renderer;
+    private Collider2D _collider;
+
+    void Awake()
+    {
+        _renderer = GetComponent<Renderer>();
+        _collider = GetComponent<Collider2D>();
+    }
+
+    void Update()
+    {
+        if (_isDoorOpen)
+        {
+            FadeOutDoor();
+        }
+        else
+        {
+            FadeInDoor();
+        }
+    }
+
+    void FadeOutDoor()
+    {
+        if (_alpha > 0f)
+        {
+            _alpha -= _fadeSpeed * Time.deltaTime;
+            SetAlpha(_alpha);
+        }
+        else
+        {
+            _alpha = 0f;
+            _collider.enabled = false; // Disable collision when fully invisible
+        }
+    }
+
+    void FadeInDoor()
+    {
+        if (_alpha < 1f)
+        {
+            _alpha += _fadeSpeed * Time.deltaTime;
+            SetAlpha(_alpha);
+        }
+        else
+        {
+            _alpha = 1f;
+            _collider.enabled = true; // Enable collision when fully visible
+        }
+    }
+
+    void SetAlpha(float alpha)
+    {
+        if (_renderer is SpriteRenderer spriteRenderer) // For 2D
+        {
+            Color color = spriteRenderer.color;
+            color.a = alpha;
+            spriteRenderer.color = color;
+        }
+        else if (_renderer is MeshRenderer meshRenderer) // For 3D
+        {
+            foreach (Material mat in meshRenderer.materials)
+            {
+                Color color = mat.color;
+                color.a = alpha;
+                mat.color = color;
+            }
+        }
+    }
+}
+

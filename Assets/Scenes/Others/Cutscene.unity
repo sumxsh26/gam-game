@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutscenePlayer: {fileID: 799725550}
-  nextSceneName: Playtest level 1
+  nextSceneName: Playtest Tutorial
   fadeDuration: 1.5
   skipDelay: 1
 --- !u!1 &799725548

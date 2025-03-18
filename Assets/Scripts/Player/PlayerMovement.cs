@@ -2955,6 +2955,8 @@ public class PlayerMovement : MonoBehaviour
         {
             // Deal fatal damage to drown the player
             damageable.Hit(damageable.Health, Vector2.zero);
+            audioManager.PlaySFX(audioManager.death); //audio sfx
+
         }
     }
 

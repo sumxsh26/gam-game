@@ -16,6 +16,7 @@ TagManager:
   - Ground
   - DamageCollider
   - PickupZone
+  - Audio
   layers:
   - Default
   - TransparentFX

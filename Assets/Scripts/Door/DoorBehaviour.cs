@@ -98,10 +98,15 @@ public class DoorBehaviour : MonoBehaviour
     private Renderer _renderer;
     private Collider2D _collider;
 
+    AudioManager audioManager;
+
     void Awake()
     {
         _renderer = GetComponent<Renderer>();
         _collider = GetComponent<Collider2D>();
+        //audioSFX
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
     }
 
     void Update()
@@ -109,6 +114,8 @@ public class DoorBehaviour : MonoBehaviour
         if (_isDoorOpen)
         {
             FadeOutDoor();
+            audioManager.PlaySFX(audioManager.exitDoor); //audio sfx
+
         }
         else
         {

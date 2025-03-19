@@ -357,10 +357,10 @@
 
 //    private void ResetMouseDirection()
 //    {
-//        // Check if there’s a wall on the right side
+//        // Check if thereï¿½s a wall on the right side
 //        bool isBlockedRight = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, LayerMask.GetMask("Ground"));
 
-//        // Check if there’s a wall on the left side
+//        // Check if thereï¿½s a wall on the left side
 //        bool isBlockedLeft = Physics2D.Raycast(transform.position, Vector2.left, 0.5f, LayerMask.GetMask("Ground"));
 
 //        if (isBlockedRight && !isBlockedLeft)
@@ -420,6 +420,9 @@ public class Mice : MonoBehaviour
     private Transform player;
     private Vector3 initialPickupPosition;
 
+    AudioManager audioManager;
+
+
     private bool isPickedUp = false; // Track if the mouse has been picked up
 
     private void Awake()
@@ -427,12 +430,15 @@ public class Mice : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
+        //audioSFX
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start()
     {
         initialPickupPosition = transform.position;
     }
+
 
     private void FixedUpdate()
     {
@@ -471,6 +477,8 @@ public class Mice : MonoBehaviour
         Transform pickupZone = transform.Find("PickupZone");
         if (pickupZone != null)
         {
+            audioManager.PlaySFX(audioManager.micePickup); //audio sfx
+
             BoxCollider2D collider = pickupZone.GetComponent<BoxCollider2D>();
             if (collider != null)
             {
@@ -516,7 +524,7 @@ public class Mice : MonoBehaviour
             bool playerFacingRight = playerMovement.IsFacingRight();
             bool mouseFacingRight = transform.localScale.x > 0;
 
-            // Flip the mouse if it’s not facing the same direction as the player**
+            // Flip the mouse if itï¿½s not facing the same direction as the player**
             if (playerFacingRight != mouseFacingRight)
             {
                 transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
@@ -677,10 +685,10 @@ public class Mice : MonoBehaviour
 
     private void ResetMouseDirection()
     {
-        // Check if there’s a wall on the right side
+        // Check if thereï¿½s a wall on the right side
         bool isBlockedRight = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, LayerMask.GetMask("Ground"));
 
-        // Check if there’s a wall on the left side
+        // Check if thereï¿½s a wall on the left side
         bool isBlockedLeft = Physics2D.Raycast(transform.position, Vector2.left, 0.5f, LayerMask.GetMask("Ground"));
 
         if (isBlockedRight && !isBlockedLeft)

@@ -1316,7 +1316,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.777779, y: 10}
+  m_Size: {x: 71.111115, y: 40}
   m_EdgeRadius: 0
 --- !u!1 &135247866
 GameObject:
@@ -5238,7 +5238,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.777779, y: 10}
+  m_Size: {x: 71.111115, y: 40}
   m_EdgeRadius: 0
 --- !u!1001 &829147123
 PrefabInstance:
@@ -13202,8 +13202,9 @@ MonoBehaviour:
   death: {fileID: 8300000, guid: 23bbc663273f74d668f0307333c88373, type: 3}
   wallTouch: {fileID: 8300000, guid: e6012b320011241cc928b734611979d3, type: 3}
   jump: {fileID: 8300000, guid: 5f8a6c7824b50441e8ab6e11da2cb79c, type: 3}
-  pickup: {fileID: 8300000, guid: 50402e16f4b7a4dd889ccccd19ea629e, type: 3}
+  keyPickup: {fileID: 0}
   exitDoor: {fileID: 8300000, guid: c5a74c65c196642cbbb9d9f5dbe0f089, type: 3}
+  micePickup: {fileID: 0}
 --- !u!4 &1054422091
 Transform:
   m_ObjectHideFlags: 0
@@ -13769,7 +13770,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.777779, y: 10}
+  m_Size: {x: 71.111115, y: 40}
   m_EdgeRadius: 0
 --- !u!1 &1107150507
 GameObject:
@@ -14348,7 +14349,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.777779, y: 10}
+  m_Size: {x: 71.111115, y: 40}
   m_EdgeRadius: 0
 --- !u!1 &1222460896
 GameObject:
@@ -16025,7 +16026,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.777779, y: 10}
+  m_Size: {x: 71.111115, y: 40}
   m_EdgeRadius: 0
 --- !u!1 &1414940805
 GameObject:

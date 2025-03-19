@@ -2944,7 +2944,7 @@ public class PlayerMovement : MonoBehaviour
             if (key != null)
             {
                 Debug.Log("Player collected a key.");
-                audioManager.PlaySFX(audioManager.pickup); //audio sfx
+                audioManager.PlaySFX(audioManager.keyPickup); //audio sfx
                 Destroy(other.gameObject); // Remove the key
             }
         }

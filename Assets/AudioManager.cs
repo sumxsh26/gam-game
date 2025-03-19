@@ -11,8 +11,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip death;
     public AudioClip wallTouch;
     public AudioClip jump;
-    public AudioClip pickup;
+    public AudioClip keyPickup;
     public AudioClip exitDoor;
+    public AudioClip micePickup;
 
     private void Start()
     {

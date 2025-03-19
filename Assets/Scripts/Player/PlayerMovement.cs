@@ -2944,7 +2944,7 @@ public class PlayerMovement : MonoBehaviour
             if (key != null)
             {
                 Debug.Log("Player collected a key.");
-                audioManager.PlaySFX(audioManager.pickup); //audio sfx
+                audioManager.PlaySFX(audioManager.keyPickup); //audio sfx
                 Destroy(other.gameObject); // Remove the key
             }
         }
@@ -2955,7 +2955,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Deal fatal damage to drown the player
             damageable.Hit(damageable.Health, Vector2.zero);
-            audioManager.PlaySFX(audioManager.death); //audio sfx
+            audioManager.PlaySFX(audioManager.micePickup); //audio sfx
 
         }
     }
@@ -2968,6 +2968,8 @@ public class PlayerMovement : MonoBehaviour
             if (mouse != null)
             {
                 PickupMouse(mouse);
+                audioManager.PlaySFX(audioManager.death); //audio sfx
+
             }
         }
     }

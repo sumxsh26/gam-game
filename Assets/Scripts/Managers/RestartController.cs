@@ -5,15 +5,20 @@ public class RestartController : MonoBehaviour
 {
     void Update()
     {
-        // Check if restart button was pressed in the InputManager
         if (InputManager.RestartWasPressed)
         {
-            RestartLevel();
+            FullRestart();
         }
     }
 
-    private void RestartLevel()
+    private void FullRestart()
     {
+        // Clear checkpoint before reloading
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.ClearCheckpointData();
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

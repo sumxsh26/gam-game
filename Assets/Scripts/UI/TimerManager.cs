@@ -55,6 +55,71 @@ public class TimerManager : MonoBehaviour
 }*/
 
 // version with dramatic UI, flashing, audio, scaling
+//using UnityEngine;
+//using TMPro;
+
+//public class TimerManager : MonoBehaviour
+//{
+//    [SerializeField] private TextMeshProUGUI countdownTimerText;
+//    [SerializeField] private float remainingTime = 180f;  // Default 3 minutes
+//    //private bool isFlashing = false;
+//    private AudioSource audioSource;
+//    [SerializeField] private AudioClip warningBeep; // Assign in Inspector
+//    private int lastPlayedSecond = -1; // Track last second audio played
+
+//    void Start()
+//    {
+//        GameController.isGameOver = false; // Ensure game is active
+//        if (remainingTime <= 0)
+//        {
+//            remainingTime = 180f; // Reset to default
+//            Debug.Log("Timer initialized to: " + remainingTime);
+//        }
+//        audioSource = GetComponent<AudioSource>();
+//    }
+
+//    void Update()
+//    {
+//        if (GameController.isGameOver) return;
+
+//        if (remainingTime > 0)
+//        {
+//            remainingTime -= Time.deltaTime;
+//        }
+//        else
+//        {
+//            remainingTime = 0;
+//            GameController.Instance?.PlayerMovement?.TriggerPlayerDeath();
+//        }
+
+//        int minutes = Mathf.FloorToInt(remainingTime / 60);
+//        int seconds = Mathf.FloorToInt(remainingTime % 60);
+//        countdownTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+//        // **DRAMATIC EFFECTS START AT 10 SECONDS**
+//        if (remainingTime <= 10)
+//        {
+//            countdownTimerText.color = Color.red;
+
+//            // **Flashing Effect**
+//            float intensity = Mathf.PingPong(Time.time * 2, 1);
+//            countdownTimerText.color = new Color(1, intensity, intensity);
+
+//            // **Scaling Effect**
+//            float scale = 1 + Mathf.PingPong(Time.time * 0.3f, 0.3f);
+//            countdownTimerText.transform.localScale = new Vector3(scale, scale, 1);
+//        }
+
+//        // **Play Warning Beep Only in Last 10 Seconds**
+//        if (remainingTime <= 10 && seconds != lastPlayedSecond)
+//        {
+//            audioSource.PlayOneShot(warningBeep);
+//            lastPlayedSecond = seconds; // Prevent duplicate plays
+//        }
+//    }
+//}
+
+
 using UnityEngine;
 using TMPro;
 
@@ -62,25 +127,32 @@ public class TimerManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI countdownTimerText;
     [SerializeField] private float remainingTime = 180f;  // Default 3 minutes
-    //private bool isFlashing = false;
+
     private AudioSource audioSource;
     [SerializeField] private AudioClip warningBeep; // Assign in Inspector
+
     private int lastPlayedSecond = -1; // Track last second audio played
 
     void Start()
     {
-        GameController.isGameOver = false; // Ensure game is active
+        if (GameController.Instance != null)
+        {
+            GameController.Instance.isGameOver = false; // Ensure game starts active
+        }
+
         if (remainingTime <= 0)
         {
             remainingTime = 180f; // Reset to default
             Debug.Log("Timer initialized to: " + remainingTime);
         }
+
         audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        if (GameController.isGameOver) return;
+        // Don't update timer if game is over
+        if (GameController.Instance != null && GameController.Instance.isGameOver) return;
 
         if (remainingTime > 0)
         {
@@ -89,6 +161,8 @@ public class TimerManager : MonoBehaviour
         else
         {
             remainingTime = 0;
+
+            // Trigger player death when timer hits zero
             GameController.Instance?.PlayerMovement?.TriggerPlayerDeath();
         }
 
@@ -99,22 +173,20 @@ public class TimerManager : MonoBehaviour
         // **DRAMATIC EFFECTS START AT 10 SECONDS**
         if (remainingTime <= 10)
         {
-            countdownTimerText.color = Color.red;
-
-            // **Flashing Effect**
+            // Flashing red
             float intensity = Mathf.PingPong(Time.time * 2, 1);
             countdownTimerText.color = new Color(1, intensity, intensity);
 
-            // **Scaling Effect**
+            // Pulsing scale
             float scale = 1 + Mathf.PingPong(Time.time * 0.3f, 0.3f);
             countdownTimerText.transform.localScale = new Vector3(scale, scale, 1);
         }
 
-        // **Play Warning Beep Only in Last 10 Seconds**
+        // **Play warning beep in last 10 seconds (once per second)**
         if (remainingTime <= 10 && seconds != lastPlayedSecond)
         {
             audioSource.PlayOneShot(warningBeep);
-            lastPlayedSecond = seconds; // Prevent duplicate plays
+            lastPlayedSecond = seconds;
         }
     }
 }

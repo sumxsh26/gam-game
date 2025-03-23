@@ -1,3 +1,176 @@
+//using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+
+//[ExecuteInEditMode]
+//public class CameraZone : MonoBehaviour
+//{
+//    private static CameraZone currentZone; // Tracks the active zone
+//    private BoxCollider2D boxCollider;
+
+//    public static bool temporarilyIgnoreZoneChange = false;
+
+
+//    private void Awake()
+//    {
+//        boxCollider = GetComponent<BoxCollider2D>();
+//        AdjustColliderSize();
+//    }
+
+//    private void OnValidate()
+//    {
+//        if (boxCollider == null)
+//            boxCollider = GetComponent<BoxCollider2D>();
+
+//        AdjustColliderSize();
+//    }
+
+//    private void AdjustColliderSize()
+//    {
+//        if (Camera.main == null || boxCollider == null) return;
+
+//        float camHeight = 2f * Camera.main.orthographicSize;
+//        float camWidth = camHeight * Camera.main.aspect;
+
+//        boxCollider.size = new Vector2(camWidth, camHeight);
+//        boxCollider.offset = Vector2.zero;
+//    }
+
+//    private void OnTriggerEnter2D(Collider2D other)
+//    {
+//        if (other.CompareTag("Player"))
+//        {
+//            if (temporarilyIgnoreZoneChange)
+//            {
+//                Debug.Log("[CameraZone] Zone change skipped (checkpoint logic)");
+//                return;
+//            }
+
+//            PlayerMovement player = other.GetComponent<PlayerMovement>();
+//            if (player == null) return;
+
+//            CameraZone bestZone = FindBestZoneForPlayer(player);
+
+//            if (bestZone != null && bestZone != currentZone)
+//            {
+//                currentZone = bestZone;
+//                currentZone.ActivateZone(player);
+//            }
+//        }
+//    }
+
+
+//    private void OnTriggerExit2D(Collider2D other)
+//    {
+//        if (other.CompareTag("Player") && currentZone == this && !blockZoneActivation)
+//        {
+//            CameraZone bestZone = FindBestZoneForPlayer(other.GetComponent<PlayerMovement>());
+
+//            if (bestZone != null && bestZone != this)
+//            {
+//                currentZone = bestZone;
+//                currentZone.ActivateZone(other.GetComponent<PlayerMovement>());
+//            }
+//        }
+//    }
+
+//    private void ActivateZone(PlayerMovement player)
+//    {
+//        CameraController.instance.EnableCameraMovement();
+//        StartCoroutine(DelayedCameraMove(player));
+//    }
+
+//    private IEnumerator DelayedCameraMove(PlayerMovement player)
+//    {
+//        yield return new WaitForSeconds(0.1f);
+
+//        Vector3 newCameraPosition = transform.position;
+//        newCameraPosition.z = -10f; // Force correct Z position
+
+//        CameraController.instance.SetCameraPosition(newCameraPosition);
+//    }
+
+//    private CameraZone FindBestZoneForPlayer(PlayerMovement player)
+//    {
+//        if (player == null) return this; // Default to current zone
+
+//        List<CameraZone> overlappingZones = new List<CameraZone>();
+//        Collider2D[] colliders = Physics2D.OverlapBoxAll(player.transform.position, Vector2.one, 0f);
+
+//        foreach (Collider2D col in colliders)
+//        {
+//            CameraZone zone = col.GetComponent<CameraZone>();
+//            if (zone != null)
+//            {
+//                overlappingZones.Add(zone);
+//            }
+//        }
+
+//        if (overlappingZones.Count == 1)
+//        {
+//            return overlappingZones[0]; // If only one zone detected, return it
+//        }
+//        else if (overlappingZones.Count > 1)
+//        {
+//            // Find the zone the player is MOST inside
+//            CameraZone bestZone = null;
+//            float maxOverlap = 0f;
+
+//            foreach (CameraZone zone in overlappingZones)
+//            {
+//                float overlapAmount = GetOverlapPercentage(player, zone);
+//                if (overlapAmount > maxOverlap)
+//                {
+//                    maxOverlap = overlapAmount;
+//                    bestZone = zone;
+//                }
+//            }
+
+//            return bestZone ?? this; // Return the best match or default
+//        }
+
+//        return this; // Default to current zone if no better one found
+//    }
+
+//    private float GetOverlapPercentage(PlayerMovement player, CameraZone zone)
+//    {
+//        if (player == null || zone == null) return 0f;
+
+//        BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D>();
+//        if (playerCollider == null) return 0f;
+
+//        Bounds playerBounds = playerCollider.bounds;
+//        Bounds zoneBounds = zone.boxCollider.bounds;
+
+//        float overlapWidth = Mathf.Min(playerBounds.max.x, zoneBounds.max.x) - Mathf.Max(playerBounds.min.x, zoneBounds.min.x);
+//        float overlapHeight = Mathf.Min(playerBounds.max.y, zoneBounds.max.y) - Mathf.Max(playerBounds.min.y, zoneBounds.min.y);
+
+//        if (overlapWidth < 0 || overlapHeight < 0) return 0f; // No overlap
+
+//        float playerArea = playerBounds.size.x * playerBounds.size.y;
+//        float overlapArea = overlapWidth * overlapHeight;
+
+//        return overlapArea / playerArea; // Percentage of player inside zone
+//    }
+
+//    private void OnDrawGizmos()
+//    {
+//        Gizmos.color = Color.green;
+//        if (boxCollider == null)
+//            boxCollider = GetComponent<BoxCollider2D>();
+
+//        if (boxCollider != null)
+//        {
+//            Vector3 colliderCenter = (Vector3)boxCollider.offset + transform.position;
+//            Gizmos.DrawWireCube(colliderCenter, boxCollider.size);
+//        }
+//    }
+
+//    public static bool blockZoneActivation = false;
+
+//}
+
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;

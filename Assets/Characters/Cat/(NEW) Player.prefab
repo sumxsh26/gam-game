@@ -5399,7 +5399,6 @@ GameObject:
   - component: {fileID: 5589989927110721269}
   - component: {fileID: 4376227733090025750}
   - component: {fileID: 1878875120905749205}
-  - component: {fileID: 8256598188017842229}
   - component: {fileID: 8428726193791600103}
   m_Layer: 7
   m_Name: (NEW) Player
@@ -5528,6 +5527,8 @@ MonoBehaviour:
   _bodyColl: {fileID: 3986763717366822818}
   _isFacingRight: 0
   cm: {fileID: 0}
+  blueMousePrefab: {fileID: 0}
+  redMousePrefab: {fileID: 0}
 --- !u!95 &4376227733090025750
 Animator:
   serializedVersion: 7
@@ -5582,18 +5583,6 @@ MonoBehaviour:
   _health: 3
   _isAlive: 1
   isInvincible: 0
---- !u!114 &8256598188017842229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6664726793473072094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ae8a865a86994e97a51679e54a28efd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &8428726193791600103
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

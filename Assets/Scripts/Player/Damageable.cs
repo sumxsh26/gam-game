@@ -12,6 +12,8 @@ public class Damageable : MonoBehaviour
 
     private float timeSinceHit = 0;
     public float invincibilityTime = 0.25f;
+    private Coroutine deathRoutine = null;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,34 +56,69 @@ public class Damageable : MonoBehaviour
 
     [SerializeField] private int _health = 3;
 
+    //public int Health
+    //{
+    //    get
+    //    {
+    //        return _health;
+    //    }
+    //    set
+    //    {
+    //        _health = value;
+
+    //        // if health drops below or equals to 0, character is no longer alive
+    //        if (Health <= 0)
+    //        {
+    //            IsAlive = false;
+    //        }
+    //    }
+    //}
+
     public int Health
     {
-        get
-        {
-            return _health;
-        }
+        get => _health;
         set
         {
             _health = value;
 
-            // if health drops below or equals to 0, character is no longer alive
-            if (Health <= 0)
+            // Only trigger death if alive and just dropped to 0
+            if (_health <= 0 && IsAlive)
             {
-                IsAlive = false;
+                IsAlive = false; // this will trigger the death coroutine ONCE
             }
         }
     }
 
+
     [SerializeField] private bool _isAlive = true;
+    //public bool IsAlive
+    //{
+    //    get => _isAlive;
+    //    set
+    //    {
+    //        if (_isAlive == value) return; // prevent redundant changes
+
+    //        _isAlive = value;
+    //        animator.SetBool(AnimationStrings.isAlive, value);
+    //        Debug.Log("[Damageable] IsAlive set to " + value);
+
+    //        if (deathRoutine == null)
+    //        {
+    //            deathRoutine = StartCoroutine(HandleDeathAnimation());
+    //        }
+
+    //    }
+    //}
 
     public bool IsAlive
     {
-        get { return _isAlive; }
+        get => _isAlive;
         set
         {
+            if (_isAlive == value) return;
+
             _isAlive = value;
-            animator.SetBool(AnimationStrings.isAlive, value);
-            Debug.Log("IsAlive set " + value);
+            Debug.Log("[Damageable] IsAlive set to " + value);
 
             if (!_isAlive)
             {
@@ -90,6 +127,20 @@ public class Damageable : MonoBehaviour
         }
     }
 
+
+
+    //private IEnumerator HandleDeathAnimation()
+    //{
+    //    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+    //    float animationDuration = stateInfo.length;
+
+    //    yield return new WaitForSeconds(animationDuration);
+
+    //    // Trigger the PlayerDied event after the animation finishes
+    //    GetComponent<PlayerMovement>().TriggerPlayerDeath();
+    //}
+
+    private bool deathHandled = false;
     private IEnumerator HandleDeathAnimation()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -97,9 +148,15 @@ public class Damageable : MonoBehaviour
 
         yield return new WaitForSeconds(animationDuration);
 
-        // Trigger the PlayerDied event after the animation finishes
-        GetComponent<PlayerMovement>().TriggerPlayerDeath();
+        // Ensure we're still dead before triggering death
+        if (!_isAlive)
+        {
+            GetComponent<PlayerMovement>().TriggerPlayerDeath();
+        }
+
+        deathRoutine = null; // Clear reference
     }
+
 
     private void Awake()
     {
@@ -139,6 +196,25 @@ public class Damageable : MonoBehaviour
         // unable to be hit
         return false;
     }
+
+    public void ResetHealth()
+    {
+        _health = MaxHealth;
+        IsAlive = true;
+        isInvincible = false;
+        timeSinceHit = 0f;
+
+        // Cancel death coroutine if still running
+        if (deathRoutine != null)
+        {
+            StopCoroutine(deathRoutine);
+            deathRoutine = null;
+            Debug.Log("[Damageable] Cancelled lingering death coroutine on respawn");
+        }
+    }
+
+
+
 }
 
 

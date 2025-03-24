@@ -25,6 +25,9 @@ public class InputManager : MonoBehaviour
     private float pickupBufferTime = 0.2f; // Time in seconds to remember input
     private float pickupBufferTimer = 0f;
 
+    public static bool DisablePickupTemporarily = false;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()

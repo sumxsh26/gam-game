@@ -473,6 +473,15 @@ public class Mice : MonoBehaviour
         player = playerTransform;
         isPickedUp = true;
 
+        // Set sprite invisible at first
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            Color c = spriteRenderer.color;
+            spriteRenderer.color = new Color(c.r, c.g, c.b, 0f); // Hide initially
+        }
+
+
         // Disable pickup collider
         Transform pickupZone = transform.Find("PickupZone");
         if (pickupZone != null)
@@ -540,7 +549,7 @@ public class Mice : MonoBehaviour
 
             // Set correct position based on facing direction**
             float xOffset = playerFacingRight == mouseFacingRight ? 1.9f : -1.9f;
-            float yOffset = -1.3f;
+            float yOffset = -0.3f;
             transform.localPosition = new Vector3(xOffset, yOffset, 0);
         }
 
@@ -733,6 +742,38 @@ public class Mice : MonoBehaviour
         Destroy(gameObject); // Remove mouse after fading
     }
 
+    public void ShowSpriteAfterDelay(float delay = 0.5f)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0f); // Start invisible
+            StartCoroutine(DelayedSpriteShow(sr, delay));
+        }
+    }
+
+    private IEnumerator DelayedSpriteShow(SpriteRenderer sr, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f); // Fully visible
+    }
+
+
+    public void ShowLightAfterDelay(float delay = 0.5f, float targetIntensity = 0.67f)
+    {
+        Light2D mouseLight = GetComponentInChildren<Light2D>();
+        if (mouseLight != null)
+        {
+            mouseLight.intensity = 0f;
+            StartCoroutine(DelayedLightShow(mouseLight, delay, targetIntensity));
+        }
+    }
+
+    private IEnumerator DelayedLightShow(Light2D light, float delay, float targetIntensity)
+    {
+        yield return new WaitForSeconds(delay);
+        light.intensity = targetIntensity;
+    }
 
 
 

@@ -3127,6 +3127,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 // using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerMovement : MonoBehaviour
@@ -3762,23 +3763,116 @@ public class PlayerMovement : MonoBehaviour
 
     #region Mouse
 
+    //public void PickupMouse(Mice newMouse)
+    //{
+    //    if (currentMouse != null)
+    //    {
+    //        // Drop the previous mouse at the designated drop position
+    //        Vector3 dropPosition = transform.position; // Change this if you want a specific drop point
+    //        currentMouse.DropMouse(dropPosition);
+    //    }
+
+    //    // Assign the new mouse and place it on the player's head
+    //    currentMouse = newMouse;
+    //    currentMouse.SetOnPlayerHead(transform); // FIXED! Uses the correct function
+
+    //    // Toggle platforms based on the new mouse's type
+    //    ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
+    //}
+
+    //public void PickupMouse(Mice newMouse)
+    //{
+    //    if (currentMouse != null)
+    //    {
+    //        // Drop the previous mouse
+    //        Vector3 dropPosition = transform.position;
+    //        currentMouse.DropMouse(dropPosition);
+    //    }
+
+    //    currentMouse = newMouse;
+
+    //    // Determine correct animation based on mouse colour
+    //    string trigger = currentMouse.isBlueMouse
+    //        ? AnimationStrings.pickupWhiteTrigger
+    //        : AnimationStrings.pickupOrangeTrigger;
+
+    //    // Disable player movement temporarily
+    //    animator.SetBool(AnimationStrings.canMove, false);
+
+    //    // Trigger pickup animation
+    //    animator.SetTrigger(trigger);
+
+    //    // Freeze movement
+    //    _rb.linearVelocity = Vector2.zero;
+    //    _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+    //    // Start coroutine to wait for the pickup animation to end
+    //    StartCoroutine(FinishPickupAfterDelay(currentMouse));
+    //}
+
     public void PickupMouse(Mice newMouse)
     {
         if (currentMouse != null)
         {
-            // Drop the previous mouse at the designated drop position
-            Vector3 dropPosition = transform.position; // Change this if you want a specific drop point
+            // Drop the current mouse before picking a new one
+            Vector3 dropPosition = transform.position;
             currentMouse.DropMouse(dropPosition);
+            currentMouse = null;
         }
 
-        // Assign the new mouse and place it on the player's head
-        currentMouse = newMouse;
-        currentMouse.SetOnPlayerHead(transform); // FIXED! Uses the correct function
+        // Start pickup animation sequence
+        StartCoroutine(PlayPickupSequence(newMouse));
+    }
 
-        // Toggle platforms based on the new mouse's type
+    private IEnumerator PlayPickupSequence(Mice newMouse)
+    {
+        // Disable movement and pickup temporarily
+        animator.SetBool(AnimationStrings.canMove, false);
+        InputManager.DisablePickupTemporarily = true;
+
+        // Trigger the correct animation
+        if (newMouse.isBlueMouse)
+        {
+            animator.SetTrigger(AnimationStrings.pickupWhiteTrigger);
+        }
+        else
+        {
+            animator.SetTrigger(AnimationStrings.pickupOrangeTrigger);
+        }
+
+        // Wait for the animation to finish (assuming ~0.6s; adjust as needed)
+        yield return new WaitForSeconds(0.6f);
+
+        // Actually place the mouse on the player's head
+        currentMouse = newMouse;
+        currentMouse.SetOnPlayerHead(transform);
+        currentMouse.ShowSpriteAfterDelay(0.5f);
+        currentMouse.ShowLightAfterDelay(0.5f, 0.67f);
+
+
+        // Re-enable movement and pickup
+        animator.SetBool(AnimationStrings.canMove, true);
+        InputManager.DisablePickupTemporarily = false;
+
+        // Toggle platform state
         ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
     }
 
+
+    private IEnumerator FinishPickupAfterDelay(Mice mouse)
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust this to match your animation length
+
+        // Re-enable movement
+        animator.SetBool(AnimationStrings.canMove, true);
+        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        // Actually place the mouse on the head AFTER animation
+        mouse.SetOnPlayerHead(transform);
+
+        // Toggle platforms
+        ToggleCorrespondingPlatforms(mouse.isBlueMouse);
+    }
 
 
     private void ToggleCorrespondingPlatforms(bool isBlue)

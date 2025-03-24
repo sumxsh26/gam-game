@@ -75,11 +75,23 @@ public class PickupMouse : MonoBehaviour
         }
     }
 
+    //private void OnTriggerStay2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        // Only pick up if the button was actually pressed
+    //        if (InputManager.PickupWasPressed)
+    //        {
+    //            Debug.Log("Player pressed pickup button while in pickup zone.");
+    //            TryPickup(other);
+    //        }
+    //    }
+    //}
+
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !InputManager.DisablePickupTemporarily)
         {
-            // Only pick up if the button was actually pressed
             if (InputManager.PickupWasPressed)
             {
                 Debug.Log("Player pressed pickup button while in pickup zone.");
@@ -87,6 +99,7 @@ public class PickupMouse : MonoBehaviour
             }
         }
     }
+
 
     private void TryPickup(Collider2D playerCollider)
     {

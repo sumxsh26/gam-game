@@ -170,6 +170,20 @@ public class CheckpointManager : MonoBehaviour
 
 
 
+    //public void ClearCheckpointData()
+    //{
+    //    Debug.Log("[CheckpointManager] Clearing checkpoint data");
+
+    //    checkpointSet = false;
+    //    lastCheckpointPos = Vector3.zero;
+    //    lastCheckpointRot = Quaternion.identity;
+
+    //    if (playerMovement != null)
+    //    {
+    //        playerMovement.ClearMouseCheckpointData();
+    //    }
+    //}
+
     public void ClearCheckpointData()
     {
         Debug.Log("[CheckpointManager] Clearing checkpoint data");
@@ -182,12 +196,40 @@ public class CheckpointManager : MonoBehaviour
         {
             playerMovement.ClearMouseCheckpointData();
         }
+
+        // Reset all torch animations in the scene
+        CPTorch[] torches = FindObjectsByType<CPTorch>(FindObjectsSortMode.None);
+        foreach (CPTorch torch in torches)
+        {
+            torch.ResetTorch();
+        }
     }
+
 
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Player") && !checkpointSet)
+    //    {
+    //        checkpointSet = true;
+
+    //        player = other.gameObject;
+    //        playerMovement = player.GetComponent<PlayerMovement>();
+
+    //        lastCheckpointPos = transform.position;
+    //        lastCheckpointRot = transform.rotation;
+
+    //        playerMovement.SaveMouseState();
+
+
+    //        Debug.Log("[Checkpoint] Triggered at position: " + transform.position);
+    //    }
+
+    //}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -203,6 +245,15 @@ public class CheckpointManager : MonoBehaviour
 
             playerMovement.SaveMouseState();
 
+            // Light up the torch animation
+            CPTorch torch = GetComponent<CPTorch>();
+            if (torch != null)
+            {
+                torch.TriggerLightup();
+            }
+
+            // Inform the global checkpoint manager
+            CheckpointManager.Instance.SetCheckpoint(transform.position, transform.rotation);
 
             Debug.Log("[Checkpoint] Triggered at position: " + transform.position);
         }

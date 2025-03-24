@@ -140,7 +140,6 @@ public class Damageable : MonoBehaviour
     //    GetComponent<PlayerMovement>().TriggerPlayerDeath();
     //}
 
-    private bool deathHandled = false;
     private IEnumerator HandleDeathAnimation()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);

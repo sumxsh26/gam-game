@@ -30,16 +30,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Others/GameOverScene.unity
     guid: b53e49da1b2f6465e8584cdf0af8724a
   - enabled: 0
-    path: Assets/Scenes/Alpha/LevelOne.unity
+    path: Assets/Scenes/Milestones/Alpha/LevelOne.unity
     guid: 6b7dada8cae314fdcb44d10d1a2307a6
   - enabled: 0
-    path: Assets/Scenes/Alpha/Alpha.unity
+    path: Assets/Scenes/Milestones/Alpha/Alpha.unity
     guid: 11491119338413843add14d8b154f4a7
   - enabled: 0
-    path: Assets/Scenes/First Playtest/Testing.unity
+    path: Assets/Scenes/Playtests/First Playtest/Testing.unity
     guid: 1885838742c35bd449198e46f8eecfaf
   - enabled: 0
-    path: Assets/Scenes/First Playtest/PlayTest.unity
+    path: Assets/Scenes/Playtests/First Playtest/PlayTest.unity
     guid: 3890ddc69338cf14a91ac1991ae74c86
   - enabled: 0
     path: Assets/Scenes/Redesign/Levels/levels.unity
@@ -51,22 +51,22 @@ EditorBuildSettings:
     path: Assets/Scenes/Redesign/Levels/Level.unity
     guid: 7e5ffcf9faede3840992f8ef97a97f99
   - enabled: 0
-    path: Assets/Scenes/Beta/Levels/Level 1.unity
+    path: Assets/Scenes/Milestones/Beta/Levels/Level 1.unity
     guid: fdd4a99b4e647b842944ca4bb8ef780f
   - enabled: 0
-    path: Assets/Scenes/Beta/Levels/Level 2.unity
+    path: Assets/Scenes/Milestones/Beta/Levels/Level 2.unity
     guid: 602e62c3862089f4c8ceb83aa81d481f
   - enabled: 0
-    path: Assets/Scenes/Beta/Levels/Level 3.unity
+    path: Assets/Scenes/Milestones/Beta/Levels/Level 3.unity
     guid: 409675e94cbec924d92aae9389fbb862
   - enabled: 0
-    path: Assets/Scenes/Beta/Updates.unity
+    path: Assets/Scenes/Milestones/Beta/Updates.unity
     guid: ec1acfdfb5f83644e9e4cac9de751936
   - enabled: 1
-    path: Assets/Scenes/Second Playtest/Playtest Tutorial.unity
+    path: Assets/Scenes/Playtests/Second Playtest/Playtest Tutorial.unity
     guid: 3ecd0c88761a48e4abc78e4ccf11f746
   - enabled: 1
-    path: Assets/Scenes/Second Playtest/Playtest level 1.unity
+    path: Assets/Scenes/Playtests/Second Playtest/Playtest level 1.unity
     guid: 8bd7df1821d61eb4d9872467fd9df148
   - enabled: 0
     path: Assets/Scenes/Second Playtest/Playtest level 2.unity

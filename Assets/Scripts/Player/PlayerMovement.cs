@@ -3183,20 +3183,24 @@ public class PlayerMovement : MonoBehaviour
     private bool positionCorrected = false; // Ensures we only correct position once
 
     // key collection
-    public Key cm;
+    public Key keyPrefab;
+
+    // player death
     public event Action PlayerDied;
 
     // mouse
     private Mice currentMouse = null;
 
-    [SerializeField] private GameObject blueMousePrefab;
-    [SerializeField] private GameObject redMousePrefab;
+    [SerializeField] public GameObject blueMousePrefab;
+    [SerializeField] public GameObject redMousePrefab;
 
     private bool savedHasMouse = false;
     private bool savedMouseIsBlue = false;
 
-
+    // game audio
     AudioManager audioManager;
+    private AudioSource footstepsSource;
+
 
 
     private void Awake()
@@ -3215,6 +3219,13 @@ public class PlayerMovement : MonoBehaviour
 
         //audioSFX
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
+        // walking audio
+        footstepsSource = gameObject.AddComponent<AudioSource>();
+        footstepsSource.clip = audioManager.walk;
+        footstepsSource.loop = true;
+        footstepsSource.playOnAwake = false;
+
     }
 
 
@@ -3251,6 +3262,9 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool(AnimationStrings.isMoving, InputManager.Movement.x != 0);
         animator.SetBool(AnimationStrings.isGrounded, _isGrounded);
         animator.SetFloat(AnimationStrings.yVelocity, _rb.linearVelocity.y);
+
+        // footsteps audio
+        HandleFootsteps();
     }
 
 
@@ -3307,13 +3321,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //public bool IsAlive
-    //{
-    //    get
-    //    {
-    //        return animator.GetBool(AnimationStrings.isAlive);
-    //    }
-    //}
 
     public bool IsAlive { get; private set; } = true;
 
@@ -3355,8 +3362,8 @@ public class PlayerMovement : MonoBehaviour
 
     //}
 
-    // without run
 
+    // without run
     private void Move(float acceleration, float deceleration, Vector2 moveInput)
     {
         // Prevent movement if the player cannot move or is dead
@@ -3734,82 +3741,27 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        // Water hazard - player drowns
+        //// Water hazard - player drowns
+        //else if (other.gameObject.CompareTag("Water"))
+        //{
+        //    // Deal fatal damage to drown the player
+        //    damageable.Hit(damageable.Health, Vector2.zero);
+        //    audioManager.PlaySFX(audioManager.death); //audio sfx
+
+        //}
+
         else if (other.gameObject.CompareTag("Water"))
         {
-            // Deal fatal damage to drown the player
-            damageable.Hit(damageable.Health, Vector2.zero);
-            audioManager.PlaySFX(audioManager.death); //audio sfx
-
+            StartCoroutine(PlayWaterSplashThenDie());
         }
 
+
     }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Mice") && other.gameObject.layer == LayerMask.NameToLayer("PickupTrigger") && InputManager.PickupWasPressed)
-        {
-            Mice mouse = other.GetComponent<Mice>();
-            if (mouse != null)
-            {
-                PickupMouse(mouse);
-            }
-        }
-    }
-
-
 
     #endregion
 
     #region Mouse
-
-    //public void PickupMouse(Mice newMouse)
-    //{
-    //    if (currentMouse != null)
-    //    {
-    //        // Drop the previous mouse at the designated drop position
-    //        Vector3 dropPosition = transform.position; // Change this if you want a specific drop point
-    //        currentMouse.DropMouse(dropPosition);
-    //    }
-
-    //    // Assign the new mouse and place it on the player's head
-    //    currentMouse = newMouse;
-    //    currentMouse.SetOnPlayerHead(transform); // FIXED! Uses the correct function
-
-    //    // Toggle platforms based on the new mouse's type
-    //    ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
-    //}
-
-    //public void PickupMouse(Mice newMouse)
-    //{
-    //    if (currentMouse != null)
-    //    {
-    //        // Drop the previous mouse
-    //        Vector3 dropPosition = transform.position;
-    //        currentMouse.DropMouse(dropPosition);
-    //    }
-
-    //    currentMouse = newMouse;
-
-    //    // Determine correct animation based on mouse colour
-    //    string trigger = currentMouse.isBlueMouse
-    //        ? AnimationStrings.pickupWhiteTrigger
-    //        : AnimationStrings.pickupOrangeTrigger;
-
-    //    // Disable player movement temporarily
-    //    animator.SetBool(AnimationStrings.canMove, false);
-
-    //    // Trigger pickup animation
-    //    animator.SetTrigger(trigger);
-
-    //    // Freeze movement
-    //    _rb.linearVelocity = Vector2.zero;
-    //    _rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-    //    // Start coroutine to wait for the pickup animation to end
-    //    StartCoroutine(FinishPickupAfterDelay(currentMouse));
-    //}
-
+    
     public void PickupMouse(Mice newMouse)
     {
         if (currentMouse != null)
@@ -3824,6 +3776,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(PlayPickupSequence(newMouse));
     }
 
+    // when player presses the pickup button
     private IEnumerator PlayPickupSequence(Mice newMouse)
     {
         // Disable movement and pickup temporarily
@@ -3840,15 +3793,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger(AnimationStrings.pickupOrangeTrigger);
         }
 
+        // Play audio only on manual pickup
+        audioManager.PlaySFX(audioManager.micePickup);
+
         // Wait for the animation to finish (assuming ~0.6s; adjust as needed)
         yield return new WaitForSeconds(0.6f);
 
         // Actually place the mouse on the player's head
         currentMouse = newMouse;
         currentMouse.SetOnPlayerHead(transform);
-        currentMouse.ShowSpriteAfterDelay(0.5f);
-        currentMouse.ShowLightAfterDelay(0.5f, 0.67f);
-
+        currentMouse.ShowSpriteAfterDelay(0.6f);
+        currentMouse.ShowLightAfterDelay(0.6f, 0.67f);
 
         // Re-enable movement and pickup
         animator.SetBool(AnimationStrings.canMove, true);
@@ -3858,6 +3813,70 @@ public class PlayerMovement : MonoBehaviour
         ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
     }
 
+    //private IEnumerator PlayPickupSequence(Mice newMouse)
+    //{
+    //    // Disable movement and pickup temporarily
+    //    animator.SetBool(AnimationStrings.canMove, false);
+    //    InputManager.DisablePickupTemporarily = true;
+
+    //    // Trigger the correct animation
+    //    if (newMouse.isBlueMouse)
+    //    {
+    //        animator.SetTrigger(AnimationStrings.pickupWhiteTrigger);
+    //    }
+    //    else
+    //    {
+    //        animator.SetTrigger(AnimationStrings.pickupOrangeTrigger);
+    //    }
+
+    //    // Wait for the animation to finish (assuming ~0.6s; adjust as needed)
+    //    yield return new WaitForSeconds(0.6f);
+
+    //    // Actually place the mouse on the player's head
+    //    currentMouse = newMouse;
+    //    currentMouse.SetOnPlayerHead(transform);
+    //    currentMouse.ShowSpriteAfterDelay(0.6f);
+    //    currentMouse.ShowLightAfterDelay(0.6f, 0.67f);
+
+
+    //    // Re-enable movement and pickup
+    //    animator.SetBool(AnimationStrings.canMove, true);
+    //    InputManager.DisablePickupTemporarily = false;
+
+    //    // Toggle platform state
+    //    ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
+    //}
+
+
+    // when player respawns - instant spawn in without delay
+    public void PickupMouseInstantly(Mice newMouse)
+    {
+        if (currentMouse != null)
+        {
+            Vector3 dropPosition = transform.position;
+            currentMouse.DropMouse(dropPosition);
+            currentMouse = null;
+        }
+
+        currentMouse = newMouse;
+        currentMouse.SetOnPlayerHead(transform);
+
+        // Instantly show sprite and light without delay
+        SpriteRenderer sr = currentMouse.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+        }
+
+        Light2D mouseLight = currentMouse.GetComponentInChildren<Light2D>();
+        if (mouseLight != null)
+        {
+            mouseLight.intensity = 0.67f;
+        }
+
+        ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
+        animator.SetBool(AnimationStrings.canMove, true);
+    }
 
     private IEnumerator FinishPickupAfterDelay(Mice mouse)
     {
@@ -3927,54 +3946,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Debug.Log("[Respawn] Restoring mouse immediately: " + (savedMouseIsBlue ? "Blue" : "Red"));
-        PickupMouse(mouseScript);
+        PickupMouseInstantly(mouseScript);
     }
 
 
     #endregion
 
     #region Death / Hit / Knockback / Checkpoint
-
-
-    //public void TriggerPlayerDeath()
-    //{
-    //    PlayerDied?.Invoke();
-    //}
-
-    //public void TriggerPlayerDeath()
-    //{
-    //    Debug.Log("[Player] TriggerPlayerDeath called");
-
-    //    if (!IsAlive)
-    //    {
-    //        Debug.LogWarning("[Player] Tried to die but is already dead");
-    //        return;
-    //    }
-
-    //    animator.SetBool(AnimationStrings.isAlive, false);
-    //    audioManager.PlaySFX(audioManager.death);
-
-    //    PlayerDied?.Invoke();
-    //    Debug.Log("[Player] PlayerDied event INVOKED");
-
-    //    // Lock player movement
-    //    _rb.linearVelocity = Vector2.zero;
-    //    _rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-    //    // Stop enemies
-    //    Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-    //    foreach (Enemy enemy in enemies)
-    //    {
-    //        enemy.StopTargetingPlayer();
-    //    }
-
-    //    // If the player has a mouse, fade and destroy it
-    //    if (currentMouse != null)
-    //    {
-    //        currentMouse.FadeAndDestroy();
-    //        currentMouse = null;
-    //    }
-    //}
 
     public void TriggerPlayerDeath()
     {
@@ -3986,8 +3964,13 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("[Player] TriggerPlayerDeath called");
 
-        IsAlive = false; // manually mark dead
+        // manually mark player as dead
+        IsAlive = false;
+        
+        // play death animation
         animator.SetBool(AnimationStrings.isAlive, false);
+
+        // play death audio
         audioManager.PlaySFX(audioManager.death);
 
         PlayerDied?.Invoke();
@@ -4008,8 +3991,6 @@ public class PlayerMovement : MonoBehaviour
             currentMouse = null;
         }
     }
-
-
 
     //public void RespawnPlayer()
     //{
@@ -4056,15 +4037,20 @@ public class PlayerMovement : MonoBehaviour
         damageable.ResetHealth();
     }
 
-
-
     public void ClearMouseCheckpointData()
     {
         savedHasMouse = false;
         savedMouseIsBlue = false;
     }
 
+    //public void OnHit(int damage, Vector2 knockback)
+    //{
+    //    Debug.Log($"OnHit called! Applying knockback: {knockback}");
 
+    //    StopAllCoroutines(); // Prevent stacking knockbacks
+    //    StartCoroutine(ApplyKnockback(knockback));
+    //    audioManager.PlaySFX(audioManager.enemyHit);
+    //}
 
     public void OnHit(int damage, Vector2 knockback)
     {
@@ -4072,7 +4058,13 @@ public class PlayerMovement : MonoBehaviour
 
         StopAllCoroutines(); // Prevent stacking knockbacks
         StartCoroutine(ApplyKnockback(knockback));
+
+        if (!Spike.wasHitBySpike)
+        {
+            audioManager.PlaySFX(audioManager.enemyHit);
+        }
     }
+
 
     private IEnumerator ApplyKnockback(Vector2 knockback)
     {
@@ -4088,6 +4080,34 @@ public class PlayerMovement : MonoBehaviour
         _knockbackVelocity = Vector2.zero;
 
         Debug.Log("Knockback ended");
+    }
+
+    #endregion
+
+    #region Audio
+
+    // for walking audio
+    private void HandleFootsteps()
+    {
+        bool shouldPlay = _isGrounded && InputManager.Movement.x != 0 && IsAlive && CanMove;
+
+        if (shouldPlay && !footstepsSource.isPlaying)
+            footstepsSource.Play();
+        else if (!shouldPlay && footstepsSource.isPlaying)
+            footstepsSource.Stop();
+    }
+
+    // for water death audio
+    private IEnumerator PlayWaterSplashThenDie()
+    {
+        // Play splash sound
+        audioManager.PlaySFX(audioManager.waterSplash);
+
+        // Delay a bit before triggering death
+        yield return new WaitForSeconds(0.2f);
+
+        // Now call Hit which will trigger TriggerPlayerDeath internally
+        damageable.Hit(damageable.Health, Vector2.zero);
     }
 
     #endregion

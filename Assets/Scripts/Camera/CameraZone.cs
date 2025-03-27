@@ -206,6 +206,7 @@ public class CameraZone : MonoBehaviour
         boxCollider.offset = Vector2.zero;
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

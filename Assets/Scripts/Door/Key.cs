@@ -323,6 +323,205 @@
 //    }
 //}
 
+//using UnityEngine;
+
+//public class Key : MonoBehaviour
+//{
+//    public GameObject exitDoor; // Assign "Exit" GameObject in Inspector
+//    public GameObject completeZone; // Assign CompleteZone in Inspector
+
+//    private static int totalKeys = 3; // Total keys required
+//    private static int collectedKeys = 0; // Keys collected so far
+//    private SlidingDoor slidingDoor;
+
+//    private void Start()
+//    {
+//        // Ensure Exit GameObject is assigned
+//        if (exitDoor == null)
+//        {
+//            Debug.LogError("ERROR: Exit door (Exit GameObject) is not assigned in Key script! Assign it in the Inspector.");
+//            return;
+//        }
+
+//        // Get SlidingDoor component from Exit
+//        slidingDoor = exitDoor.GetComponent<SlidingDoor>();
+//        if (slidingDoor == null)
+//        {
+//            Debug.LogError("ERROR: SlidingDoor script is missing on the Exit GameObject!");
+//            return;
+//        }
+
+//        // Assign DoorLeft and DoorRight dynamically
+//        Transform left = exitDoor.transform.Find("DoorLeft");
+//        Transform right = exitDoor.transform.Find("DoorRight");
+
+//        if (left != null && right != null)
+//        {
+//            slidingDoor.AssignDoors(left, right);
+//        }
+//        else
+//        {
+//            Debug.LogError("ERROR: Could not find DoorLeft or DoorRight in Exit GameObject!");
+//        }
+
+//        // Assign CompleteZone if available
+//        if (completeZone != null)
+//        {
+//            slidingDoor.AssignCompleteZone(completeZone);
+//            completeZone.SetActive(false); // Disable CompleteZone at start
+//        }
+//    }
+
+//    private void OnTriggerEnter2D(Collider2D other)
+//    {
+//        if (other.CompareTag("Player"))
+//        {
+//            collectedKeys++;
+
+//            Debug.Log($"Key collected! ({collectedKeys}/{totalKeys})");
+
+//            // Destroy key after pickup
+//            Destroy(gameObject);
+
+//            // If all keys are collected, open the door & enable CompleteZone
+//            if (collectedKeys >= totalKeys)
+//            {
+//                OpenDoor();
+//                EnableCompleteZone();
+//            }
+//        }
+//    }
+
+//    private void OpenDoor()
+//    {
+//        if (slidingDoor != null)
+//        {
+//            slidingDoor.OpenDoor();
+//            Debug.Log("All keys collected! Door opened.");
+//        }
+//    }
+
+//    private void EnableCompleteZone()
+//    {
+//        if (completeZone != null)
+//        {
+//            completeZone.SetActive(true);
+//            Debug.Log("Complete Zone enabled!");
+//        }
+//        else
+//        {
+//            Debug.LogError("ERROR: CompleteZone is NULL in Key script! Assign it in the Inspector.");
+//        }
+//    }
+//}
+
+
+//using UnityEngine;
+//using UnityEngine.SceneManagement;
+
+//public class Key : MonoBehaviour
+//{
+//    public GameObject exitDoor; // Assign "Exit" GameObject in Inspector
+//    public GameObject completeZone; // Assign CompleteZone in Inspector
+
+//    private static int totalKeys = 3; // Total keys required
+//    private static int collectedKeys = 0; // Keys collected so far
+//    private SlidingDoor slidingDoor;
+
+//    private static bool hasReset = false; // Prevents resetting multiple times if multiple keys exist
+
+//    private void Awake()
+//    {
+//        if (!hasReset)
+//        {
+//            collectedKeys = 0;
+//            hasReset = true;
+//            Debug.Log("[Key] Static key count reset.");
+//        }
+//    }
+
+//    private void Start()
+//    {
+//        // Ensure Exit GameObject is assigned
+//        if (exitDoor == null)
+//        {
+//            Debug.LogError("ERROR: Exit door (Exit GameObject) is not assigned in Key script! Assign it in the Inspector.");
+//            return;
+//        }
+
+//        // Get SlidingDoor component from Exit
+//        slidingDoor = exitDoor.GetComponent<SlidingDoor>();
+//        if (slidingDoor == null)
+//        {
+//            Debug.LogError("ERROR: SlidingDoor script is missing on the Exit GameObject!");
+//            return;
+//        }
+
+//        // Assign DoorLeft and DoorRight dynamically
+//        Transform left = exitDoor.transform.Find("DoorLeft");
+//        Transform right = exitDoor.transform.Find("DoorRight");
+
+//        if (left != null && right != null)
+//        {
+//            slidingDoor.AssignDoors(left, right);
+//        }
+//        else
+//        {
+//            Debug.LogError("ERROR: Could not find DoorLeft or DoorRight in Exit GameObject!");
+//        }
+
+//        // Assign CompleteZone if available
+//        if (completeZone != null)
+//        {
+//            slidingDoor.AssignCompleteZone(completeZone);
+//            completeZone.SetActive(false); // Disable CompleteZone at start
+//        }
+//    }
+
+//    private void OnTriggerEnter2D(Collider2D other)
+//    {
+//        if (other.CompareTag("Player"))
+//        {
+//            collectedKeys++;
+
+//            Debug.Log($"Key collected! ({collectedKeys}/{totalKeys})");
+
+//            // Destroy key after pickup
+//            Destroy(gameObject);
+
+//            // If all keys are collected, open the door & enable CompleteZone
+//            if (collectedKeys >= totalKeys)
+//            {
+//                OpenDoor();
+//                EnableCompleteZone();
+//            }
+//        }
+//    }
+
+//    private void OpenDoor()
+//    {
+//        if (slidingDoor != null)
+//        {
+//            slidingDoor.OpenDoor();
+//            Debug.Log("All keys collected! Door opened.");
+//        }
+//    }
+
+//    private void EnableCompleteZone()
+//    {
+//        if (completeZone != null)
+//        {
+//            completeZone.SetActive(true);
+//            Debug.Log("Complete Zone enabled!");
+//        }
+//        else
+//        {
+//            Debug.LogError("ERROR: CompleteZone is NULL in Key script! Assign it in the Inspector.");
+//        }
+//    }
+//}
+
+
 using UnityEngine;
 
 public class Key : MonoBehaviour
@@ -330,8 +529,6 @@ public class Key : MonoBehaviour
     public GameObject exitDoor; // Assign "Exit" GameObject in Inspector
     public GameObject completeZone; // Assign CompleteZone in Inspector
 
-    private static int totalKeys = 3; // Total keys required
-    private static int collectedKeys = 0; // Keys collected so far
     private SlidingDoor slidingDoor;
 
     private void Start()
@@ -376,42 +573,8 @@ public class Key : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            collectedKeys++;
-
-            Debug.Log($"Key collected! ({collectedKeys}/{totalKeys})");
-
-            // Destroy key after pickup
-            Destroy(gameObject);
-
-            // If all keys are collected, open the door & enable CompleteZone
-            if (collectedKeys >= totalKeys)
-            {
-                OpenDoor();
-                EnableCompleteZone();
-            }
-        }
-    }
-
-    private void OpenDoor()
-    {
-        if (slidingDoor != null)
-        {
-            slidingDoor.OpenDoor();
-            Debug.Log("All keys collected! Door opened.");
-        }
-    }
-
-    private void EnableCompleteZone()
-    {
-        if (completeZone != null)
-        {
-            completeZone.SetActive(true);
-            Debug.Log("Complete Zone enabled!");
-        }
-        else
-        {
-            Debug.LogError("ERROR: CompleteZone is NULL in Key script! Assign it in the Inspector.");
+            Debug.Log("Key collected and destroyed.");
+            Destroy(gameObject); // SlidingDoor will detect when all keys are gone
         }
     }
 }
-

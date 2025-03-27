@@ -3183,7 +3183,9 @@ public class PlayerMovement : MonoBehaviour
     private bool positionCorrected = false; // Ensures we only correct position once
 
     // key collection
-    public Key cm;
+    public Key keyPrefab;
+
+    // player death
     public event Action PlayerDied;
 
     // mouse
@@ -3195,7 +3197,7 @@ public class PlayerMovement : MonoBehaviour
     private bool savedHasMouse = false;
     private bool savedMouseIsBlue = false;
 
-
+    // game audio
     AudioManager audioManager;
 
 
@@ -3824,6 +3826,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(PlayPickupSequence(newMouse));
     }
 
+    // when player presses the pickup button
     private IEnumerator PlayPickupSequence(Mice newMouse)
     {
         // Disable movement and pickup temporarily
@@ -3846,8 +3849,8 @@ public class PlayerMovement : MonoBehaviour
         // Actually place the mouse on the player's head
         currentMouse = newMouse;
         currentMouse.SetOnPlayerHead(transform);
-        currentMouse.ShowSpriteAfterDelay(0.5f);
-        currentMouse.ShowLightAfterDelay(0.5f, 0.67f);
+        currentMouse.ShowSpriteAfterDelay(0.6f);
+        currentMouse.ShowLightAfterDelay(0.6f, 0.67f);
 
 
         // Re-enable movement and pickup
@@ -3857,6 +3860,38 @@ public class PlayerMovement : MonoBehaviour
         // Toggle platform state
         ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
     }
+
+    // when player respawns - instant spawn in without delay
+    public void PickupMouseInstantly(Mice newMouse)
+    {
+        if (currentMouse != null)
+        {
+            Vector3 dropPosition = transform.position;
+            currentMouse.DropMouse(dropPosition);
+            currentMouse = null;
+        }
+
+        currentMouse = newMouse;
+        currentMouse.SetOnPlayerHead(transform);
+
+        // Instantly show sprite and light without delay
+        SpriteRenderer sr = currentMouse.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+        }
+
+        Light2D mouseLight = currentMouse.GetComponentInChildren<Light2D>();
+        if (mouseLight != null)
+        {
+            mouseLight.intensity = 0.67f;
+        }
+
+        ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
+        animator.SetBool(AnimationStrings.canMove, true);
+    }
+
+
 
 
     private IEnumerator FinishPickupAfterDelay(Mice mouse)
@@ -3927,7 +3962,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Debug.Log("[Respawn] Restoring mouse immediately: " + (savedMouseIsBlue ? "Blue" : "Red"));
-        PickupMouse(mouseScript);
+        PickupMouseInstantly(mouseScript);
     }
 
 

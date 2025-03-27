@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour
     private InputAction _pauseAction;
     private InputAction _pickupAction;
 
-    private float pickupBufferTime = 0.2f; // Time in seconds to remember input
+    private float pickupBufferTime = 0.5f; // Time in seconds to remember input
     private float pickupBufferTimer = 0f;
 
     public static bool DisablePickupTemporarily = false;

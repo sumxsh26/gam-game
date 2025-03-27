@@ -390,7 +390,151 @@
 //    }
 //}
 
+//using System.Collections;
+//using UnityEngine;
+
+//public class SlidingDoor : MonoBehaviour
+//{
+//    public Transform leftDoor;
+//    public Transform rightDoor;
+//    private GameObject completeZone;
+
+//    public float slideDistance = 1.2f;
+//    public float slideSpeed = 0.05f;
+//    public float fadeSpeed = 1f;
+//    public float walkIntoDoorDelay = 0.1f;
+
+//    private Vector3 leftDoorClosedPos, rightDoorClosedPos;
+//    private Vector3 leftDoorOpenPos, rightDoorOpenPos;
+//    private SpriteRenderer leftRenderer, rightRenderer;
+
+//    public bool IsDoorFullyOpen { get; private set; } = false;
+
+//    private void Start()
+//    {
+//        leftDoor = transform.Find("DoorLeft");
+//        rightDoor = transform.Find("DoorRight");
+
+//        if (leftDoor == null || rightDoor == null)
+//        {
+//            Debug.LogError("ERROR: Could not find DoorLeft or DoorRight in spawned door!");
+//            return;
+//        }
+
+//        leftRenderer = leftDoor.GetComponent<SpriteRenderer>();
+//        rightRenderer = rightDoor.GetComponent<SpriteRenderer>();
+
+//        if (leftRenderer == null || rightRenderer == null)
+//        {
+//            Debug.LogError("ERROR: SpriteRenderer is missing in DoorLeft or DoorRight.");
+//            return;
+//        }
+
+//        if (completeZone != null)
+//        {
+//            completeZone.SetActive(false);
+//        }
+
+//        // Don't assign positions here anymore! They are now assigned in AssignDoors()!
+//    }
+
+
+//    public void AssignCompleteZone(GameObject zone)
+//    {
+//        completeZone = zone;
+//    }
+
+//    public void OpenDoor()
+//    {
+//        Debug.Log($"Opening Doors: Left Door {leftDoorOpenPos}, Right Door {rightDoorOpenPos}");
+
+//        StartCoroutine(SlideAndFadeOut(leftDoor, leftDoorOpenPos, leftRenderer));
+//        StartCoroutine(SlideAndFadeOut(rightDoor, rightDoorOpenPos, rightRenderer));
+
+//        StartCoroutine(ActivateCompleteZoneWithDelay());
+//    }
+
+
+//    private IEnumerator SlideAndFadeOut(Transform door, Vector3 targetPosition, SpriteRenderer renderer)
+//    {
+//        if (door == null)
+//        {
+//            Debug.LogError("ERROR: Door is NULL in SlideAndFadeOut!");
+//            yield break;
+//        }
+
+//        if (renderer == null)
+//        {
+//            Debug.LogError("ERROR: SpriteRenderer is NULL for door: " + door.name);
+//            yield break;
+//        }
+
+//        Debug.Log($"{door.name} Moving From {door.position} To {targetPosition}");
+
+//        Color color = renderer.color;
+
+//        while (Vector3.Distance(door.position, targetPosition) > 0.01f || color.a > 0f)
+//        {
+//            // Move the door in WORLD SPACE
+//            door.position = Vector3.Lerp(door.position, new Vector3(targetPosition.x, door.position.y, door.position.z), 0.02f);
+
+//            // Fade out
+//            color.a = Mathf.Max(0, color.a - fadeSpeed * Time.deltaTime);
+//            renderer.color = color;
+
+//            yield return null;
+//        }
+
+//        // Ensure it's fully faded out
+//        renderer.color = new Color(color.r, color.g, color.b, 0);
+//    }
+
+
+//    private IEnumerator ActivateCompleteZoneWithDelay()
+//    {
+//        yield return new WaitForSeconds(slideDistance / slideSpeed + 0.0001f);
+//        IsDoorFullyOpen = true;
+//        yield return new WaitForSeconds(walkIntoDoorDelay);
+
+//        if (completeZone != null)
+//        {
+//            completeZone.SetActive(true);
+//        }
+//        else
+//        {
+//            Debug.LogError("Complete Zone is not assigned in SlidingDoor!");
+//        }
+//    }
+
+//    public void AssignDoors(Transform left, Transform right)
+//    {
+//        leftDoor = left;
+//        rightDoor = right;
+//        leftRenderer = leftDoor.GetComponent<SpriteRenderer>();
+//        rightRenderer = rightDoor.GetComponent<SpriteRenderer>();
+
+//        if (leftRenderer == null || rightRenderer == null)
+//        {
+//            Debug.LogError("ERROR: SpriteRenderer is missing in DoorLeft or DoorRight.");
+//        }
+
+//        // Ensure that positions are set at the correct time!
+//        leftDoorClosedPos = leftDoor.position;
+//        rightDoorClosedPos = rightDoor.position;
+
+//        leftDoorOpenPos = new Vector3(leftDoorClosedPos.x - slideDistance, leftDoorClosedPos.y, leftDoorClosedPos.z);
+//        rightDoorOpenPos = new Vector3(rightDoorClosedPos.x + slideDistance, rightDoorClosedPos.y, rightDoorClosedPos.z);
+
+//        Debug.Log($"Assigned Doors: Left = {leftDoor.name} -> Moves to {leftDoorOpenPos}, Right = {rightDoor.name} -> Moves to {rightDoorOpenPos}");
+//    }
+
+//}
+
+
+// with added key collection handling
+
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SlidingDoor : MonoBehaviour
@@ -409,6 +553,11 @@ public class SlidingDoor : MonoBehaviour
     private SpriteRenderer leftRenderer, rightRenderer;
 
     public bool IsDoorFullyOpen { get; private set; } = false;
+
+    [Header("Key Tracking")]
+    public List<GameObject> keysToCollect;
+    private bool doorOpened = false;
+
 
     private void Start()
     {
@@ -438,6 +587,28 @@ public class SlidingDoor : MonoBehaviour
         // Don't assign positions here anymore! They are now assigned in AssignDoors()!
     }
 
+    private void Update()
+    {
+        if (!doorOpened && keysToCollect != null && keysToCollect.Count > 0)
+        {
+            bool allCollected = true;
+
+            foreach (GameObject key in keysToCollect)
+            {
+                if (key != null)
+                {
+                    allCollected = false;
+                    break;
+                }
+            }
+
+            if (allCollected)
+            {
+                OpenDoor();
+                doorOpened = true;
+            }
+        }
+    }
 
     public void AssignCompleteZone(GameObject zone)
     {
@@ -529,5 +700,3 @@ public class SlidingDoor : MonoBehaviour
     }
 
 }
-
-

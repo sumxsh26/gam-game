@@ -161,6 +161,7 @@ public class CheckpointManager : MonoBehaviour
 
         // Reset internal movement state
         playerMovement.ResetHealthAndState();
+        MiceManager.Instance?.ResetAllMice(playerMovement.blueMousePrefab, playerMovement.redMousePrefab);
         playerMovement.RestoreSavedMouseImmediately();
 
         // Rebind GameController to the newly reset player

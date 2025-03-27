@@ -3189,8 +3189,8 @@ public class PlayerMovement : MonoBehaviour
     // mouse
     private Mice currentMouse = null;
 
-    [SerializeField] private GameObject blueMousePrefab;
-    [SerializeField] private GameObject redMousePrefab;
+    [SerializeField] public GameObject blueMousePrefab;
+    [SerializeField] public GameObject redMousePrefab;
 
     private bool savedHasMouse = false;
     private bool savedMouseIsBlue = false;

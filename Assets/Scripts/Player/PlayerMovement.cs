@@ -4052,18 +4052,27 @@ public class PlayerMovement : MonoBehaviour
     //    audioManager.PlaySFX(audioManager.enemyHit);
     //}
 
+    //public void OnHit(int damage, Vector2 knockback)
+    //{
+    //    Debug.Log($"OnHit called! Applying knockback: {knockback}");
+
+    //    StopAllCoroutines(); // Prevent stacking knockbacks
+    //    StartCoroutine(ApplyKnockback(knockback));
+
+    //    if (!Spike.wasHitBySpike)
+    //    {
+    //        audioManager.PlaySFX(audioManager.enemyHit);
+    //    }
+    //}
+
     public void OnHit(int damage, Vector2 knockback)
     {
         Debug.Log($"OnHit called! Applying knockback: {knockback}");
 
         StopAllCoroutines(); // Prevent stacking knockbacks
         StartCoroutine(ApplyKnockback(knockback));
-
-        if (!Spike.wasHitBySpike)
-        {
-            audioManager.PlaySFX(audioManager.enemyHit);
-        }
     }
+
 
 
     private IEnumerator ApplyKnockback(Vector2 knockback)

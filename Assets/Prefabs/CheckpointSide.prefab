@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 1807049726965911997}
   - component: {fileID: 4932706482304959998}
   - component: {fileID: 4425198324198555783}
-  - component: {fileID: 2944499124421184450}
   - component: {fileID: 6501283637255984829}
   - component: {fileID: 4048468682814147369}
-  - component: {fileID: 2937039136716248868}
+  - component: {fileID: 2944499124421184450}
   m_Layer: 0
   m_Name: CheckpointSide
   m_TagString: Checkpoint
@@ -139,28 +138,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.1291647, y: 4.8679695}
   m_EdgeRadius: 0
---- !u!95 &2944499124421184450
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511925984514528684}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8b47d60fec3358e4697ae4d32163d87d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6501283637255984829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,18 +162,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efad9fed567bcdb43861d300bd0d936a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2937039136716248868
-MonoBehaviour:
+--- !u!95 &2944499124421184450
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511925984514528684}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70e3d4795b14c914b8414dc637e15575, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b47d60fec3358e4697ae4d32163d87d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5778657967628983310
 GameObject:
   m_ObjectHideFlags: 0

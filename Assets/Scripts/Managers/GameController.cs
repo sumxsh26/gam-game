@@ -235,8 +235,7 @@ public class GameController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(transform.root.gameObject);
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
             isGameOver = false; //  Reset on creation
             GameOverCanvas.gameObject.SetActive(false); //  Hide Game Over UI at scene start

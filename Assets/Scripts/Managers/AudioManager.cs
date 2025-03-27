@@ -14,11 +14,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip keyPickup;
     public AudioClip exitDoor;
     public AudioClip micePickup;
-    public AudioClip checkPoint;
-    public AudioClip waterSplash;
-    public AudioClip walk;
-    public AudioClip enemyHit;
-    public AudioClip spikeHit;
 
     private void Start()
     {

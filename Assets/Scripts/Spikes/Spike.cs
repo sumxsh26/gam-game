@@ -1,37 +1,3 @@
-//using UnityEngine;
-
-//public class Spike : MonoBehaviour
-//{
-//    public int spikeDamage = 1;
-//    public Vector2 knockBack = new Vector2(2f, 8f); // Upward knockback
-
-//    private void ApplyDamage(Collider2D collider)
-//    {
-//        Damageable damageable = collider.GetComponent<Damageable>();
-
-//        if (damageable != null)
-//        {
-//            PlayerMovement player = collider.GetComponent<PlayerMovement>();
-//            Vector2 deliveredKnockback = knockBack;
-
-//            if (player != null)
-//            {
-//                bool isLeftOfSpike = (player.transform.position.x < transform.position.x);
-//                deliveredKnockback.x = isLeftOfSpike ? -Mathf.Abs(knockBack.x) : Mathf.Abs(knockBack.x);
-//            }
-
-//            Debug.Log($"Spike hit {collider.name}, Knockback: {deliveredKnockback}");
-
-//            bool gotHit = damageable.Hit(spikeDamage, deliveredKnockback);
-//            if (gotHit) Debug.Log(collider.name + " hit by spikes for " + spikeDamage);
-//        }
-//    }
-
-//    private void OnTriggerEnter2D(Collider2D other) { ApplyDamage(other); }
-//    private void OnCollisionEnter2D(Collision2D collision) { ApplyDamage(collision.collider); }
-//}
-
-// with spike hit audio
 using UnityEngine;
 
 public class Spike : MonoBehaviour
@@ -39,14 +5,6 @@ public class Spike : MonoBehaviour
     public int spikeDamage = 1;
     public Vector2 knockBack = new Vector2(2f, 8f); // Upward knockback
 
-    private AudioManager audioManager;
-
-    private void Awake()
-    {
-        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
-    }
-
-    public static bool wasHitBySpike = false;
     private void ApplyDamage(Collider2D collider)
     {
         Damageable damageable = collider.GetComponent<Damageable>();
@@ -64,27 +22,11 @@ public class Spike : MonoBehaviour
 
             Debug.Log($"Spike hit {collider.name}, Knockback: {deliveredKnockback}");
 
-            // Set spike hit flag so PlayerMovement can suppress enemyHit sound
-            Spike.wasHitBySpike = true;
-
             bool gotHit = damageable.Hit(spikeDamage, deliveredKnockback);
-
-            // Play spike hit sound directly here
-            AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
-            if (gotHit && audioManager != null && audioManager.spikeHit != null)
-            {
-                audioManager.PlaySFX(audioManager.spikeHit);
-            }
-
-            // Clear the flag after applying damage
-            Spike.wasHitBySpike = false;
+            if (gotHit) Debug.Log(collider.name + " hit by spikes for " + spikeDamage);
         }
     }
 
-
-
     private void OnTriggerEnter2D(Collider2D other) { ApplyDamage(other); }
     private void OnCollisionEnter2D(Collision2D collision) { ApplyDamage(collision.collider); }
-
-
 }

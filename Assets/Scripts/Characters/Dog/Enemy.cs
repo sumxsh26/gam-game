@@ -410,18 +410,41 @@ public class Enemy : MonoBehaviour
 
     public bool _hasTarget = false;
 
+    //public bool HasTarget
+    //{
+    //    get
+    //    {
+    //        return _hasTarget;
+    //    }
+    //    set
+    //    {
+    //        _hasTarget = value;
+    //        animator.SetBool(AnimationStrings.hasTarget, value);
+    //    }
+    //}
+
     public bool HasTarget
     {
-        get
-        {
-            return _hasTarget;
-        }
+        get => _hasTarget;
         set
         {
+            if (_hasTarget == value) return;
+
             _hasTarget = value;
             animator.SetBool(AnimationStrings.hasTarget, value);
+
+            // Play enemy attack sound only when entering "HasTarget = true"
+            if (_hasTarget)
+            {
+                AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+                if (audioManager != null && audioManager.enemyHit != null)
+                {
+                    audioManager.PlaySFX(audioManager.enemyHit);
+                }
+            }
         }
     }
+
 
     public bool CanMove
     {

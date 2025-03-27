@@ -41,6 +41,31 @@ public class Attack : MonoBehaviour
                 Debug.Log(collision.name + " hit for " + attackDamage);
         }
     }
+
+//    private void OnTriggerEnter2D(Collider2D collision)
+//    {
+//        // see if it can be hit
+//        Damageable damageable = collision.GetComponent<Damageable>();
+
+//        if (damageable != null)
+//        {
+//            Vector2 deliveredKnockback = transform.parent.localScale.x > 0 ? knockBack : new Vector2(-knockBack.x, knockBack.y);
+//            bool gotHit = damageable.Hit(attackDamage, deliveredKnockback);
+
+//            if (gotHit)
+//            {
+//                Debug.Log(collision.name + " hit for " + attackDamage);
+
+//                // Play the dog growl sound (enemyHit) ONLY when hit by enemy
+//                AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+//                if (audioManager != null && audioManager.enemyHit != null)
+//                {
+//                    audioManager.PlaySFX(audioManager.enemyHit);
+//                }
+//            }
+//        }
+//    }
+
 }
 
 

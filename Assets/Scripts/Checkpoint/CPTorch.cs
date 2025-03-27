@@ -63,13 +63,33 @@ public class CPTorch : MonoBehaviour
         ResetTorch();
     }
 
+
+
+    //public void TriggerLightup()
+    //{
+    //    if (!hasLit)
+    //    {
+    //        hasLit = true;
+    //        animator.Play("lightup_Front", 0, 0f);
+
+    //        if (torchLight != null)
+    //        {
+    //            torchLight.enabled = true;
+    //        }
+    //        else
+    //        {
+    //            Debug.LogWarning("[CPTorch] No Light2D found under 'Light' child!");
+    //        }
+    //    }
+    //}
+
     public void TriggerLightup()
     {
         if (!hasLit)
         {
             hasLit = true;
+            Debug.Log("[CP Torch] Triggering light-up animation");  // <-- Debug line
             animator.Play("lightup_Front", 0, 0f);
-
             if (torchLight != null)
             {
                 torchLight.enabled = true;
@@ -80,6 +100,7 @@ public class CPTorch : MonoBehaviour
             }
         }
     }
+
 
     public void ResetTorch()
     {

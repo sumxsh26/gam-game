@@ -486,8 +486,6 @@ public class Mice : MonoBehaviour
         Transform pickupZone = transform.Find("PickupZone");
         if (pickupZone != null)
         {
-            audioManager.PlaySFX(audioManager.micePickup); //audio sfx
-
             BoxCollider2D collider = pickupZone.GetComponent<BoxCollider2D>();
             if (collider != null)
             {

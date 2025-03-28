@@ -332,3 +332,6 @@ public class DoorBehaviour : MonoBehaviour
         _isDoorOpen = open;
     }
 }
+
+
+

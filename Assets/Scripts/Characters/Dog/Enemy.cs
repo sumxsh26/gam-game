@@ -336,7 +336,7 @@
 //}
 
 
-// stop attacking once dead
+//// stop attacking once dead
 using System;
 using UnityEngine;
 
@@ -580,3 +580,180 @@ public class Enemy : MonoBehaviour
     }
 
 }
+
+
+//// with awareness zone
+//using System;
+//using UnityEngine;
+
+//// ensures all enemy controllers require rigidbody and touching directions
+//[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
+
+//public class Enemy : MonoBehaviour
+//{
+//    // Walk speed of the enemy
+//    public float walkSpeed = 3f;
+//    public float walkStopRate = 0.05f;
+//    public float chaseSpeed = 5f;
+
+//    public DetectionZone attackZone;
+//    public DetectionZone cliffDetectionZone;
+//    public DetectionZone awarenessZone;
+
+//    // Adding Rigidbody and other components
+//    Rigidbody2D rb;
+//    TouchingDirections touchingDirections;
+//    Animator animator;
+//    Damageable damageable;
+
+//    // Declaring enum representing the directions enemies can walk
+//    public enum WalkableDirection { Right, Left }
+//    private WalkableDirection _walkDirection;
+
+//    private Vector2 walkDirectionVector = Vector2.right; // Default direction (right)
+
+//    public WalkableDirection WalkDirection
+//    {
+//        get { return _walkDirection; }
+//        set
+//        {
+//            if (_walkDirection != value)
+//            {
+//                gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y);
+
+//                if (value == WalkableDirection.Right)
+//                    walkDirectionVector = Vector2.right;
+//                else if (value == WalkableDirection.Left)
+//                    walkDirectionVector = Vector2.left;
+//            }
+//            _walkDirection = value;
+//        }
+//    }
+
+//    public bool _hasTarget = false;
+
+//    public bool HasTarget
+//    {
+//        get => _hasTarget;
+//        set
+//        {
+//            if (_hasTarget == value) return;
+//            _hasTarget = value;
+//            animator.SetBool(AnimationStrings.hasTarget, value);
+
+//            if (_hasTarget)
+//            {
+//                AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+//                if (audioManager != null && audioManager.enemyHit != null)
+//                {
+//                    audioManager.PlaySFX(audioManager.enemyHit);
+//                }
+//            }
+//        }
+//    }
+
+//    public bool CanMove => animator.GetBool(AnimationStrings.canMove);
+
+//    public float AttackCooldown
+//    {
+//        get => animator.GetFloat(AnimationStrings.attackCooldown);
+//        private set => animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
+//    }
+
+//    private void Awake()
+//    {
+//        rb = GetComponent<Rigidbody2D>();
+//        touchingDirections = GetComponent<TouchingDirections>();
+//        animator = GetComponent<Animator>();
+//        damageable = GetComponent<Damageable>();
+//    }
+
+//    private void SpeedUpOrTurnAround(PlayerMovement player)
+//    {
+//        // Update the walking direction
+//        if (player.transform.position.x > transform.position.x) // Player is to the right
+//        {
+//            WalkDirection = WalkableDirection.Right;
+//            // Increase speed for chase
+//            rb.linearVelocity = new Vector2(chaseSpeed, rb.linearVelocity.y); // Use linearVelocity instead of velocity
+//        }
+//        else // Player is to the left
+//        {
+//            WalkDirection = WalkableDirection.Left;
+//            // Increase speed for chase
+//            rb.linearVelocity = new Vector2(-chaseSpeed, rb.linearVelocity.y); // Use linearVelocity instead of velocity
+//        }
+//    }
+
+//    private void FixedUpdate()
+//    {
+//        // Handle ground checks and flip direction when necessary
+//        if (touchingDirections.IsGrounded && touchingDirections.IsOnWall || cliffDetectionZone.detectedColliders.Count == 0)
+//        {
+//            FlipDirection();
+//        }
+
+//        // Handle movement logic
+//        if (!damageable.LockVelocity)
+//        {
+//            if (CanMove)
+//            {
+//                rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y); // Use linearVelocity instead of velocity
+//            }
+//            else
+//            {
+//                rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y); // Use linearVelocity instead of velocity
+//            }
+//        }
+//    }
+
+
+//    private void Update()
+//    {
+//        // Check if the player is in the awareness zone
+//        if (awarenessZone.detectedColliders.Count > 0)
+//        {
+//            // Player detected in the awareness zone, speed up or turn around
+//            PlayerMovement player = awarenessZone.detectedColliders[0].GetComponent<PlayerMovement>();
+
+//            if (player != null)
+//            {
+//                // Speed up or turn to chase the player
+//                SpeedUpOrTurnAround(player);
+//            }
+//        }
+
+//        // Existing code for attack zone
+//        if (attackZone.detectedColliders.Count > 0)
+//        {
+//            // Handle attack logic here (already exists in your script)
+//        }
+//    }
+
+//    public void StopTargetingPlayer()
+//    {
+//        HasTarget = false;
+//        Debug.Log("[DEBUG] Enemy stopped attacking because player died.");
+//    }
+
+//    private void FlipDirection()
+//    {
+//        if (_walkDirection == WalkableDirection.Right)
+//        {
+//            WalkDirection = WalkableDirection.Left;
+//        }
+//        else if (_walkDirection == WalkableDirection.Left)
+//        {
+//            WalkDirection = WalkableDirection.Right;
+//        }
+//        else
+//        {
+//            Debug.LogError("Current walkable direction is not set to legal values of right or left");
+//        }
+//    }
+
+//    public void OnHit(int damage, Vector2 knockback)
+//    {
+//        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
+//    }
+//}

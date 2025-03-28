@@ -3151,6 +3151,8 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D _headHit;
     private bool _isGrounded;
     private bool _bumpedHead;
+    private float _groundedBufferTime = 0.1f; // Adjust this as needed
+    private float _groundedBufferTimer = 0f;
 
     // jump variables
     public float VerticalVelocity { get; private set; }
@@ -3639,29 +3641,71 @@ public class PlayerMovement : MonoBehaviour
 
         _groundHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.down, MoveStats.GroundDetectionRayLength, MoveStats.GroundLayer);
 
+        bool wasPreviouslyGrounded = _isGrounded;
+
         if (_groundHit.collider != null)
         {
             _isGrounded = true;
-
+            _groundedBufferTimer = _groundedBufferTime; // Reset the buffer when grounded
         }
-        else { _isGrounded = false; }
+        else
+        {
+            if (_groundedBufferTimer > 0)
+            {
+                _groundedBufferTimer -= Time.deltaTime;
+                _isGrounded = true; // Still considered grounded while within buffer
+            }
+            else
+            {
+                _isGrounded = false;
+            }
+        }
 
         #region Debug Visualizaton
         if (MoveStats.DebugShowIsGroundedBox)
         {
-            Color rayColor;
-            if (_isGrounded)
-            {
-                rayColor = Color.green;
-            }
-            else { rayColor = Color.red; }
+            Color rayColor = _isGrounded ? Color.green : Color.red;
 
             Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y), Vector2.down * MoveStats.GroundDetectionRayLength, rayColor);
-            Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y), Vector2.down * MoveStats.GroundDetectionRayLength, rayColor);
+            Debug.DrawRay(new Vector2(boxCastOrigin.x + boxCastSize.x / 2, boxCastOrigin.y), Vector2.down * MoveStats.GroundDetectionRayLength, rayColor);
             Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y - MoveStats.GroundDetectionRayLength), Vector2.right * boxCastSize.x, rayColor);
         }
         #endregion
     }
+
+
+    //private void IsGrounded()
+    //{
+    //    Vector2 boxCastOrigin = new Vector2(_feetColl.bounds.center.x, _feetColl.bounds.min.y);
+    //    Vector2 boxCastSize = new Vector2(_feetColl.bounds.size.x, MoveStats.GroundDetectionRayLength);
+
+    //    _groundHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.down, MoveStats.GroundDetectionRayLength, MoveStats.GroundLayer);
+
+    //    if (_groundHit.collider != null)
+    //    {
+    //        _isGrounded = true;
+
+    //    }
+    //    else { _isGrounded = false; }
+
+    //    #region Debug Visualizaton
+    //    if (MoveStats.DebugShowIsGroundedBox)
+    //    {
+    //        Color rayColor;
+    //        if (_isGrounded)
+    //        {
+    //            rayColor = Color.green;
+    //        }
+    //        else { rayColor = Color.red; }
+
+    //        Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y), Vector2.down * MoveStats.GroundDetectionRayLength, rayColor);
+    //        Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y), Vector2.down * MoveStats.GroundDetectionRayLength, rayColor);
+    //        Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y - MoveStats.GroundDetectionRayLength), Vector2.right * boxCastSize.x, rayColor);
+    //    }
+    //    #endregion
+    //}
+
+
 
     private void BumpedHead()
     {
@@ -3927,7 +3971,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void RestoreSavedMouseImmediately()
     {
-        if (!savedHasMouse) return;
+        if (!savedHasMouse)
+        {
+            // No saved mouse — ensure all toggle platforms are deactivated
+            PlatformToggle[] toggles = FindObjectsByType<PlatformToggle>(FindObjectsSortMode.None);
+            foreach (PlatformToggle toggle in toggles)
+            {
+                toggle.SetPlatformState(false); // Turn off all platforms
+            }
+
+            animator.SetBool(AnimationStrings.canMove, true);
+            return;
+        }
 
         GameObject prefab = savedMouseIsBlue ? blueMousePrefab : redMousePrefab;
         if (prefab == null)
@@ -3948,6 +4003,30 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("[Respawn] Restoring mouse immediately: " + (savedMouseIsBlue ? "Blue" : "Red"));
         PickupMouseInstantly(mouseScript);
     }
+
+    //public void RestoreSavedMouseImmediately()
+    //{
+    //    if (!savedHasMouse) return;
+
+    //    GameObject prefab = savedMouseIsBlue ? blueMousePrefab : redMousePrefab;
+    //    if (prefab == null)
+    //    {
+    //        Debug.LogError("[Respawn] Mouse prefab is missing!");
+    //        return;
+    //    }
+
+    //    GameObject mouseObj = Instantiate(prefab, transform.position, Quaternion.identity);
+    //    Mice mouseScript = mouseObj.GetComponent<Mice>();
+
+    //    if (mouseScript == null)
+    //    {
+    //        Debug.LogError("[Respawn] Instantiated object has no Mice script!");
+    //        return;
+    //    }
+
+    //    Debug.Log("[Respawn] Restoring mouse immediately: " + (savedMouseIsBlue ? "Blue" : "Red"));
+    //    PickupMouseInstantly(mouseScript);
+    //}
 
 
     #endregion

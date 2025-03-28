@@ -59,32 +59,42 @@ public class SwitchBehaviour : MonoBehaviour
         }
     }
 
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        //toggle-ing; if true make false, if false make true
+    //        _isPressingSwitch = !_isPressingSwitch;
+
+    //        //if door is close, and switch open
+    //        if (_isDoorOpenSwitch && !_doorBehaviour._isDoorOpen)
+    //        {
+    //            _doorBehaviour._isDoorOpen = !_doorBehaviour._isDoorOpen;
+    //        }
+    //        else if (_isDoorCloseSwitch && _doorBehaviour._isDoorOpen)
+    //        {
+    //            _doorBehaviour._isDoorOpen = !_doorBehaviour._isDoorOpen;
+    //        }
+    //    }
+    //}
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            //toggle-ing; if true make false, if false make true
-            _isPressingSwitch = !_isPressingSwitch;
-
-            //if door is close, and switch open
-            if (_isDoorOpenSwitch && !_doorBehaviour._isDoorOpen)
-            {
-                _doorBehaviour._isDoorOpen = !_doorBehaviour._isDoorOpen;
-            }
-            else if (_isDoorCloseSwitch && _doorBehaviour._isDoorOpen)
-            {
-                _doorBehaviour._isDoorOpen = !_doorBehaviour._isDoorOpen;
-            }
+            _isPressingSwitch = true;
+            _doorBehaviour.SetDoorState(!_doorBehaviour._isDoorOpen);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && gameObject.activeInHierarchy)
         {
             StartCoroutine(SwitchUpDelay(_switchDelay));
         }
     }
+
 
     IEnumerator SwitchUpDelay(float waitTime)
     {

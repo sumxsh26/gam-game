@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutsceneSceneName: Cutscene
-  playSceneName: Level 1
+  playSceneName: Final Tutorial
   creditsSceneName: Credits
   settingsSceneName: Settings
 --- !u!1 &340058899
@@ -1554,6 +1554,7 @@ MonoBehaviour:
   walk: {fileID: 0}
   enemyHit: {fileID: 0}
   spikeHit: {fileID: 0}
+  fallingSpikeHit: {fileID: 0}
 --- !u!4 &2011189376
 Transform:
   m_ObjectHideFlags: 0

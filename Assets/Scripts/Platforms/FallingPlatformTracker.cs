@@ -25,17 +25,13 @@ public class FallingPlatformTracker : MonoBehaviour
         {
             originalColor = tilemap.color;
         }
-
-        FallingPlatformManager.Instance?.RegisterPlatform(this);
     }
 
     public void ResetPlatform()
     {
-        // Reset position and rotation
         transform.position = originalPosition;
         transform.rotation = originalRotation;
 
-        // Reset Rigidbody
         if (rb != null)
         {
             rb.bodyType = RigidbodyType2D.Kinematic;
@@ -44,13 +40,11 @@ public class FallingPlatformTracker : MonoBehaviour
             rb.angularVelocity = 0f;
         }
 
-        // Re-enable collider
         if (platformCollider != null)
         {
             platformCollider.enabled = true;
         }
 
-        // Reset fade
         if (tilemap != null)
         {
             tilemap.color = originalColor;

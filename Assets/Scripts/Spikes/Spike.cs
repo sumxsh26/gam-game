@@ -81,3 +81,4 @@ public class Spike : MonoBehaviour
         ApplyDamage(collision.collider);
     }
 }
+

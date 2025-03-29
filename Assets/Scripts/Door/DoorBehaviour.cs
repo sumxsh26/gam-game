@@ -331,6 +331,17 @@ public class DoorBehaviour : MonoBehaviour
     {
         _isDoorOpen = open;
     }
+
+    public void ResetDoor()
+    {
+        _isDoorOpen = false;
+        alpha = 1f;
+        transform.position = closedPosition;
+        col.enabled = true;
+        hasPlayedOpenSound = false;
+        SetAlpha(alpha);
+    }
+
 }
 
 

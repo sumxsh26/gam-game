@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip walk;
     public AudioClip enemyHit;
     public AudioClip spikeHit;
+    public AudioClip fallingSpikeHit;
 
     private void Start()
     {

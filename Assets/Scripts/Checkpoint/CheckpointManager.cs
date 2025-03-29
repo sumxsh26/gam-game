@@ -276,6 +276,10 @@ public class CheckpointManager : MonoBehaviour
 
     private Checkpoint currentCheckpoint;
 
+    [Header("Resettable Doors")]
+    public List<DoorBehaviour> allDoors = new();
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -344,6 +348,15 @@ public class CheckpointManager : MonoBehaviour
         // First reset all mice and platforms in the scene
         MiceManager.Instance?.ResetAllMice(playerMovement.blueMousePrefab, playerMovement.redMousePrefab);
         FallingPlatformManager.Instance?.ResetAllPlatforms();
+        FallingSpikeManager.Instance?.ResetAllSpikes();
+
+        foreach (var door in allDoors)
+        {
+            if (door != null)
+                door.ResetDoor();
+        }
+
+
 
         // THEN restore the saved mouse
         playerMovement.RestoreSavedMouseImmediately();

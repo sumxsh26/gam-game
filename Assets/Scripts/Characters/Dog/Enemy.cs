@@ -337,6 +337,252 @@
 
 
 //// stop attacking once dead
+//using System;
+//using UnityEngine;
+
+//// ensures all enemy controllers require rigidbody and touching directions
+//[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
+
+//public class Enemy : MonoBehaviour
+//{
+//    // walk speed of the enemy
+//    public float walkSpeed = 3f;
+
+//    public float walkStopRate = 0.05f;
+
+//    public DetectionZone attackZone;
+//    public DetectionZone cliffDetectionZone;
+
+//    // adding rigidbody (unity component) to the script
+//    Rigidbody2D rb;
+
+//    // adding touching directions script to the script
+//    TouchingDirections touchingDirections;
+
+//    // adding animator to the script
+//    Animator animator;
+
+//    // adding damageable to the script
+//    Damageable damageable;
+
+//    // declaring enum representing the directions enemies can walk 
+//    public enum WalkableDirection { Right, Left }
+
+//    // stores the current walking direction
+//    private WalkableDirection _walkDirection;
+
+//    // enemies initialized to move the right
+//    private Vector2 walkDirectionVector = Vector2.right;
+
+
+
+//    // property for enemy walking directon
+//    public WalkableDirection WalkDirection
+//    {
+//        // return the current direction enemy is walking towards
+//        get { return _walkDirection; }
+
+//        set
+//        {
+//            // checks if the new direction is different from the current direction
+//            if (_walkDirection != value)
+//            {
+//                // flip the enemy's sprite by inverting the x axis scale
+//                gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1,
+//                    gameObject.transform.localScale.y);
+
+//                // update which way the enemy moves based on the new walk direction
+//                if (value == WalkableDirection.Right)
+//                {
+//                    // move right
+//                    walkDirectionVector = Vector2.right;
+//                }
+//                else if (value == WalkableDirection.Left)
+//                {
+//                    // move left
+//                    walkDirectionVector = Vector2.left;
+//                }
+//            }
+//            // update the walk direction value
+//            _walkDirection = value;
+//        }
+//    }
+
+//    public bool _hasTarget = false;
+
+//    //public bool HasTarget
+//    //{
+//    //    get
+//    //    {
+//    //        return _hasTarget;
+//    //    }
+//    //    set
+//    //    {
+//    //        _hasTarget = value;
+//    //        animator.SetBool(AnimationStrings.hasTarget, value);
+//    //    }
+//    //}
+
+//    public bool HasTarget
+//    {
+//        get => _hasTarget;
+//        set
+//        {
+//            if (_hasTarget == value) return;
+
+//            _hasTarget = value;
+//            animator.SetBool(AnimationStrings.hasTarget, value);
+
+//            // Play enemy attack sound only when entering "HasTarget = true"
+//            if (_hasTarget)
+//            {
+//                AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+//                if (audioManager != null && audioManager.enemyHit != null)
+//                {
+//                    audioManager.PlaySFX(audioManager.enemyHit);
+//                }
+//            }
+//        }
+//    }
+
+
+//    public bool CanMove
+//    {
+//        get
+//        {
+//            return animator.GetBool(AnimationStrings.canMove);
+//        }
+//    }
+
+//    public float AttackCooldown
+//    {
+//        get
+//        {
+//            return animator.GetFloat(AnimationStrings.attackCooldown);
+//        }
+//        private set
+//        {
+//            animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
+//        }
+//    }
+
+//    private void Awake()
+//    {
+//        // on awake, these components will be set (referenced from the components in Unity)
+//        rb = GetComponent<Rigidbody2D>();
+//        touchingDirections = GetComponent<TouchingDirections>();
+//        animator = GetComponent<Animator>();
+//        damageable = GetComponent<Damageable>();
+//    }
+
+//    private void FixedUpdate()
+//    {
+
+//        // if enemy is touching the wall and is on the ground
+//        if (touchingDirections.IsGrounded && touchingDirections.IsOnWall || cliffDetectionZone.detectedColliders.Count == 0)
+//        {
+//            // flip the other way
+//            FlipDirection();
+//        }
+
+//        if (!damageable.LockVelocity)
+//        {
+//            if (CanMove)
+//            {
+//                // set rigidbody velocity to apply movement
+//                // moves enemy in the new direction on the same vertical velocity
+//                rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y);
+//            }
+//            else
+//            {
+//                rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
+//            }
+//        }
+//    }
+
+//    private void Update()
+//    {
+//        // Check if there are any colliders in the attack zone
+//        if (attackZone.detectedColliders.Count > 0)
+//        {
+//            PlayerMovement player = attackZone.detectedColliders[0].GetComponent<PlayerMovement>();
+
+//            // Only target the player if they are alive
+//            if (player != null && player.IsAlive)
+//            {
+//                HasTarget = true;
+//            }
+//            else
+//            {
+//                HasTarget = false; // Stop attacking if the player is dead
+//            }
+//        }
+//        else
+//        {
+//            HasTarget = false; // No player detected
+//        }
+
+//        if (AttackCooldown > 0)
+//        {
+//            AttackCooldown -= Time.deltaTime;
+//        }
+//    }
+
+
+//    public void StopTargetingPlayer()
+//    {
+//        HasTarget = false;
+//        Debug.Log("[DEBUG] Enemy stopped attacking because player died.");
+//    }
+
+//    //public void ResetEnemyTargeting()
+//    //{
+//    //    HasTarget = false; // Reset attack state so it updates properly
+//    //}
+
+
+
+//    // flips the walking direction when hitting a wall
+//    private void FlipDirection()
+//    {
+
+
+//        // check if enemy is facing right
+//        if (_walkDirection == WalkableDirection.Right)
+//        {
+//            // change direction to left
+//            WalkDirection = WalkableDirection.Left;
+//        }
+
+//        // check if enemy is facing left
+//        else if (_walkDirection == WalkableDirection.Left)
+//        {
+//            // change direction to right
+//            WalkDirection = WalkableDirection.Right;
+//        }
+
+//        // error handling
+//        else
+//        {
+//            Debug.LogError("Current walkable direction is not set to legal values of right or left");
+//        }
+//    }
+
+//    // Start is called once before the first execution of Update after the MonoBehaviour is created
+//    void Start()
+//    {
+
+//    }
+
+//    public void OnHit(int damage, Vector2 knockback)
+//    {
+//        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
+//    }
+
+//}
+
+
+// with awareness zone
 using System;
 using UnityEngine;
 
@@ -347,11 +593,18 @@ public class Enemy : MonoBehaviour
 {
     // walk speed of the enemy
     public float walkSpeed = 3f;
-
     public float walkStopRate = 0.05f;
+
+    // awareness zone chase speed
+    public float chaseSpeedMultiplier = 1.5f; // Speed multiplier when chasing
 
     public DetectionZone attackZone;
     public DetectionZone cliffDetectionZone;
+
+    // awareness zone
+    public DetectionZone awarenessZone;
+    private float awarenessFlipCooldown = 1.5f; // Time in seconds between awareness flips
+    private float nextAllowedAwarenessFlipTime = 0f;
 
     // adding rigidbody (unity component) to the script
     Rigidbody2D rb;
@@ -409,19 +662,6 @@ public class Enemy : MonoBehaviour
     }
 
     public bool _hasTarget = false;
-
-    //public bool HasTarget
-    //{
-    //    get
-    //    {
-    //        return _hasTarget;
-    //    }
-    //    set
-    //    {
-    //        _hasTarget = value;
-    //        animator.SetBool(AnimationStrings.hasTarget, value);
-    //    }
-    //}
 
     public bool HasTarget
     {
@@ -499,34 +739,116 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+    //private void Update()
+    //{
+    //    bool playerDetectedInAwareness = false;
+
+    //    // Awareness zone logic
+    //    foreach (Collider2D col in awarenessZone.detectedColliders)
+    //    {
+    //        PlayerMovement player = col.GetComponent<PlayerMovement>();
+    //        if (player != null && player.IsAlive)
+    //        {
+    //            playerDetectedInAwareness = true;
+
+    //            // Flip if behind
+    //            bool playerIsLeft = player.transform.position.x < transform.position.x;
+    //            if ((playerIsLeft && WalkDirection == WalkableDirection.Right) ||
+    //                (!playerIsLeft && WalkDirection == WalkableDirection.Left))
+    //            {
+    //                FlipDirection();
+    //            }
+
+    //            break; // Stop after the first valid player found
+    //        }
+    //    }
+
+    //    // Attack zone logic (unchanged)
+    //    if (attackZone.detectedColliders.Count > 0)
+    //    {
+    //        PlayerMovement player = attackZone.detectedColliders[0].GetComponent<PlayerMovement>();
+
+    //        if (player != null && player.IsAlive)
+    //        {
+    //            HasTarget = true;
+    //        }
+    //        else
+    //        {
+    //            HasTarget = false;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        HasTarget = false;
+    //    }
+
+    //    // Cooldown logic (unchanged)
+    //    if (AttackCooldown > 0)
+    //    {
+    //        AttackCooldown -= Time.deltaTime;
+    //    }
+
+    //    // Adjust speed based on awareness
+    //    walkSpeed = playerDetectedInAwareness ? 5f : 3f;
+    //}
 
     private void Update()
     {
-        // Check if there are any colliders in the attack zone
+        bool playerDetectedInAwareness = false;
+
+        // Awareness zone logic
+        foreach (Collider2D col in awarenessZone.detectedColliders)
+        {
+            PlayerMovement player = col.GetComponent<PlayerMovement>();
+            if (player != null && player.IsAlive)
+            {
+                playerDetectedInAwareness = true;
+
+                // Flip if player is behind AND cooldown has passed
+                bool playerIsLeft = player.transform.position.x < transform.position.x;
+                if ((playerIsLeft && WalkDirection == WalkableDirection.Right) ||
+                    (!playerIsLeft && WalkDirection == WalkableDirection.Left))
+                {
+                    if (Time.time >= nextAllowedAwarenessFlipTime)
+                    {
+                        FlipDirection();
+                        nextAllowedAwarenessFlipTime = Time.time + awarenessFlipCooldown;
+                    }
+                }
+
+                break; // Stop after the first valid player found
+            }
+        }
+
+        // Attack zone logic
         if (attackZone.detectedColliders.Count > 0)
         {
             PlayerMovement player = attackZone.detectedColliders[0].GetComponent<PlayerMovement>();
 
-            // Only target the player if they are alive
             if (player != null && player.IsAlive)
             {
                 HasTarget = true;
             }
             else
             {
-                HasTarget = false; // Stop attacking if the player is dead
+                HasTarget = false;
             }
         }
         else
         {
-            HasTarget = false; // No player detected
+            HasTarget = false;
         }
 
+        // Cooldown logic
         if (AttackCooldown > 0)
         {
             AttackCooldown -= Time.deltaTime;
         }
+
+        // Adjust speed based on awareness
+        walkSpeed = playerDetectedInAwareness ? 5f : 3f;
     }
+
 
 
     public void StopTargetingPlayer()
@@ -534,12 +856,6 @@ public class Enemy : MonoBehaviour
         HasTarget = false;
         Debug.Log("[DEBUG] Enemy stopped attacking because player died.");
     }
-
-    //public void ResetEnemyTargeting()
-    //{
-    //    HasTarget = false; // Reset attack state so it updates properly
-    //}
-
 
 
     // flips the walking direction when hitting a wall
@@ -580,180 +896,3 @@ public class Enemy : MonoBehaviour
     }
 
 }
-
-
-//// with awareness zone
-//using System;
-//using UnityEngine;
-
-//// ensures all enemy controllers require rigidbody and touching directions
-//[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
-
-//public class Enemy : MonoBehaviour
-//{
-//    // Walk speed of the enemy
-//    public float walkSpeed = 3f;
-//    public float walkStopRate = 0.05f;
-//    public float chaseSpeed = 5f;
-
-//    public DetectionZone attackZone;
-//    public DetectionZone cliffDetectionZone;
-//    public DetectionZone awarenessZone;
-
-//    // Adding Rigidbody and other components
-//    Rigidbody2D rb;
-//    TouchingDirections touchingDirections;
-//    Animator animator;
-//    Damageable damageable;
-
-//    // Declaring enum representing the directions enemies can walk
-//    public enum WalkableDirection { Right, Left }
-//    private WalkableDirection _walkDirection;
-
-//    private Vector2 walkDirectionVector = Vector2.right; // Default direction (right)
-
-//    public WalkableDirection WalkDirection
-//    {
-//        get { return _walkDirection; }
-//        set
-//        {
-//            if (_walkDirection != value)
-//            {
-//                gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y);
-
-//                if (value == WalkableDirection.Right)
-//                    walkDirectionVector = Vector2.right;
-//                else if (value == WalkableDirection.Left)
-//                    walkDirectionVector = Vector2.left;
-//            }
-//            _walkDirection = value;
-//        }
-//    }
-
-//    public bool _hasTarget = false;
-
-//    public bool HasTarget
-//    {
-//        get => _hasTarget;
-//        set
-//        {
-//            if (_hasTarget == value) return;
-//            _hasTarget = value;
-//            animator.SetBool(AnimationStrings.hasTarget, value);
-
-//            if (_hasTarget)
-//            {
-//                AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
-//                if (audioManager != null && audioManager.enemyHit != null)
-//                {
-//                    audioManager.PlaySFX(audioManager.enemyHit);
-//                }
-//            }
-//        }
-//    }
-
-//    public bool CanMove => animator.GetBool(AnimationStrings.canMove);
-
-//    public float AttackCooldown
-//    {
-//        get => animator.GetFloat(AnimationStrings.attackCooldown);
-//        private set => animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
-//    }
-
-//    private void Awake()
-//    {
-//        rb = GetComponent<Rigidbody2D>();
-//        touchingDirections = GetComponent<TouchingDirections>();
-//        animator = GetComponent<Animator>();
-//        damageable = GetComponent<Damageable>();
-//    }
-
-//    private void SpeedUpOrTurnAround(PlayerMovement player)
-//    {
-//        // Update the walking direction
-//        if (player.transform.position.x > transform.position.x) // Player is to the right
-//        {
-//            WalkDirection = WalkableDirection.Right;
-//            // Increase speed for chase
-//            rb.linearVelocity = new Vector2(chaseSpeed, rb.linearVelocity.y); // Use linearVelocity instead of velocity
-//        }
-//        else // Player is to the left
-//        {
-//            WalkDirection = WalkableDirection.Left;
-//            // Increase speed for chase
-//            rb.linearVelocity = new Vector2(-chaseSpeed, rb.linearVelocity.y); // Use linearVelocity instead of velocity
-//        }
-//    }
-
-//    private void FixedUpdate()
-//    {
-//        // Handle ground checks and flip direction when necessary
-//        if (touchingDirections.IsGrounded && touchingDirections.IsOnWall || cliffDetectionZone.detectedColliders.Count == 0)
-//        {
-//            FlipDirection();
-//        }
-
-//        // Handle movement logic
-//        if (!damageable.LockVelocity)
-//        {
-//            if (CanMove)
-//            {
-//                rb.linearVelocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.linearVelocity.y); // Use linearVelocity instead of velocity
-//            }
-//            else
-//            {
-//                rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y); // Use linearVelocity instead of velocity
-//            }
-//        }
-//    }
-
-
-//    private void Update()
-//    {
-//        // Check if the player is in the awareness zone
-//        if (awarenessZone.detectedColliders.Count > 0)
-//        {
-//            // Player detected in the awareness zone, speed up or turn around
-//            PlayerMovement player = awarenessZone.detectedColliders[0].GetComponent<PlayerMovement>();
-
-//            if (player != null)
-//            {
-//                // Speed up or turn to chase the player
-//                SpeedUpOrTurnAround(player);
-//            }
-//        }
-
-//        // Existing code for attack zone
-//        if (attackZone.detectedColliders.Count > 0)
-//        {
-//            // Handle attack logic here (already exists in your script)
-//        }
-//    }
-
-//    public void StopTargetingPlayer()
-//    {
-//        HasTarget = false;
-//        Debug.Log("[DEBUG] Enemy stopped attacking because player died.");
-//    }
-
-//    private void FlipDirection()
-//    {
-//        if (_walkDirection == WalkableDirection.Right)
-//        {
-//            WalkDirection = WalkableDirection.Left;
-//        }
-//        else if (_walkDirection == WalkableDirection.Left)
-//        {
-//            WalkDirection = WalkableDirection.Right;
-//        }
-//        else
-//        {
-//            Debug.LogError("Current walkable direction is not set to legal values of right or left");
-//        }
-//    }
-
-//    public void OnHit(int damage, Vector2 knockback)
-//    {
-//        rb.linearVelocity = new Vector2(knockback.x, rb.linearVelocity.y + knockback.y);
-//    }
-//}

@@ -279,6 +279,10 @@ public class CheckpointManager : MonoBehaviour
     [Header("Resettable Doors")]
     public List<DoorBehaviour> allDoors = new();
 
+    [Header("Scene Timer")]
+    public TimerManager sceneTimer; // Drag your TimerManager GameObject here
+
+
 
     private void Awake()
     {
@@ -362,6 +366,8 @@ public class CheckpointManager : MonoBehaviour
         playerMovement.RestoreSavedMouseImmediately();
 
         GameController.Instance?.RebindPlayer();
+
+        sceneTimer?.ResetTimer(); // This keeps your per-scene time settings
 
     }
 

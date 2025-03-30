@@ -5122,8 +5122,12 @@ public class PlayerMovement : MonoBehaviour
         // manually mark player as dead
         IsAlive = false;
 
-        // play death animation
-        animator.SetBool(AnimationStrings.isAlive, false);
+        // play death animation even if animator does not exist
+        if (animator != null)
+        {
+            animator.SetBool(AnimationStrings.isAlive, false);
+        }
+
 
         // play death audio
         audioManager.PlaySFX(audioManager.death);

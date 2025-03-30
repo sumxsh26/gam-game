@@ -3717,7 +3717,7 @@ public class PlayerMovement : MonoBehaviour
         if (_headHit.collider != null)
         {
             _bumpedHead = true;
-            audioManager.PlaySFX(audioManager.wallTouch); //audio sfx 
+            //audioManager.PlaySFX(audioManager.wallTouch); //audio sfx 
 
         }
         else { _bumpedHead = false; }

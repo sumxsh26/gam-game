@@ -15,14 +15,26 @@ EditorBuildSettings:
     path: Assets/Scenes/Others/Loading.unity
     guid: 539fc64ca51765d4aad011d8ff52a632
   - enabled: 1
+    path: Assets/Scenes/Others/Credits.unity
+    guid: 27078b28e231743a19d8518196a6f86f
+  - enabled: 1
+    path: Assets/Scenes/Others/You Won.unity
+    guid: 685e7ccca38089449a541159a447e876
+  - enabled: 1
+    path: Assets/Scenes/Final/Final Tutorial.unity
+    guid: 7972397665abf664e88aa82a61c98078
+  - enabled: 1
+    path: Assets/Scenes/Final/Final Level 1.unity
+    guid: be975e13f2917574d88e8ee9706b093a
+  - enabled: 1
+    path: Assets/Scenes/Final/Final Level 2.unity
+    guid: a0a0340e5f50bb7408c260e9bc71a739
+  - enabled: 0
     path: Assets/Scenes/Others/Settings.unity
     guid: 30f78d245b222400981f2adb224489dc
   - enabled: 0
     path: Assets/Scenes/Others/Instructions.unity
     guid: 78f65144c79484d8997ea302a17db605
-  - enabled: 0
-    path: Assets/Scenes/Others/Credits.unity
-    guid: 27078b28e231743a19d8518196a6f86f
   - enabled: 0
     path: Assets/Scenes/Others/Text.unity
     guid: 34bbb12c386601c4b82d5bc13c9ea772
@@ -62,10 +74,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Milestones/Beta/Updates.unity
     guid: ec1acfdfb5f83644e9e4cac9de751936
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Playtests/Second Playtest/Playtest Tutorial.unity
     guid: 3ecd0c88761a48e4abc78e4ccf11f746
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Playtests/Second Playtest/Playtest level 1.unity
     guid: 8bd7df1821d61eb4d9872467fd9df148
   - enabled: 0

@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 2863575943445494591}
   - component: {fileID: 6731057388565800273}
   m_Layer: 0
-  m_Name: ruin door
+  m_Name: DoorShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,8 +286,8 @@ Transform:
   m_GameObject: {fileID: 4138391129012561040}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 4.6554, z: 0}
-  m_LocalScale: {x: 1.1385385, y: 1.1385385, z: 1.1590302}
+  m_LocalPosition: {x: 0.22, y: 4.3064, z: -0}
+  m_LocalScale: {x: 1.0955017, y: 1.0955017, z: 1.1152189}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2594531903365970660}

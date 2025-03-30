@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 2c609d3012f1764409b808c7fb819db5
+guid: c9f5e3fd0908cab42bf6c72f40c18859
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3970956738463106517
-    second: Mouse_Run-2_0
+      213: -1931701415910423567
+    second: Mouse_Run-2 1_0
   - first:
-      213: 1921663507866393309
-    second: Mouse_Run-2_1
+      213: -2325121143586388005
+    second: Mouse_Run-2 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mouse_Run-2_0
+      name: Mouse_Run-2 1_0
       rect:
         serializedVersion: 2
         x: 105
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5d589865d1cab1730800000000000000
-      internalID: 3970956738463106517
+      spriteID: 1f34a8cfbc73135e0800000000000000
+      internalID: -1931701415910423567
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mouse_Run-2_1
+      name: Mouse_Run-2 1_1
       rect:
         serializedVersion: 2
         x: 90
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dda153c67ce1baa10800000000000000
-      internalID: 1921663507866393309
+      spriteID: bd788c093a28bbfd0800000000000000
+      internalID: -2325121143586388005
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mouse_Run-2_0: 3970956738463106517
-      Mouse_Run-2_1: 1921663507866393309
+      Mouse_Run-2 1_0: -1931701415910423567
+      Mouse_Run-2 1_1: -2325121143586388005
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -14,6 +14,12 @@ public class Damageable : MonoBehaviour
     public float invincibilityTime = 0.25f;
     private Coroutine deathRoutine = null;
 
+    // for spikes
+    public float spikeInvincibilityTime = 2.0f;
+    private float spikeTimeSinceHit = 0f;
+    private bool spikeInvincible = false;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,12 +30,10 @@ public class Damageable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (isInvincible)
         {
             if (timeSinceHit > invincibilityTime)
             {
-                // remove invincibility
                 isInvincible = false;
                 timeSinceHit = 0;
             }
@@ -37,11 +41,20 @@ public class Damageable : MonoBehaviour
             timeSinceHit += Time.deltaTime;
         }
 
+        if (spikeInvincible)
+        {
+            if (spikeTimeSinceHit > spikeInvincibilityTime)
+            {
+                spikeInvincible = false;
+                spikeTimeSinceHit = 0;
+            }
 
+            spikeTimeSinceHit += Time.deltaTime;
+        }
     }
 
-    [SerializeField] private int _maxHealth = 3;
 
+    [SerializeField] private int _maxHealth = 3;
     public int MaxHealth
     {
         get
@@ -56,23 +69,7 @@ public class Damageable : MonoBehaviour
 
     [SerializeField] private int _health = 3;
 
-    //public int Health
-    //{
-    //    get
-    //    {
-    //        return _health;
-    //    }
-    //    set
-    //    {
-    //        _health = value;
 
-    //        // if health drops below or equals to 0, character is no longer alive
-    //        if (Health <= 0)
-    //        {
-    //            IsAlive = false;
-    //        }
-    //    }
-    //}
 
     public int Health
     {
@@ -91,24 +88,6 @@ public class Damageable : MonoBehaviour
 
 
     [SerializeField] private bool _isAlive = true;
-    //public bool IsAlive
-    //{
-    //    get => _isAlive;
-    //    set
-    //    {
-    //        if (_isAlive == value) return; // prevent redundant changes
-
-    //        _isAlive = value;
-    //        animator.SetBool(AnimationStrings.isAlive, value);
-    //        Debug.Log("[Damageable] IsAlive set to " + value);
-
-    //        if (deathRoutine == null)
-    //        {
-    //            deathRoutine = StartCoroutine(HandleDeathAnimation());
-    //        }
-
-    //    }
-    //}
 
     public bool IsAlive
     {
@@ -127,18 +106,6 @@ public class Damageable : MonoBehaviour
         }
     }
 
-
-
-    //private IEnumerator HandleDeathAnimation()
-    //{
-    //    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-    //    float animationDuration = stateInfo.length;
-
-    //    yield return new WaitForSeconds(animationDuration);
-
-    //    // Trigger the PlayerDied event after the animation finishes
-    //    GetComponent<PlayerMovement>().TriggerPlayerDeath();
-    //}
 
     private IEnumerator HandleDeathAnimation()
     {
@@ -212,6 +179,22 @@ public class Damageable : MonoBehaviour
         }
     }
 
+    public bool HitBySpike(int damage, Vector2 knockback)
+    {
+        if (IsAlive && !spikeInvincible)
+        {
+            Health -= damage;
+            spikeInvincible = true;
+
+            animator.SetTrigger(AnimationStrings.hitTrigger);
+            LockVelocity = true;
+            damageableHit?.Invoke(damage, knockback);
+
+            return true;
+        }
+
+        return false;
+    }
 
 
 }

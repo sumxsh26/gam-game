@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikeDamage: 1
   knockBack: {x: 10, y: 0}
+  damageCooldown: 3
 --- !u!1 &7986159386581879207
 GameObject:
   m_ObjectHideFlags: 0

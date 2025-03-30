@@ -5,7 +5,7 @@ public class Attack : MonoBehaviour
 
     Collider2D attackCollider;
 
-    public int attackDamage = 10;
+    public int attackDamage = 1;
 
     public Vector2 knockBack = Vector2.zero;
 

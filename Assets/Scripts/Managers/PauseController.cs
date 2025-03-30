@@ -127,6 +127,9 @@ public class PauseController : MonoBehaviour
     public Sprite volumeOnSprite;        // Assign "VOLUME" sprite
     public Sprite volumeMuteSprite;      // Assign "VOLUME MUTE" sprite
 
+    [Header("Managers")]
+    public RestartController restartController;
+
     private bool isMuted = false;
 
     public static bool isPaused = false;
@@ -224,6 +227,23 @@ public class PauseController : MonoBehaviour
             volumeButtonImage.sprite = isMuted ? volumeMuteSprite : volumeOnSprite;
         }
     }
+
+    public void RestartFromPause()
+    {
+        Debug.Log("[PauseController] RestartFromPause called");
+
+        Time.timeScale = 1f; // Ensure timescale is normal before restarting
+
+        if (restartController != null)
+        {
+            restartController.FullRestart();
+        }
+        else
+        {
+            Debug.LogError("[PauseController] RestartController reference is missing!");
+        }
+    }
+
 }
 
 

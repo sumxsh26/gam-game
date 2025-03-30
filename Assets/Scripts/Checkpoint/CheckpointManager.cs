@@ -382,4 +382,5 @@ public class CheckpointManager : MonoBehaviour
             cp.ResetCheckpoint();
         }
     }
+
 }

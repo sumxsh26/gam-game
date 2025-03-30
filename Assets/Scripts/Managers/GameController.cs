@@ -219,6 +219,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
 
+
     [SerializeField] private PlayerMovement playerMovement;
     public Canvas GameOverCanvas;
     public Text TimerText;

@@ -37,8 +37,9 @@ public class RestartController : MonoBehaviour
         }
     }
 
-    private void FullRestart()
+    public void FullRestart()
     {
+        Debug.Log("[RestartController] FullRestart called");
         // Hide the Game Over canvas before reloading
         if (GameController.Instance != null && GameController.Instance.GameOverCanvas != null)
         {

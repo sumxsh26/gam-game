@@ -214,6 +214,89 @@ public class TimerManager : MonoBehaviour
 
 //}
 
+//using UnityEngine;
+//using TMPro;
+
+//public class TimerManager : MonoBehaviour
+//{
+//    [SerializeField] private TextMeshProUGUI countdownTimerText;
+//    [SerializeField] private float startingTime = 180f; // Set this in Inspector per scene
+//    private float remainingTime;
+
+//    private AudioSource audioSource;
+//    [SerializeField] private AudioClip warningBeep;
+
+//    private int lastPlayedSecond = -1;
+
+//    void Start()
+//    {
+//        remainingTime = startingTime;
+//        lastPlayedSecond = -1;
+//        countdownTimerText.color = Color.white;
+//        countdownTimerText.transform.localScale = Vector3.one;
+
+//        if (GameController.Instance != null)
+//        {
+//            GameController.Instance.isGameOver = false;
+//        }
+
+//        audioSource = GetComponent<AudioSource>();
+//    }
+
+//    void Update()
+//    {
+//        if (GameController.Instance != null && GameController.Instance.isGameOver) return;
+
+//        if (remainingTime > 0)
+//        {
+//            remainingTime -= Time.deltaTime;
+//        }
+//        else
+//        {
+//            remainingTime = 0;
+
+//            if (GameController.Instance?.PlayerMovement != null && !GameController.Instance.isGameOver)
+//            {
+//                GameController.Instance.PlayerMovement.TriggerPlayerDeath();
+//            }
+//        }
+
+//        int minutes = Mathf.FloorToInt(remainingTime / 60);
+//        int seconds = Mathf.FloorToInt(remainingTime % 60);
+//        countdownTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+//        if (remainingTime <= 10)
+//        {
+//            float intensity = Mathf.PingPong(Time.time * 2, 1);
+//            countdownTimerText.color = new Color(1, intensity, intensity);
+
+//            float scale = 1 + Mathf.PingPong(Time.time * 0.3f, 0.3f);
+//            countdownTimerText.transform.localScale = new Vector3(scale, scale, 1);
+//        }
+
+//        if (remainingTime <= 10 && seconds != lastPlayedSecond)
+//        {
+//            audioSource.PlayOneShot(warningBeep);
+//            lastPlayedSecond = seconds;
+//        }
+//    }
+
+//    public void ResetTimer()
+//    {
+//        remainingTime = startingTime;
+
+//        countdownTimerText.color = Color.white;
+//        countdownTimerText.transform.localScale = Vector3.one;
+//        lastPlayedSecond = -1;
+
+//        if (GameController.Instance != null)
+//        {
+//            GameController.Instance.isGameOver = false;
+//        }
+//    }
+//}
+
+
 using UnityEngine;
 using TMPro;
 
@@ -232,8 +315,13 @@ public class TimerManager : MonoBehaviour
     {
         remainingTime = startingTime;
         lastPlayedSecond = -1;
-        countdownTimerText.color = Color.white;
-        countdownTimerText.transform.localScale = Vector3.one;
+
+        // Defensive check to avoid null issues after scene reload
+        if (countdownTimerText != null)
+        {
+            countdownTimerText.color = Color.white;
+            countdownTimerText.transform.localScale = Vector3.one;
+        }
 
         if (GameController.Instance != null)
         {
@@ -263,20 +351,34 @@ public class TimerManager : MonoBehaviour
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
-        countdownTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        if (remainingTime <= 10)
+        // Safety check
+        if (countdownTimerText != null)
         {
-            float intensity = Mathf.PingPong(Time.time * 2, 1);
-            countdownTimerText.color = new Color(1, intensity, intensity);
+            countdownTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-            float scale = 1 + Mathf.PingPong(Time.time * 0.3f, 0.3f);
-            countdownTimerText.transform.localScale = new Vector3(scale, scale, 1);
+            if (remainingTime <= 10)
+            {
+                float intensity = Mathf.PingPong(Time.time * 2, 1);
+                countdownTimerText.color = new Color(1, intensity, intensity);
+
+                float scale = 1 + Mathf.PingPong(Time.time * 0.3f, 0.3f);
+                countdownTimerText.transform.localScale = new Vector3(scale, scale, 1);
+            }
+            else
+            {
+                countdownTimerText.color = Color.white;
+                countdownTimerText.transform.localScale = Vector3.one;
+            }
         }
 
         if (remainingTime <= 10 && seconds != lastPlayedSecond)
         {
-            audioSource.PlayOneShot(warningBeep);
+            if (audioSource != null && warningBeep != null)
+            {
+                audioSource.PlayOneShot(warningBeep);
+            }
+
             lastPlayedSecond = seconds;
         }
     }
@@ -284,10 +386,19 @@ public class TimerManager : MonoBehaviour
     public void ResetTimer()
     {
         remainingTime = startingTime;
-
-        countdownTimerText.color = Color.white;
-        countdownTimerText.transform.localScale = Vector3.one;
         lastPlayedSecond = -1;
+
+        // Null check for safety after reload
+        if (countdownTimerText != null)
+        {
+            countdownTimerText.color = Color.white;
+            countdownTimerText.transform.localScale = Vector3.one;
+            countdownTimerText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(startingTime / 60), Mathf.FloorToInt(startingTime % 60));
+        }
+        else
+        {
+            Debug.LogWarning("[TimerManager] countdownTimerText is null during ResetTimer. Was the scene reloaded?");
+        }
 
         if (GameController.Instance != null)
         {

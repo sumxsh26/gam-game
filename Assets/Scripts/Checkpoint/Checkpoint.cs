@@ -13,6 +13,25 @@ public class Checkpoint : MonoBehaviour
         torch = GetComponent<CPTorch>();
     }
 
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (!isActivated && other.CompareTag("Player"))
+    //    {
+    //        isActivated = true;
+
+    //        Debug.Log("[Checkpoint] Activated checkpoint ID: " + CheckpointID);
+
+    //        CheckpointManager.Instance?.RegisterCheckpoint(this);
+
+    //        if (audioManager != null && audioManager.checkPoint != null)
+    //        {
+    //            audioManager.PlaySFX(audioManager.checkPoint);
+    //        }
+
+    //        torch?.TriggerLightup();
+    //    }
+    //}
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!isActivated && other.CompareTag("Player"))
@@ -23,6 +42,12 @@ public class Checkpoint : MonoBehaviour
 
             CheckpointManager.Instance?.RegisterCheckpoint(this);
 
+            // Fetch AudioManager again in case it was destroyed and reloaded
+            if (audioManager == null)
+            {
+                audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+            }
+
             if (audioManager != null && audioManager.checkPoint != null)
             {
                 audioManager.PlaySFX(audioManager.checkPoint);
@@ -31,6 +56,7 @@ public class Checkpoint : MonoBehaviour
             torch?.TriggerLightup();
         }
     }
+
 
     public void ResetCheckpoint()
     {

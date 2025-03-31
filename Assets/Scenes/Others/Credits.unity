@@ -1008,8 +1008,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1651296385}
-  - {fileID: 104311383}
   - {fileID: 311326985}
+  - {fileID: 104311383}
   - {fileID: 1012840448}
   - {fileID: 1768671489}
   m_Father: {fileID: 0}
@@ -1153,8 +1153,8 @@ Camera:
   m_GameObject: {fileID: 1653657699}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

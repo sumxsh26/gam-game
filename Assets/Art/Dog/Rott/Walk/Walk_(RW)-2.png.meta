@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 33783db92efd12f42b9ef9126d867f3d
+guid: c0dcedc5a07aa2c47a65f5904e66ed54
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7889565069194304574
-    second: Walk_(RW)-2_0
+      213: 7470669180882651780
+    second: walk_(RW)-2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 4096
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_(RW)-2_0
+      name: walk_(RW)-2_0
       rect:
         serializedVersion: 2
-        x: 111
-        y: 54
-        width: 475
-        height: 622
+        x: 113
+        y: 49
+        width: 470
+        height: 621
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e3c18a531ad5d7d60800000000000000
-      internalID: 7889565069194304574
+      spriteID: 48a08f8e9062da760800000000000000
+      internalID: 7470669180882651780
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Walk_(RW)-2_0: 7889565069194304574
+      walk_(RW)-2_0: 7470669180882651780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

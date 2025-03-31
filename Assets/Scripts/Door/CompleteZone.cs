@@ -288,6 +288,163 @@
 
 
 // with loading screen
+//using System.Collections;
+//using UnityEngine;
+//using UnityEngine.SceneManagement;
+
+//public class CompleteZone : MonoBehaviour
+//{
+//    [SerializeField] private string nextSceneName;  // Name of the next level
+//    [SerializeField] private float fadeDuration = 0.3f; // Adjust for faster fading
+//    private bool isTransitioning = false;
+
+//    private void OnTriggerEnter2D(Collider2D collision)
+//    {
+//        if (collision.CompareTag("Player") && !isTransitioning)
+//        {
+//            isTransitioning = true;
+//            Debug.Log("[DEBUG] Player entered Complete Zone. Starting fade-out.");
+
+//            // Store the next level name in PlayerPrefs
+//            PlayerPrefs.SetString("NextLevel", nextSceneName);
+//            PlayerPrefs.Save(); // Ensure it's stored before switching scenes
+
+//            // Find player and mice sprite renderers
+//            SpriteRenderer playerSprite = collision.GetComponent<SpriteRenderer>();
+//            SpriteRenderer blueMouseSprite = null;
+//            SpriteRenderer redMouseSprite = null;
+
+//            // Check if the player has BlueMouse or RedMouse as children
+//            Transform blueMouseTransform = collision.transform.Find("BlueMouse");
+//            if (blueMouseTransform != null)
+//            {
+//                blueMouseSprite = blueMouseTransform.GetComponent<SpriteRenderer>();
+//            }
+
+//            Transform redMouseTransform = collision.transform.Find("RedMouse");
+//            if (redMouseTransform != null)
+//            {
+//                redMouseSprite = redMouseTransform.GetComponent<SpriteRenderer>();
+//            }
+
+//            if (playerSprite != null)
+//            {
+//                Debug.Log("[DEBUG] Player sprite found. Starting fade now.");
+//                StartCoroutine(FadeOutAndLoadLoadingScene(playerSprite, blueMouseSprite, redMouseSprite));
+//            }
+//            else
+//            {
+//                Debug.LogWarning("[DEBUG] No SpriteRenderer found on Player. Loading loading scene immediately.");
+//                SceneManager.LoadScene("Loading"); // Load loading screen first
+//            }
+//        }
+//    }
+
+//    //private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite, SpriteRenderer blueMouseSprite, SpriteRenderer redMouseSprite)
+//    //{
+//    //    Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
+
+//    //    float elapsedTime = 0f;
+//    //    Color playerOriginalColor = playerSprite.color;
+//    //    Color blueMouseOriginalColor = blueMouseSprite != null ? blueMouseSprite.color : Color.white;
+//    //    Color redMouseOriginalColor = redMouseSprite != null ? redMouseSprite.color : Color.white;
+
+//    //    while (elapsedTime < fadeDuration)
+//    //    {
+//    //        elapsedTime += Time.deltaTime;
+//    //        float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+
+//    //        // Fade out player
+//    //        playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, alpha);
+
+//    //        // Fade out blue mouse if it exists
+//    //        if (blueMouseSprite != null)
+//    //        {
+//    //            blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, alpha);
+//    //        }
+
+//    //        // Fade out red mouse if it exists
+//    //        if (redMouseSprite != null)
+//    //        {
+//    //            redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, alpha);
+//    //        }
+
+//    //        yield return null;
+//    //    }
+
+//    //    // Ensure all are fully transparent at the end
+//    //    playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, 0f);
+//    //    if (blueMouseSprite != null)
+//    //    {
+//    //        blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, 0f);
+//    //    }
+//    //    if (redMouseSprite != null)
+//    //    {
+//    //        redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, 0f);
+//    //    }
+
+//    //    Debug.Log("[DEBUG] Player and mice fully faded out. Loading loading scene.");
+//    //    SceneManager.LoadScene("Loading"); // Load loading screen first
+//    //}
+
+
+//    private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite, SpriteRenderer blueMouseSprite, SpriteRenderer redMouseSprite)
+//    {
+//        Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
+
+//        float elapsedTime = 0f;
+//        Color playerOriginalColor = playerSprite.color;
+//        Color blueMouseOriginalColor = blueMouseSprite != null ? blueMouseSprite.color : Color.white;
+//        Color redMouseOriginalColor = redMouseSprite != null ? redMouseSprite.color : Color.white;
+
+//        while (elapsedTime < fadeDuration)
+//        {
+//            elapsedTime += Time.deltaTime;
+//            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+
+//            // Fade out player
+//            playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, alpha);
+
+//            // Fade out blue mouse if it exists
+//            if (blueMouseSprite != null)
+//            {
+//                blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, alpha);
+//            }
+
+//            // Fade out red mouse if it exists
+//            if (redMouseSprite != null)
+//            {
+//                redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, alpha);
+//            }
+
+//            yield return null;
+//        }
+
+//        // Ensure all are fully transparent at the end
+//        playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, 0f);
+//        if (blueMouseSprite != null)
+//        {
+//            blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, 0f);
+//        }
+//        if (redMouseSprite != null)
+//        {
+//            redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, 0f);
+//        }
+
+//        // Clean up checkpoint manager before loading the next scene
+//        if (CheckpointManager.Instance != null)
+//        {
+//            CheckpointManager.Instance.DestroyCheckpointsOnLevelTransition();
+//        }
+
+//        Debug.Log("[DEBUG] Player and mice fully faded out. Loading loading scene.");
+//        SceneManager.LoadScene("Loading"); // Load loading screen first
+//    }
+
+//}
+
+
+// with mouse fade
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -309,94 +466,34 @@ public class CompleteZone : MonoBehaviour
             PlayerPrefs.SetString("NextLevel", nextSceneName);
             PlayerPrefs.Save(); // Ensure it's stored before switching scenes
 
-            // Find player and mice sprite renderers
+            // Get the player's sprite
             SpriteRenderer playerSprite = collision.GetComponent<SpriteRenderer>();
-            SpriteRenderer blueMouseSprite = null;
-            SpriteRenderer redMouseSprite = null;
-
-            // Check if the player has BlueMouse or RedMouse as children
-            Transform blueMouseTransform = collision.transform.Find("BlueMouse");
-            if (blueMouseTransform != null)
-            {
-                blueMouseSprite = blueMouseTransform.GetComponent<SpriteRenderer>();
-            }
-
-            Transform redMouseTransform = collision.transform.Find("RedMouse");
-            if (redMouseTransform != null)
-            {
-                redMouseSprite = redMouseTransform.GetComponent<SpriteRenderer>();
-            }
 
             if (playerSprite != null)
             {
-                Debug.Log("[DEBUG] Player sprite found. Starting fade now.");
-                StartCoroutine(FadeOutAndLoadLoadingScene(playerSprite, blueMouseSprite, redMouseSprite));
+                StartCoroutine(FadeOutAndLoadLoadingScene(playerSprite));
             }
             else
             {
                 Debug.LogWarning("[DEBUG] No SpriteRenderer found on Player. Loading loading scene immediately.");
-                SceneManager.LoadScene("Loading"); // Load loading screen first
+                SceneManager.LoadScene("Loading");
             }
         }
     }
 
-    //private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite, SpriteRenderer blueMouseSprite, SpriteRenderer redMouseSprite)
-    //{
-    //    Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
-
-    //    float elapsedTime = 0f;
-    //    Color playerOriginalColor = playerSprite.color;
-    //    Color blueMouseOriginalColor = blueMouseSprite != null ? blueMouseSprite.color : Color.white;
-    //    Color redMouseOriginalColor = redMouseSprite != null ? redMouseSprite.color : Color.white;
-
-    //    while (elapsedTime < fadeDuration)
-    //    {
-    //        elapsedTime += Time.deltaTime;
-    //        float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-
-    //        // Fade out player
-    //        playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, alpha);
-
-    //        // Fade out blue mouse if it exists
-    //        if (blueMouseSprite != null)
-    //        {
-    //            blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, alpha);
-    //        }
-
-    //        // Fade out red mouse if it exists
-    //        if (redMouseSprite != null)
-    //        {
-    //            redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, alpha);
-    //        }
-
-    //        yield return null;
-    //    }
-
-    //    // Ensure all are fully transparent at the end
-    //    playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, 0f);
-    //    if (blueMouseSprite != null)
-    //    {
-    //        blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, 0f);
-    //    }
-    //    if (redMouseSprite != null)
-    //    {
-    //        redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, 0f);
-    //    }
-
-    //    Debug.Log("[DEBUG] Player and mice fully faded out. Loading loading scene.");
-    //    SceneManager.LoadScene("Loading"); // Load loading screen first
-    //}
-
-
-    private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite, SpriteRenderer blueMouseSprite, SpriteRenderer redMouseSprite)
+    private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite)
     {
         Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
 
         float elapsedTime = 0f;
         Color playerOriginalColor = playerSprite.color;
-        Color blueMouseOriginalColor = blueMouseSprite != null ? blueMouseSprite.color : Color.white;
-        Color redMouseOriginalColor = redMouseSprite != null ? redMouseSprite.color : Color.white;
 
+        // Detect carried mouse via child Mice component
+        Mice carriedMouse = playerSprite.GetComponentInChildren<Mice>();
+        SpriteRenderer mouseSprite = carriedMouse != null ? carriedMouse.GetComponent<SpriteRenderer>() : null;
+        Color mouseOriginalColor = mouseSprite != null ? mouseSprite.color : Color.white;
+
+        // Start fading
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -405,40 +502,36 @@ public class CompleteZone : MonoBehaviour
             // Fade out player
             playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, alpha);
 
-            // Fade out blue mouse if it exists
-            if (blueMouseSprite != null)
+            // Fade out mouse
+            if (mouseSprite != null)
             {
-                blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, alpha);
-            }
-
-            // Fade out red mouse if it exists
-            if (redMouseSprite != null)
-            {
-                redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, alpha);
+                mouseSprite.color = new Color(mouseOriginalColor.r, mouseOriginalColor.g, mouseOriginalColor.b, alpha);
             }
 
             yield return null;
         }
 
-        // Ensure all are fully transparent at the end
+        // Ensure transparency at end
         playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, 0f);
-        if (blueMouseSprite != null)
+        if (mouseSprite != null)
         {
-            blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, 0f);
-        }
-        if (redMouseSprite != null)
-        {
-            redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, 0f);
+            mouseSprite.color = new Color(mouseOriginalColor.r, mouseOriginalColor.g, mouseOriginalColor.b, 0f);
         }
 
-        // Clean up checkpoint manager before loading the next scene
+        // Fade and destroy mouse (optional, or keep it if needed in next scene)
+        if (carriedMouse != null)
+        {
+            carriedMouse.FadeAndDestroy(); // Will fade and destroy independently
+        }
+
+        // Clear checkpoint manager to avoid persistent checkpoints
         if (CheckpointManager.Instance != null)
         {
             CheckpointManager.Instance.DestroyCheckpointsOnLevelTransition();
         }
 
-        Debug.Log("[DEBUG] Player and mice fully faded out. Loading loading scene.");
-        SceneManager.LoadScene("Loading"); // Load loading screen first
+        Debug.Log("[DEBUG] Player and mouse faded out. Loading loading scene.");
+        SceneManager.LoadScene("Loading"); // Go to loading screen
     }
-
 }
+

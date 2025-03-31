@@ -303,7 +303,7 @@ using TMPro;
 public class TimerManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI countdownTimerText;
-    [SerializeField] private float startingTime = 180f; // Set this in Inspector per scene
+    [SerializeField] public float startingTime = 180f; // Set this in Inspector per scene
     private float remainingTime;
 
     private AudioSource audioSource;
@@ -383,21 +383,39 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    public void ResetTimer()
+    //public void ResetTimer()
+    //{
+    //    remainingTime = startingTime;
+    //    lastPlayedSecond = -1;
+
+    //    // Null check for safety after reload
+    //    if (countdownTimerText != null)
+    //    {
+    //        countdownTimerText.color = Color.white;
+    //        countdownTimerText.transform.localScale = Vector3.one;
+    //        countdownTimerText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(startingTime / 60), Mathf.FloorToInt(startingTime % 60));
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("[TimerManager] countdownTimerText is null during ResetTimer. Was the scene reloaded?");
+    //    }
+
+    //    if (GameController.Instance != null)
+    //    {
+    //        GameController.Instance.isGameOver = false;
+    //    }
+    //}
+
+    public void ResetTimer(float customTime = -1f)
     {
-        remainingTime = startingTime;
+        remainingTime = (customTime > 0f) ? customTime : startingTime;
         lastPlayedSecond = -1;
 
-        // Null check for safety after reload
         if (countdownTimerText != null)
         {
             countdownTimerText.color = Color.white;
             countdownTimerText.transform.localScale = Vector3.one;
-            countdownTimerText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(startingTime / 60), Mathf.FloorToInt(startingTime % 60));
-        }
-        else
-        {
-            Debug.LogWarning("[TimerManager] countdownTimerText is null during ResetTimer. Was the scene reloaded?");
+            countdownTimerText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(remainingTime / 60), Mathf.FloorToInt(remainingTime % 60));
         }
 
         if (GameController.Instance != null)
@@ -405,4 +423,11 @@ public class TimerManager : MonoBehaviour
             GameController.Instance.isGameOver = false;
         }
     }
+
+
+    public float GetCurrentTime()
+    {
+        return remainingTime;
+    }
+
 }

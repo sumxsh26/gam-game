@@ -281,6 +281,7 @@ public class CheckpointManager : MonoBehaviour
 
     [Header("Scene Timer")]
     public TimerManager sceneTimer; // Drag your TimerManager GameObject here
+    private float savedTimerAtCheckpoint = -1f;
 
 
 
@@ -306,6 +307,17 @@ public class CheckpointManager : MonoBehaviour
         playerMovement = player?.GetComponent<PlayerMovement>();
     }
 
+    //public void RegisterCheckpoint(Checkpoint checkpoint)
+    //{
+    //    if (currentCheckpoint == null || checkpoint.CheckpointID > currentCheckpoint.CheckpointID)
+    //    {
+    //        currentCheckpoint = checkpoint;
+    //        Debug.Log("[CheckpointManager] New checkpoint set: " + checkpoint.CheckpointID);
+
+    //        playerMovement?.SaveMouseState();
+    //    }
+    //}
+
     public void RegisterCheckpoint(Checkpoint checkpoint)
     {
         if (currentCheckpoint == null || checkpoint.CheckpointID > currentCheckpoint.CheckpointID)
@@ -314,6 +326,12 @@ public class CheckpointManager : MonoBehaviour
             Debug.Log("[CheckpointManager] New checkpoint set: " + checkpoint.CheckpointID);
 
             playerMovement?.SaveMouseState();
+
+            if (sceneTimer != null)
+            {
+                savedTimerAtCheckpoint = sceneTimer.GetCurrentTime();
+                Debug.Log("[CheckpointManager] Timer saved at: " + savedTimerAtCheckpoint);
+            }
         }
     }
 
@@ -367,7 +385,10 @@ public class CheckpointManager : MonoBehaviour
 
         GameController.Instance?.RebindPlayer();
 
-        sceneTimer?.ResetTimer(); // This keeps your per-scene time settings
+        sceneTimer?.ResetTimer(GetSavedTimerTime());
+
+
+        //sceneTimer?.ResetTimer(); // This keeps your per-scene time settings
 
     }
 
@@ -382,5 +403,32 @@ public class CheckpointManager : MonoBehaviour
             cp.ResetCheckpoint();
         }
     }
+
+    // when player goes to the next level
+    public void DestroyCheckpointsOnLevelTransition()
+    {
+        currentCheckpoint = null;
+
+        // Reset mouse state
+        playerMovement?.ClearMouseCheckpointData();
+
+        // Optional: Clean up any state for doors or other persistent systems
+        allDoors.Clear();
+
+        // Unsubscribe from scene events to avoid duplicates if this gets recreated
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        // Destroy this singleton instance so a new one is created in the next scene
+        Destroy(gameObject);
+    }
+
+    // for timer
+
+    public float GetSavedTimerTime()
+    {
+        return savedTimerAtCheckpoint > 0 ? savedTimerAtCheckpoint : sceneTimer.startingTime;
+    }
+
+
 
 }

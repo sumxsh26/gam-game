@@ -2393,7 +2393,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSpikes:
-  - {fileID: 0}
   - {fileID: 2082701540}
   - {fileID: 8794679376872438465}
 --- !u!4 &367431070
@@ -15757,8 +15756,8 @@ Camera:
   m_GameObject: {fileID: 1414940805}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

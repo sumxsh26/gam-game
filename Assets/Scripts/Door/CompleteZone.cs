@@ -340,6 +340,54 @@ public class CompleteZone : MonoBehaviour
         }
     }
 
+    //private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite, SpriteRenderer blueMouseSprite, SpriteRenderer redMouseSprite)
+    //{
+    //    Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
+
+    //    float elapsedTime = 0f;
+    //    Color playerOriginalColor = playerSprite.color;
+    //    Color blueMouseOriginalColor = blueMouseSprite != null ? blueMouseSprite.color : Color.white;
+    //    Color redMouseOriginalColor = redMouseSprite != null ? redMouseSprite.color : Color.white;
+
+    //    while (elapsedTime < fadeDuration)
+    //    {
+    //        elapsedTime += Time.deltaTime;
+    //        float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+
+    //        // Fade out player
+    //        playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, alpha);
+
+    //        // Fade out blue mouse if it exists
+    //        if (blueMouseSprite != null)
+    //        {
+    //            blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, alpha);
+    //        }
+
+    //        // Fade out red mouse if it exists
+    //        if (redMouseSprite != null)
+    //        {
+    //            redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, alpha);
+    //        }
+
+    //        yield return null;
+    //    }
+
+    //    // Ensure all are fully transparent at the end
+    //    playerSprite.color = new Color(playerOriginalColor.r, playerOriginalColor.g, playerOriginalColor.b, 0f);
+    //    if (blueMouseSprite != null)
+    //    {
+    //        blueMouseSprite.color = new Color(blueMouseOriginalColor.r, blueMouseOriginalColor.g, blueMouseOriginalColor.b, 0f);
+    //    }
+    //    if (redMouseSprite != null)
+    //    {
+    //        redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, 0f);
+    //    }
+
+    //    Debug.Log("[DEBUG] Player and mice fully faded out. Loading loading scene.");
+    //    SceneManager.LoadScene("Loading"); // Load loading screen first
+    //}
+
+
     private IEnumerator FadeOutAndLoadLoadingScene(SpriteRenderer playerSprite, SpriteRenderer blueMouseSprite, SpriteRenderer redMouseSprite)
     {
         Debug.Log("[DEBUG] FadeOutAndLoadLoadingScene coroutine started.");
@@ -383,7 +431,14 @@ public class CompleteZone : MonoBehaviour
             redMouseSprite.color = new Color(redMouseOriginalColor.r, redMouseOriginalColor.g, redMouseOriginalColor.b, 0f);
         }
 
+        // Clean up checkpoint manager before loading the next scene
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.DestroyCheckpointsOnLevelTransition();
+        }
+
         Debug.Log("[DEBUG] Player and mice fully faded out. Loading loading scene.");
         SceneManager.LoadScene("Loading"); // Load loading screen first
     }
+
 }

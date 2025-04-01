@@ -839,6 +839,7 @@ public class PlayerMovement : MonoBehaviour
         if (animator != null)
         {
             animator.SetBool(AnimationStrings.isAlive, false);
+            animator.Update(0f);
         }
 
 
@@ -848,8 +849,11 @@ public class PlayerMovement : MonoBehaviour
         PlayerDied?.Invoke();
         Debug.Log("[Player] PlayerDied event INVOKED");
 
-        _rb.linearVelocity = Vector2.zero;
-        _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y); // Stop horizontal movement only
+        _rb.constraints = RigidbodyConstraints2D.FreezeRotation;     // Allow gravity to keep applying
+
+        SetLayerRecursively(gameObject, LayerMask.NameToLayer("DeadPlayer"));
+
 
         Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         foreach (Enemy enemy in enemies)
@@ -895,6 +899,8 @@ public class PlayerMovement : MonoBehaviour
         _knockbackVelocity = Vector2.zero;
 
         damageable.ResetHealth();
+
+        SetLayerRecursively(gameObject, LayerMask.NameToLayer("Player"));
     }
 
     public void ClearMouseCheckpointData()
@@ -970,6 +976,16 @@ public class PlayerMovement : MonoBehaviour
         // Now call Hit which will trigger TriggerPlayerDeath internally
         damageable.Hit(damageable.Health, Vector2.zero);
     }
+
+    private void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+        obj.layer = newLayer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, newLayer);
+        }
+    }
+
 
     #endregion
 }

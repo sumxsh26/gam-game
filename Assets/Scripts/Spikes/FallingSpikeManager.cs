@@ -33,4 +33,17 @@ public class FallingSpikeManager : MonoBehaviour
             }
         }
     }
+    public void DestroySpikesOnLevelTransition()
+    {
+        allSpikes.Clear();
+
+        if (Instance == this)
+        {
+            Instance = null; // CLEAR the static reference
+        }
+
+        Destroy(gameObject);
+    }
+
+
 }

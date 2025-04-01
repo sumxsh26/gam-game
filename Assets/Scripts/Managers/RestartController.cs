@@ -1,29 +1,3 @@
-////using UnityEngine;
-////using UnityEngine.SceneManagement;
-
-////public class RestartController : MonoBehaviour
-////{
-////    void Update()
-////    {
-////        if (InputManager.RestartWasPressed)
-////        {
-////            FullRestart();
-////        }
-////    }
-
-////    private void FullRestart()
-////    {
-////        // Clear checkpoint before reloading
-////        if (CheckpointManager.Instance != null)
-////        {
-////            CheckpointManager.Instance.ClearCheckpointData();
-////        }
-
-////        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-////    }
-////}
-
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,6 +14,7 @@ public class RestartController : MonoBehaviour
     public void FullRestart()
     {
         Debug.Log("[RestartController] FullRestart called");
+
         // Hide the Game Over canvas before reloading
         if (GameController.Instance != null && GameController.Instance.GameOverCanvas != null)
         {
@@ -52,8 +27,20 @@ public class RestartController : MonoBehaviour
             CheckpointManager.Instance.ClearCheckpointData();
         }
 
+        // Clean up persistent falling managers
+        if (FallingPlatformManager.Instance != null)
+        {
+            FallingPlatformManager.Instance.DestroyPlatformsOnLevelTransition();
+        }
+
+        if (FallingSpikeManager.Instance != null)
+        {
+            FallingSpikeManager.Instance.DestroySpikesOnLevelTransition();
+        }
+
         // Reload the scene to fully reset
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
+
 

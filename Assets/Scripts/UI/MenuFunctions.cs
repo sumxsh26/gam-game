@@ -44,6 +44,23 @@ public class MenuFunctions : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        // Clean up all persistent managers before returning to menu
+        if (FallingPlatformManager.Instance != null)
+        {
+            FallingPlatformManager.Instance.DestroyPlatformsOnLevelTransition();
+        }
+
+        if (FallingSpikeManager.Instance != null)
+        {
+            FallingSpikeManager.Instance.DestroySpikesOnLevelTransition();
+        }
+
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.DestroyCheckpointsOnLevelTransition();
+        }
+
         SceneManager.LoadSceneAsync("Menu");
     }
+
 }

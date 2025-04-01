@@ -13,25 +13,6 @@ public class Checkpoint : MonoBehaviour
         torch = GetComponent<CPTorch>();
     }
 
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (!isActivated && other.CompareTag("Player"))
-    //    {
-    //        isActivated = true;
-
-    //        Debug.Log("[Checkpoint] Activated checkpoint ID: " + CheckpointID);
-
-    //        CheckpointManager.Instance?.RegisterCheckpoint(this);
-
-    //        if (audioManager != null && audioManager.checkPoint != null)
-    //        {
-    //            audioManager.PlaySFX(audioManager.checkPoint);
-    //        }
-
-    //        torch?.TriggerLightup();
-    //    }
-    //}
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!isActivated && other.CompareTag("Player"))

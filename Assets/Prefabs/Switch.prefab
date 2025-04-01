@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doorBehaviour: {fileID: 0}
   _isDoorOpenSwitch: 1
-  _isDoorCloseSwitch: 1
+  _isDoorCloseSwitch: 0
 --- !u!1 &5395078266808226200
 GameObject:
   m_ObjectHideFlags: 0

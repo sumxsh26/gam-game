@@ -20657,6 +20657,10 @@ PrefabInstance:
       propertyPath: nextSceneName
       value: Final Level 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7687564360358951044, guid: d2d4999561b9e94439d444de07999d47, type: 3}
+      propertyPath: useLoadingScreen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

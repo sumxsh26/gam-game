@@ -65,6 +65,11 @@ public class MenuFunctions : MonoBehaviour
             Destroy(door.gameObject);
         }
 
+        var timer = Object.FindAnyObjectByType<TimerManager>();
+        if (timer != null)
+        {
+            Destroy(timer.gameObject);
+        }
 
         SceneManager.LoadSceneAsync("Menu");
     }

@@ -43,6 +43,12 @@ public class RestartController : MonoBehaviour
             Destroy(door.gameObject);
         }
 
+        var timer = Object.FindAnyObjectByType<TimerManager>();
+        if (timer != null)
+        {
+            Destroy(timer.gameObject);
+        }
+
 
         // Reload the scene to fully reset
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

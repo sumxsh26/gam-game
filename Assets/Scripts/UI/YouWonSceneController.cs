@@ -87,6 +87,12 @@ public class YouWonSceneController : MonoBehaviour
             Destroy(door.gameObject);
         }
 
+        var timer = Object.FindAnyObjectByType<TimerManager>();
+        if (timer != null)
+        {
+            Destroy(timer.gameObject);
+        }
+
     }
 }
 

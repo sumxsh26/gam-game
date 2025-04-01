@@ -28697,7 +28697,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: e0ef8352e47f34b34b3c2b2b6b749dfc, type: 3}
     - target: {fileID: 820810798553269919, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: startingTime
-      value: 80
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 820810798553269919, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: remainingTime

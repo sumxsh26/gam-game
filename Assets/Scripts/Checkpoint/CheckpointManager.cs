@@ -40,6 +40,7 @@ public class CheckpointManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player?.GetComponent<PlayerMovement>();
+        sceneTimer = Object.FindAnyObjectByType<TimerManager>();
     }
 
     public void RegisterCheckpoint(Checkpoint checkpoint)
@@ -61,10 +62,48 @@ public class CheckpointManager : MonoBehaviour
 
     public void RespawnAtCheckpoint()
     {
+        //if (currentCheckpoint == null)
+        //{
+        //    Debug.LogWarning("[CheckpointManager] No checkpoint set. Restarting scene...");
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //    return;
+        //}
+
+        //if (currentCheckpoint == null)
+        //{
+        //    Debug.LogWarning("[CheckpointManager] No checkpoint set. Restarting scene...");
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //    return;
+        //}
+
+        //float timeRemaining = GetSavedTimerTime();
+        //if (timeRemaining <= 10f) // or whatever threshold you want
+        //{
+        //    Debug.Log("[CheckpointManager] Too little time remaining. Doing full restart.");
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //    return;
+        //}
+
         if (currentCheckpoint == null)
         {
             Debug.LogWarning("[CheckpointManager] No checkpoint set. Restarting scene...");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            RestartController restart = Object.FindAnyObjectByType<RestartController>();
+            if (restart != null)
+                restart.FullRestart();
+            //else
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
+        }
+
+        float timeRemaining = GetSavedTimerTime();
+        if (timeRemaining <= 10f)
+        {
+            Debug.Log("[CheckpointManager] Too little time remaining. Doing full restart.");
+            RestartController restart = Object.FindAnyObjectByType<RestartController>();
+            if (restart != null)
+                restart.FullRestart();
+            //else
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
 

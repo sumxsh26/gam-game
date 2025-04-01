@@ -4025,7 +4025,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 71.111115, y: 40}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!4 &546707266 stripped
 Transform:
@@ -19014,7 +19014,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 71.111115, y: 40}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!1001 &1077827859
 PrefabInstance:
@@ -20519,7 +20519,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 71.111115, y: 40}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!1 &1280127177
 GameObject:
@@ -22584,7 +22584,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 71.111115, y: 40}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!4 &1521498975 stripped
 Transform:
@@ -25590,7 +25590,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 71.111115, y: 40}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!4 &1864484694 stripped
 Transform:
@@ -28697,7 +28697,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: e0ef8352e47f34b34b3c2b2b6b749dfc, type: 3}
     - target: {fileID: 820810798553269919, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: startingTime
-      value: 40
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 820810798553269919, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: remainingTime
@@ -29728,7 +29728,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 71.111115, y: 40}
+  m_Size: {x: 17.777779, y: 10}
   m_EdgeRadius: 0
 --- !u!224 &2144434757 stripped
 RectTransform:

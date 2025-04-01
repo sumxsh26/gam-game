@@ -813,6 +813,8 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("[Respawn] Restoring mouse immediately: " + (savedMouseIsBlue ? "Blue" : "Red"));
         PickupMouseInstantly(mouseScript);
+
+        ToggleCorrespondingPlatforms(savedMouseIsBlue);
     }
 
     private Coroutine pickupCoroutine = null;

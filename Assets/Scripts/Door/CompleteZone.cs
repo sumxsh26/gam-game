@@ -185,6 +185,12 @@ public class CompleteZone : MonoBehaviour
         if (FallingPlatformManager.Instance != null)
             FallingPlatformManager.Instance.DestroyPlatformsOnLevelTransition();
 
+        foreach (var door in FindObjectsByType<DoorBehaviour>(FindObjectsSortMode.None))
+        {
+            Destroy(door.gameObject);
+        }
+
+
         Debug.Log("[DEBUG] Fade complete. Deciding next scene...");
 
         LoadSceneNow();

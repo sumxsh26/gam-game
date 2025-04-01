@@ -102,6 +102,13 @@ public class CheckpointManager : MonoBehaviour
                 door.ResetDoor();
         }
 
+        // Find all switches and reset them
+        foreach (SwitchBehaviour switchObj in FindObjectsByType<SwitchBehaviour>(FindObjectsSortMode.None))
+        {
+            switchObj.ResetSwitch();
+        }
+
+
         playerMovement.RestoreSavedMouseImmediately();
 
         GameController.Instance?.RebindPlayer();

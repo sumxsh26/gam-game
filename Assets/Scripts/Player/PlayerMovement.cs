@@ -560,39 +560,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    //private void IsGrounded()
-    //{
-    //    Vector2 boxCastOrigin = new Vector2(_feetColl.bounds.center.x, _feetColl.bounds.min.y);
-    //    Vector2 boxCastSize = new Vector2(_feetColl.bounds.size.x, MoveStats.GroundDetectionRayLength);
-
-    //    _groundHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.down, MoveStats.GroundDetectionRayLength, MoveStats.GroundLayer);
-
-    //    if (_groundHit.collider != null)
-    //    {
-    //        _isGrounded = true;
-
-    //    }
-    //    else { _isGrounded = false; }
-
-    //    #region Debug Visualizaton
-    //    if (MoveStats.DebugShowIsGroundedBox)
-    //    {
-    //        Color rayColor;
-    //        if (_isGrounded)
-    //        {
-    //            rayColor = Color.green;
-    //        }
-    //        else { rayColor = Color.red; }
-
-    //        Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y), Vector2.down * MoveStats.GroundDetectionRayLength, rayColor);
-    //        Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y), Vector2.down * MoveStats.GroundDetectionRayLength, rayColor);
-    //        Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2, boxCastOrigin.y - MoveStats.GroundDetectionRayLength), Vector2.right * boxCastSize.x, rayColor);
-    //    }
-    //    #endregion
-    //}
-
-
-
     private void BumpedHead()
     {
         Vector2 boxCastOrigin = new Vector2(_feetColl.bounds.center.x, _bodyColl.bounds.max.y);
@@ -670,16 +637,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
-        //// Water hazard - player drowns
-        //else if (other.gameObject.CompareTag("Water"))
-        //{
-        //    // Deal fatal damage to drown the player
-        //    damageable.Hit(damageable.Health, Vector2.zero);
-        //    audioManager.PlaySFX(audioManager.death); //audio sfx
-
-        //}
-
         else if (other.gameObject.CompareTag("Water"))
         {
             StartCoroutine(PlayWaterSplashThenDie());
@@ -723,7 +680,7 @@ public class PlayerMovement : MonoBehaviour
 
         audioManager.PlaySFX(audioManager.micePickup);
 
-        yield return new WaitForSeconds(0.6f); // Wait for pickup animation to finish
+        yield return new WaitForSeconds(0.38f); // Wait for pickup animation to finish
 
         // Check if the player is still allowed to finish the pickup (not interrupted)
         if (!IsAlive)
@@ -744,66 +701,6 @@ public class PlayerMovement : MonoBehaviour
         ToggleCorrespondingPlatforms(currentMouse.isBlueMouse); // Only toggle now, if not interrupted
         pickupCoroutine = null;
     }
-
-    //private IEnumerator PlayPickupSequence(Mice newMouse)
-    //{
-    //    animator.SetBool(AnimationStrings.canMove, false);
-    //    InputManager.DisablePickupTemporarily = true;
-
-    //    if (newMouse.isBlueMouse)
-    //        animator.SetTrigger(AnimationStrings.pickupWhiteTrigger);
-    //    else
-    //        animator.SetTrigger(AnimationStrings.pickupOrangeTrigger);
-
-    //    audioManager.PlaySFX(audioManager.micePickup);
-    //    yield return new WaitForSeconds(0.6f);
-
-    //    currentMouse = newMouse;
-    //    currentMouse.SetOnPlayerHead(transform);
-    //    currentMouse.ShowSpriteAfterDelay(0.6f);
-    //    currentMouse.ShowLightAfterDelay(0.6f, 0.67f);
-
-    //    animator.SetBool(AnimationStrings.canMove, true);
-    //    InputManager.DisablePickupTemporarily = false;
-
-    //    pickupCoroutine = null; // ? clear this here
-    //    ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
-    //}
-
-
-    //private IEnumerator PlayPickupSequence(Mice newMouse)
-    //{
-    //    // Disable movement and pickup temporarily
-    //    animator.SetBool(AnimationStrings.canMove, false);
-    //    InputManager.DisablePickupTemporarily = true;
-
-    //    // Trigger the correct animation
-    //    if (newMouse.isBlueMouse)
-    //    {
-    //        animator.SetTrigger(AnimationStrings.pickupWhiteTrigger);
-    //    }
-    //    else
-    //    {
-    //        animator.SetTrigger(AnimationStrings.pickupOrangeTrigger);
-    //    }
-
-    //    // Wait for the animation to finish (assuming ~0.6s; adjust as needed)
-    //    yield return new WaitForSeconds(0.6f);
-
-    //    // Actually place the mouse on the player's head
-    //    currentMouse = newMouse;
-    //    currentMouse.SetOnPlayerHead(transform);
-    //    currentMouse.ShowSpriteAfterDelay(0.6f);
-    //    currentMouse.ShowLightAfterDelay(0.6f, 0.67f);
-
-
-    //    // Re-enable movement and pickup
-    //    animator.SetBool(AnimationStrings.canMove, true);
-    //    InputManager.DisablePickupTemporarily = false;
-
-    //    // Toggle platform state
-    //    ToggleCorrespondingPlatforms(currentMouse.isBlueMouse);
-    //}
 
 
     // when player respawns - instant spawn in without delay
@@ -921,31 +818,6 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine pickupCoroutine = null;
 
 
-    //public void RestoreSavedMouseImmediately()
-    //{
-    //    if (!savedHasMouse) return;
-
-    //    GameObject prefab = savedMouseIsBlue ? blueMousePrefab : redMousePrefab;
-    //    if (prefab == null)
-    //    {
-    //        Debug.LogError("[Respawn] Mouse prefab is missing!");
-    //        return;
-    //    }
-
-    //    GameObject mouseObj = Instantiate(prefab, transform.position, Quaternion.identity);
-    //    Mice mouseScript = mouseObj.GetComponent<Mice>();
-
-    //    if (mouseScript == null)
-    //    {
-    //        Debug.LogError("[Respawn] Instantiated object has no Mice script!");
-    //        return;
-    //    }
-
-    //    Debug.Log("[Respawn] Restoring mouse immediately: " + (savedMouseIsBlue ? "Blue" : "Red"));
-    //    PickupMouseInstantly(mouseScript);
-    //}
-
-
     #endregion
 
     #region Death / Hit / Knockback / Checkpoint
@@ -992,18 +864,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //public void RespawnPlayer()
-    //{
-    //    // Notify all enemies that the player is back
-    //    Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-    //    foreach (Enemy enemy in enemies)
-    //    {
-    //        enemy.ResetEnemyTargeting();
-    //    }
-
-    //    Debug.Log("[DEBUG] Player respawned, enemies can attack again.");
-    //}
-
     public void ResetHealthAndState()
     {
         IsAlive = true;
@@ -1043,27 +903,6 @@ public class PlayerMovement : MonoBehaviour
         savedMouseIsBlue = false;
     }
 
-    //public void OnHit(int damage, Vector2 knockback)
-    //{
-    //    Debug.Log($"OnHit called! Applying knockback: {knockback}");
-
-    //    StopAllCoroutines(); // Prevent stacking knockbacks
-    //    StartCoroutine(ApplyKnockback(knockback));
-    //    audioManager.PlaySFX(audioManager.enemyHit);
-    //}
-
-    //public void OnHit(int damage, Vector2 knockback)
-    //{
-    //    Debug.Log($"OnHit called! Applying knockback: {knockback}");
-
-    //    StopAllCoroutines(); // Prevent stacking knockbacks
-    //    StartCoroutine(ApplyKnockback(knockback));
-
-    //    if (!Spike.wasHitBySpike)
-    //    {
-    //        audioManager.PlaySFX(audioManager.enemyHit);
-    //    }
-    //}
 
     public void OnHit(int damage, Vector2 knockback)
     {

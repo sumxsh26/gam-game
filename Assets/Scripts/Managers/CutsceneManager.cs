@@ -87,6 +87,12 @@ public class CutsceneManager : MonoBehaviour
             CheckpointManager.Instance.DestroyCheckpointsOnLevelTransition();
         }
 
+        foreach (var door in FindObjectsByType<DoorBehaviour>(FindObjectsSortMode.None))
+        {
+            Destroy(door.gameObject);
+        }
+
+
         SceneManager.LoadSceneAsync(nextSceneName); // Load next scene
     }
 

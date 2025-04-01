@@ -38,6 +38,12 @@ public class RestartController : MonoBehaviour
             FallingSpikeManager.Instance.DestroySpikesOnLevelTransition();
         }
 
+        foreach (var door in FindObjectsByType<DoorBehaviour>(FindObjectsSortMode.None))
+        {
+            Destroy(door.gameObject);
+        }
+
+
         // Reload the scene to fully reset
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

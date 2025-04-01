@@ -81,10 +81,12 @@ public class YouWonSceneController : MonoBehaviour
         {
             SceneManager.LoadScene(nextSceneName);
         }
-        else
+
+        foreach (var door in FindObjectsByType<DoorBehaviour>(FindObjectsSortMode.None))
         {
-            Debug.LogError("[YouWonSceneController] No scene name set!");
+            Destroy(door.gameObject);
         }
+
     }
 }
 

@@ -226,8 +226,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 21ab41c15a1784d65a73930781123974, type: 3}
-  m_Resource: {fileID: 8300000, guid: 21ab41c15a1784d65a73930781123974, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8cd641259a9084b2a889f3d1e84b81d3, type: 3}
+  m_Resource: {fileID: 8300000, guid: 8cd641259a9084b2a889f3d1e84b81d3, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -327,7 +327,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 687071531}
   SFXSource: {fileID: 2052707910}
-  background: {fileID: 8300000, guid: 7edcd8dbfdfcf4eb798c41a3362aa96b, type: 3}
   death: {fileID: 8300000, guid: 23bbc663273f74d668f0307333c88373, type: 3}
   wallTouch: {fileID: 8300000, guid: e6012b320011241cc928b734611979d3, type: 3}
   jump: {fileID: 8300000, guid: 5f8a6c7824b50441e8ab6e11da2cb79c, type: 3}

@@ -4019,10 +4019,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1155673400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.26149195}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -552, y: 102}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -552, y: 234.7849}
+  m_SizeDelta: {x: 200, y: -215.56929}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &594110393
 MonoBehaviour:
@@ -4044,7 +4044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PRESS SHIFT TO PICK UP A MOUSE
+  m_text: PRESS LEFT SHIFT TO PICK UP A MOUSE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4109,7 +4109,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -681.72424, y: 0, z: -2958.6663, w: -163.84608}
+  m_margin: {x: -681.72424, y: -106.46282, z: -2958.6663, w: -163.84608}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -21027,11 +21027,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4084101234424348852, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -89.64789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4084101234424348852, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4084101234424348852, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -21063,11 +21063,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5797022849995560042, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 260.3521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797022849995560042, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797022849995560042, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -21087,11 +21087,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6234490950479521292, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -264.6479
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234490950479521292, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234490950479521292, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -21127,11 +21127,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160799473903930273, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 85.35211
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160799473903930273, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160799473903930273, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -28164,7 +28164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PRESS SHIFT AGAIN TO SWAP YOUR MOUSE
+  m_text: PRESS LEFT SHIFT AGAIN TO SWAP YOUR MOUSE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -28229,7 +28229,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -681.72424, y: 0, z: -1843.2446, w: -404.86673}
+  m_margin: {x: -938.91077, y: 0, z: -2115.5605, w: -404.86673}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -28681,6 +28681,22 @@ PrefabInstance:
       propertyPath: remainingTime
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1000976614}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2459561746228027471, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -28781,6 +28797,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3605789241419057299, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4754513717448701881, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -28804,6 +28824,22 @@ PrefabInstance:
     - target: {fileID: 4754513717448701881, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1000976614}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6310626623414055809, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_LocalPosition.x

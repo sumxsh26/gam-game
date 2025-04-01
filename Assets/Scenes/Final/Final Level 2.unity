@@ -16085,11 +16085,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4084101234424348852, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -89.64789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4084101234424348852, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4084101234424348852, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -16121,11 +16121,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5797022849995560042, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 260.3521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797022849995560042, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797022849995560042, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -16145,11 +16145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6234490950479521292, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -264.6479
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234490950479521292, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234490950479521292, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -16185,11 +16185,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160799473903930273, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 85.35211
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160799473903930273, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160799473903930273, guid: 05863451e16b58f47b8e9a0e064e8c89, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -23432,6 +23432,22 @@ PrefabInstance:
       propertyPath: startingTime
       value: 140
       objectReference: {fileID: 0}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1000976614}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336524387695520784, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2459561746228027471, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -23532,6 +23548,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3605789241419057299, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4754513717448701881, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -23555,6 +23575,22 @@ PrefabInstance:
     - target: {fileID: 4754513717448701881, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1000976614}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263180902751278769, guid: 9b424307da54bd44baf00144e7827169, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6310626623414055809, guid: 9b424307da54bd44baf00144e7827169, type: 3}
       propertyPath: m_LocalPosition.x

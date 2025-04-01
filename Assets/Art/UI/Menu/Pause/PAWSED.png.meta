@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 68bf1313125c2d3499e480673bd374d4
+guid: 12736a113f80c42e3aa82069f9f44849
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8757539097461217328
-    second: photo_2025-03-28_19-00-31_0
+      213: -2615609702181378120
+    second: PAWSED_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: photo_2025-03-28_19-00-31_0
+      name: PAWSED_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 576
+        width: 200
+        height: 197
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d7aa3d1798f67680800000000000000
-      internalID: -8757539097461217328
+      spriteID: 8b7e96e75dc73bbd0800000000000000
+      internalID: -2615609702181378120
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      photo_2025-03-28_19-00-31_0: -8757539097461217328
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
